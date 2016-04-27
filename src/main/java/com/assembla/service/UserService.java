@@ -5,14 +5,14 @@ import static java.lang.String.format;
 import java.util.List;
 
 import com.assembla.User;
+import com.assembla.client.AssemblaClient;
 import com.assembla.client.AssemblaConstants;
 import com.assembla.client.AssemblaRequest;
-import com.assembla.client.AssemblaClient;
 
 public class UserService extends AbstractBaseService {
 
-	public UserService(AssemblaClient assemblaClient) {
-		super(assemblaClient);
+	public UserService(AssemblaClient assemblaClient, String spaceId) {
+		super(assemblaClient, spaceId);
 	}
 
 	public User getUser() {
@@ -30,7 +30,7 @@ public class UserService extends AbstractBaseService {
 	}
 
 	public List<User> getUsersForSpace() {
-		String uri = format(AssemblaConstants.USERS_FOR_SPACE, client.getSpaceId());
+		String uri = format(AssemblaConstants.USERS_FOR_SPACE, super.getSpaceId());
 		AssemblaRequest request = new AssemblaRequest(uri, User[].class);
 		return super.getList(request);
 	}

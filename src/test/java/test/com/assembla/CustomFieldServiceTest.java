@@ -29,8 +29,7 @@ public class CustomFieldServiceTest extends ServiceTest {
 
 	@Before
 	public void setup() {
-		customFieldService = new CustomFieldService(super.assemblaClient);
-		when(assemblaClient.getSpaceId()).thenReturn(TEST_SPACE_ID);
+		customFieldService = new CustomFieldService(super.assemblaClient, TEST_SPACE_ID);
 	}
 
 	@Test
@@ -92,10 +91,10 @@ public class CustomFieldServiceTest extends ServiceTest {
 
 	@Test
 	public void updateCustomFieldTest() {
-		when(assemblaClient.doPut(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(null, null));
+		when(assemblaClient.doPut(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse());
 		CustomField toUpdate = new CustomField();
 		toUpdate.setId(100);
-		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/tickets/custom_fields/100.json", null);
+		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/tickets/custom_fields/100.json");
 		request.withBody(toUpdate);
 		customFieldService.update(toUpdate);
 		verify(assemblaClient).doPut(request);
@@ -109,7 +108,7 @@ public class CustomFieldServiceTest extends ServiceTest {
 	@Test
 	public void deleteCustomFieldTest() {
 		when(assemblaClient.doDelete(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(null, null));
-		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/tickets/custom_fields/100.json", null);
+		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/tickets/custom_fields/100.json");
 		
 		CustomField toDelete = new CustomField();
 		toDelete.setId(100);

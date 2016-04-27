@@ -28,8 +28,7 @@ public class MilestoneServiceTest extends ServiceTest {
 	
 	@Before
 	public void setup() {
-		milestoneService = new MilestoneService(super.assemblaClient);
-		when(assemblaClient.getSpaceId()).thenReturn(TEST_SPACE_ID);
+		milestoneService = new MilestoneService(super.assemblaClient, TEST_SPACE_ID);
 
 	}
 	

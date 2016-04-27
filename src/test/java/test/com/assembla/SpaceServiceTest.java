@@ -25,8 +25,7 @@ public class SpaceServiceTest extends ServiceTest {
 
 	@Before
 	public void setup() {
-		spaceService = new SpaceService(super.assemblaClient);
-		when(assemblaClient.getSpaceId()).thenReturn(TEST_SPACE_ID);
+		spaceService = new SpaceService(super.assemblaClient, TEST_SPACE_ID);
 	}
 
 	@Test
@@ -119,10 +118,10 @@ public class SpaceServiceTest extends ServiceTest {
 	
 	@Test
 	public void deleteSpaceTest() {
-		when(assemblaClient.doDelete(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(null, null));
+		when(assemblaClient.doDelete(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse());
 		Space space = new Space();
 		space.setId("100");
-		AssemblaRequest request = new AssemblaRequest("/spaces/100.json", null);
+		AssemblaRequest request = new AssemblaRequest("/spaces/100.json");
 		spaceService.deleteSpace(space);
 		verify(assemblaClient).doDelete(request);
 	}

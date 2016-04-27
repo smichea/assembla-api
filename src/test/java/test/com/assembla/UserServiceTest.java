@@ -26,8 +26,7 @@ public class UserServiceTest extends ServiceTest {
 	
 	@Before
 	public void setup() {
-		userService = new UserService(super.assemblaClient);
-		when(assemblaClient.getSpaceId()).thenReturn(TEST_SPACE_ID);
+		userService = new UserService(super.assemblaClient, TEST_SPACE_ID);
 		when(assemblaClient.doGet(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(new User(), User.class));
 	}
 	

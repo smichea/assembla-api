@@ -27,8 +27,7 @@ public class MentionServiceTest extends ServiceTest {
 
 	@Before
 	public void setup() {
-		mentionService = new MentionService(super.assemblaClient);
-		when(assemblaClient.getSpaceId()).thenReturn(TEST_SPACE_ID);
+		mentionService = new MentionService(super.assemblaClient, TEST_SPACE_ID);
 		when(assemblaClient.doGet(any(AssemblaRequest.class))).thenReturn(
 				new AssemblaResponse(new Mention[10], Mention[].class));
 	}
@@ -97,7 +96,7 @@ public class MentionServiceTest extends ServiceTest {
 	@Test
 	public void markAsReadTest() {
 		// Given request to read a mention
-		AssemblaRequest request = new AssemblaRequest("/user/mention/100/mark_as_read.json", null);
+		AssemblaRequest request = new AssemblaRequest("/user/mention/100/mark_as_read.json");
 		// When we make the request
 		mentionService.markAsRead(100);
 		// Then we expect request to be same as this

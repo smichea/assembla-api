@@ -3,8 +3,6 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.Optional;
 
-import org.apache.commons.io.IOUtils;
-
 import com.assembla.exception.AssemblaAPIException;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -25,24 +23,20 @@ public class AssemblaClient  {
 	/**
 	 * API Key
 	 */
-	protected String apiKey;
+	protected final String apiKey;
 	/**
 	 * API Password
 	 */
-	protected String apiPassword;
-	/**
-	 * Current Space ID
-	 */
-	protected String spaceId;
+	protected final String apiPassword;
 	/**
 	 * Client for making HTTP requests
 	 */
-	protected OkHttpClient client;
+	protected final OkHttpClient client;
 
 	/**
 	 * Json Object Mapper
 	 */
-	protected ObjectMapper mapper;
+	protected final ObjectMapper mapper;
 	/**
 	 * URL for api calls
 	 */
@@ -77,14 +71,6 @@ public class AssemblaClient  {
 	
 	public String getBaseURL() {
 		return baseURL;
-	}
-	
-	public String getSpaceId() {
-		return spaceId;
-	}
-	
-	public void setSpaceId(String spaceId) {
-		this.spaceId = spaceId;
 	}
 	
 	public AssemblaResponse doGet(AssemblaRequest request) {
@@ -126,7 +112,7 @@ public class AssemblaClient  {
 			// No content or request has not requested a type, so return null
 			// object
 			if (response.code() == AssemblaConstants.NO_CONTENT || !type.isPresent()) {
-				return new AssemblaResponse(null, null);
+				return new AssemblaResponse();
 			}
 			// Otherwise we can return the response in requested format
 			charStream = response.body().charStream();
@@ -136,7 +122,12 @@ public class AssemblaClient  {
 			e.printStackTrace();
 			throw new AssemblaAPIException("Error making request" , e);
 		} finally {
-			IOUtils.closeQuietly(charStream);
+			try {
+				if (charStream != null) {
+					charStream.close();
+				}
+			} catch (IOException ioe) {
+			}
 		}
 	}
 	
@@ -148,15 +139,14 @@ public class AssemblaClient  {
 
 	private RequestBody createJSONBody(AssemblaRequest request) {
 		return request.getBody()
-				.map(e -> createRequest(e))
-				.orElse(RequestBody.create(null, new byte[0]));
+				.map(e -> createRequest(JSON, e))
+				.orElse(createRequest(null, new byte[0]));
 	}
 
-	private RequestBody createRequest(Object request) {
+	private RequestBody createRequest(MediaType type, Object request) {
 		try {
-			return RequestBody.create(JSON, mapper.writeValueAsString(request));
+			return RequestBody.create(type, mapper.writeValueAsString(request));
 		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new AssemblaAPIException("Error creating JSON request body");
 		}

@@ -5,14 +5,14 @@ import static java.lang.String.format;
 import java.util.List;
 
 import com.assembla.Space;
+import com.assembla.client.AssemblaClient;
 import com.assembla.client.AssemblaConstants;
 import com.assembla.client.AssemblaRequest;
-import com.assembla.client.AssemblaClient;
 
 public class SpaceService extends AbstractBaseService {
 
-	public SpaceService(AssemblaClient assemblaClient) {
-		super(assemblaClient);
+	public SpaceService(AssemblaClient assemblaClient, String spaceId) {
+		super(assemblaClient, spaceId);
 	}
 
 	public List<Space> getSpaces() {
@@ -49,7 +49,7 @@ public class SpaceService extends AbstractBaseService {
 			throw new IllegalArgumentException("space == null || space.getId() == null");
 		}
 		String uri = format(AssemblaConstants.SPACE_BY_ID, space.getId());
-		AssemblaRequest request = new AssemblaRequest(uri, null);
+		AssemblaRequest request = new AssemblaRequest(uri);
 		client.doDelete(request);
 	}
 
