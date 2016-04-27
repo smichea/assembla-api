@@ -30,10 +30,8 @@ public class AssemblaClientTest {
 	public void testCreation() {
 		//Given a new AssemblaClient 
 		AssemblaClient client = new AssemblaClient("apiuser", "apipassword");
-		client.setSpaceId("test_space_id");
 		//When we look at the object it's been initalised with the values we specified
 		assertEquals("Username not equal to apiuser", "apiuser", client.getKey());
-		assertEquals("Space id not equal", "test_space_id", client.getSpaceId());
 		assertEquals("Base url default value not correct" , AssemblaConstants.URL, client.getBaseURL());
 	}
 
@@ -62,14 +60,14 @@ public class AssemblaClientTest {
 		Ticket ticket = new Ticket();
 		AssemblaResponse response = new AssemblaResponse(ticket ,Ticket.class);
 		//When we get the value which has been wrapped by this response, then it's an optional wrapped Ticket
-		assertEquals(Ticket.class , response.getType());
+		assertEquals(Ticket.class , response.getType().get());
 		assertEquals(Optional.of(ticket), response.<Ticket>getValue());
 	}
 
 	@Test
 	public void testNullAssemblaResponse() {
 		//Given a new AssemblaResponse wrapping null
-		AssemblaResponse response = new AssemblaResponse(null ,Ticket.class);
+		AssemblaResponse response = new AssemblaResponse(Ticket.class);
 		//When we get the value which has been wrapped, then it's an optional null
 		assertEquals("Respose can contain null as optiona", Optional.ofNullable(null), response.getValue());
 	}

@@ -31,10 +31,9 @@ public class TicketServiceTest extends ServiceTest {
 	
 	@Before
 	public void setup() {
-		ticketService = new TicketService(assemblaClient);
+		ticketService = new TicketService(assemblaClient, TEST_SPACE_ID);
 		when(assemblaClient.doGet(Matchers.any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(new Ticket(), Ticket.class));
 		when(assemblaClient.doPut(Matchers.any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(new Ticket(), Ticket.class));
-		when(assemblaClient.getSpaceId()).thenReturn(TEST_SPACE_ID);
 	}
 	
 	@Test
@@ -138,7 +137,7 @@ public class TicketServiceTest extends ServiceTest {
 		//When we set status to new and call update method 
 		ticket.setStatus("New");
 		//Then we expect a request to be made which is equal to this request  and return the updated ticket
-		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/tickets/10.json", null);
+		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/tickets/10.json");
 		request.withBody(ticket);
 		
 		ticketService.updateTicket(ticket);
@@ -165,7 +164,7 @@ public class TicketServiceTest extends ServiceTest {
 		when(assemblaClient.doGet(Matchers.any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(null, null));
 		Ticket ticket = new Ticket();
 		ticket.setNumber(100);
-		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/tickets/100.json", null);
+		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/tickets/100.json");
 		ticketService.deleteTicket(ticket);
 		//MAKE TEST FOR EQUALS HASH ETC
 		verify(assemblaClient).doDelete(request);

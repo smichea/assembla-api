@@ -27,8 +27,7 @@ public class TicketCommentServiceTest extends ServiceTest {
 
 	@Before
 	public void setup() {
-		ticketCommentService = new TicketCommentService(assemblaClient);
-		when(assemblaClient.getSpaceId()).thenReturn(TEST_SPACE_ID);
+		ticketCommentService = new TicketCommentService(assemblaClient, TEST_SPACE_ID);
 	}
 	
 	@Test

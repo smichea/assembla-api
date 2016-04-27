@@ -11,31 +11,31 @@ import com.assembla.client.PagedIterator;
 
 public class MilestoneService extends AbstractBaseService {
 
-	public MilestoneService(AssemblaClient assemblaClient) {
-		super(assemblaClient);
+	public MilestoneService(AssemblaClient assemblaClient, String spaceId) {
+		super(assemblaClient, spaceId);
 	}
 
 	public PagedIterator<Milestone> getUpcoming() {
 		PagedAssemblaRequest request = new PagedAssemblaRequest(format(AssemblaConstants.MILESTONE_UPCOMING,
-				super.client.getSpaceId()), Milestone[].class);
+				super.getSpaceId()), Milestone[].class);
 		return new PagedIterator<>(request, client);
 	}
 
 	public PagedIterator<Milestone> getAll() {
 		PagedAssemblaRequest request = new PagedAssemblaRequest(format(AssemblaConstants.MILESTONE_ALL,
-				super.client.getSpaceId()), Milestone[].class);
+				super.getSpaceId()), Milestone[].class);
 		return new PagedIterator<>(request, client);
 	}
 
 	public PagedIterator<Milestone> getCompleted() {
 		PagedAssemblaRequest request = new PagedAssemblaRequest(format(AssemblaConstants.MILESTONE_COMPLETE,
-				super.client.getSpaceId()), Milestone[].class);
+				super.getSpaceId()), Milestone[].class);
 		return new PagedIterator<>(request, client);
 	}
 
 	public PagedIterator<Milestone> getReleases() {
 		PagedAssemblaRequest request = new PagedAssemblaRequest(format(AssemblaConstants.MILESTONE_RELEASE,
-				super.client.getSpaceId()), Milestone[].class);
+				super.getSpaceId()), Milestone[].class);
 		return new PagedIterator<>(request, client);
 	}
 
@@ -43,13 +43,13 @@ public class MilestoneService extends AbstractBaseService {
 		if(milestoneId == null) {
 			throw new IllegalArgumentException("milestoneId == null");
 		}
-		String uri = format(AssemblaConstants.MILESTONE_BY_ID, client.getSpaceId(), milestoneId);
+		String uri = format(AssemblaConstants.MILESTONE_BY_ID, super.getSpaceId(), milestoneId);
 		AssemblaRequest request = new AssemblaRequest(uri, Milestone.class);
 		return super.get(request, format("Milestone with id %s does not exist", milestoneId));
 	}
 
 	public Milestone create(Milestone milestoneToCreate) {
-		AssemblaRequest request = new AssemblaRequest(format(AssemblaConstants.MILESTONE, super.client.getSpaceId()),
+		AssemblaRequest request = new AssemblaRequest(format(AssemblaConstants.MILESTONE, super.getSpaceId()),
 				Milestone.class);
 		request.withBody(milestoneToCreate);
 		return super.post(request);
@@ -59,7 +59,7 @@ public class MilestoneService extends AbstractBaseService {
 		if (milestone == null || milestone.getId() == null) {
 			throw new IllegalArgumentException("milestone == null' or milestone.getId() == null");
 		}
-		AssemblaRequest request = new AssemblaRequest(format(AssemblaConstants.MILESTONE_BY_ID, client.getSpaceId(),
+		AssemblaRequest request = new AssemblaRequest(format(AssemblaConstants.MILESTONE_BY_ID, super.getSpaceId(),
 				milestone.getId()), Milestone.class);
 		request.withBody(milestone);
 		client.doPut(request);
@@ -69,7 +69,7 @@ public class MilestoneService extends AbstractBaseService {
 		if (milestone == null || milestone.getId() == null) {
 			throw new IllegalArgumentException("milestone == null' or milestone.getId() == null");
 		}
-		AssemblaRequest request = new AssemblaRequest(format(AssemblaConstants.MILESTONE_BY_ID, client.getSpaceId(),
+		AssemblaRequest request = new AssemblaRequest(format(AssemblaConstants.MILESTONE_BY_ID, super.getSpaceId(),
 				milestone.getId()), Milestone.class);
 		request.withBody(milestone);
 		client.doDelete(request);

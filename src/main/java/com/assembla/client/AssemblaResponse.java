@@ -10,9 +10,22 @@ public class AssemblaResponse {
 		this.value = value;
 		this.type = type;
 	}
+	
+	public AssemblaResponse(Object value) {
+		this(value, null);
+	}
+	
+	public AssemblaResponse(Class<?> type) {
+		this(null, type);
+	}
 
-	public Class<?> getType() {
-		return type;
+	public AssemblaResponse() {
+		this.value = null;
+		this.type = null;
+	}
+
+	public Optional<Class<?>> getType() {
+		return Optional.ofNullable(type);
 	}
 
 	@SuppressWarnings("unchecked")

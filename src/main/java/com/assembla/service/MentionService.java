@@ -4,14 +4,14 @@ import static java.lang.String.format;
 import java.util.List;
 
 import com.assembla.Mention;
+import com.assembla.client.AssemblaClient;
 import com.assembla.client.AssemblaConstants;
 import com.assembla.client.AssemblaRequest;
-import com.assembla.client.AssemblaClient;
 
 public final class MentionService extends AbstractBaseService {
 
-	public MentionService(AssemblaClient assemblaClient) {
-		super(assemblaClient);
+	public MentionService(AssemblaClient assemblaClient, String spaceId) {
+		super(assemblaClient, spaceId);
 	}
 
 	public List<Mention> getAll() {
@@ -27,7 +27,7 @@ public final class MentionService extends AbstractBaseService {
 	}
 
 	private List<Mention> getAll(boolean read, boolean unread) {
-		String uri = format(AssemblaConstants.MENTIONS, client.getSpaceId());
+		String uri = format(AssemblaConstants.MENTIONS, super.getSpaceId());
 		AssemblaRequest request = new AssemblaRequest(uri, Mention[].class);
 		if (read) {
 			request.addParam("read", true);
@@ -45,7 +45,7 @@ public final class MentionService extends AbstractBaseService {
 
 	public void markAsRead(int id) {
 		String uri = format(AssemblaConstants.MENTION_MARK_AS_READ, id);
-		AssemblaRequest request = new AssemblaRequest(uri, null);
+		AssemblaRequest request = new AssemblaRequest(uri);
 		client.doPut(request);
 	}
 

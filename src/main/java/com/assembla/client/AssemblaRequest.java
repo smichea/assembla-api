@@ -23,6 +23,10 @@ public class AssemblaRequest {
 		this.type = type;
 	}
 	
+	public AssemblaRequest(String uri) {
+		this(uri, null);
+	}
+	
 	public AssemblaRequest withBody(Object body) {
 		this.body = body;
 		return this;

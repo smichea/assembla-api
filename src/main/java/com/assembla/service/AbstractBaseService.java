@@ -11,9 +11,19 @@ import com.assembla.exception.AssemblaAPIException;
 public abstract class AbstractBaseService implements AssemblaService {
 
 	protected final AssemblaClient client;
+	protected String spaceId;
 
-	public AbstractBaseService(AssemblaClient assemblaClient) {
+	public AbstractBaseService(AssemblaClient assemblaClient, String spaceId) {
 		this.client = assemblaClient;
+		this.spaceId = spaceId;
+	}
+
+	public AssemblaClient getClient() {
+		return client;
+	}
+
+	public String getSpaceId() {
+		return spaceId;
 	}
 
 	protected final <E> E post(AssemblaRequest request) {

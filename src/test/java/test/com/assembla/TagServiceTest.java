@@ -29,8 +29,7 @@ public class TagServiceTest extends ServiceTest {
 
 	@Before
 	public void setup() {
-		tagService = new TagService(super.assemblaClient);
-		when(assemblaClient.getSpaceId()).thenReturn(TEST_SPACE_ID);
+		tagService = new TagService(super.assemblaClient, TEST_SPACE_ID);
 	}
 	
 	@Test
@@ -148,7 +147,7 @@ public class TagServiceTest extends ServiceTest {
 		tag.setId(100);;
 		tag.setName("Test");
 		
-		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/tags/100.json", null);
+		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/tags/100.json");
 		request.withBody(tag);
 	
 		tagService.updateTag(tag);
@@ -169,7 +168,7 @@ public class TagServiceTest extends ServiceTest {
 		tag.setId(100);;
 		tag.setName("Test");
 		
-		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/tags/100.json", null);
+		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/tags/100.json");
 	
 		tagService.deleteTag(tag);
 		
