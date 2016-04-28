@@ -1,11 +1,14 @@
 package test.com.assembla;
 import static org.hamcrest.CoreMatchers.hasItems;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.junit.Assert;
@@ -20,7 +23,7 @@ import com.assembla.client.AssemblaResponse;
 import com.assembla.client.PagedAssemblaRequest;
 import com.assembla.client.PagedIterator;
 public class AssemblaClientTest {
-
+	
 	@Test
 	public void testFullUrl() {
 		assertEquals("Full url correct", "https://api.assembla.com/v1", AssemblaConstants.URL);
@@ -130,10 +133,33 @@ public class AssemblaClientTest {
 		Mockito.verify(client).doGet(Mockito.any(AssemblaRequest.class));
 	}
 	
+	@Test()
+	public void pagedIteratorNoElementTest() {
+		AssemblaClient client = Mockito.mock(AssemblaClient.class);
+		PagedAssemblaRequest pagedRequest = new PagedAssemblaRequest("paged_test", Ticket[].class);
+
+		Mockito.when(client.doGet(pagedRequest)).thenReturn(new AssemblaResponse());
+		
+		PagedIterator<Ticket> it = new PagedIterator<>(pagedRequest, client);
+		
+		assertEquals("No elements returned" , Collections.emptyList() , it.next());
+		assertFalse("Should have no more elements to return", it.hasNext());
+	}
+	
+	@Test(expected=NoSuchElementException.class)
+	public void pagedIteratorNoElements() {
+		AssemblaClient client = Mockito.mock(AssemblaClient.class);
+		PagedAssemblaRequest pagedRequest = new PagedAssemblaRequest("paged_test", Ticket[].class);
+		Mockito.when(client.doGet(pagedRequest)).thenReturn(new AssemblaResponse());
+		
+		PagedIterator<Ticket> it = new PagedIterator<>(pagedRequest, client);
+		it.next();
+		it.next();
+	}
+
 	@Test(expected=IllegalArgumentException.class)
 	public void pagedRequestHasToBeArrayTest() {
 		new PagedAssemblaRequest("paged_test", Ticket.class);
 	}
-	
 	
 }

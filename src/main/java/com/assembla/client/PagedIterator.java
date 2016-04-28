@@ -1,11 +1,10 @@
 package com.assembla.client;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 public final class PagedIterator<T> implements Iterator<Collection<T>>, Iterable<Collection<T>> {
 
@@ -36,12 +35,17 @@ public final class PagedIterator<T> implements Iterator<Collection<T>>, Iterable
 
 	@Override
 	public Collection<T> next() {
-		AssemblaResponse response = client.doGet(request);
+		
+		if(request.equals(lastRequest)) {
+			throw new NoSuchElementException();
+		}
+		
+		List<T> items =  client.doGet(request).<T[]>getValue()
+			.map(Arrays::asList)
+			.orElseGet(Collections::emptyList);
+		
 		lastRequest = request;
-		Optional<T[]> list = response.getValue();
-		List<T> items = Collections.emptyList();
-		if (list.isPresent()) {
-			items = new ArrayList<>(Arrays.asList(list.get()));
+		if(!items.isEmpty()) {
 			request = new PagedAssemblaRequest(
 				request.getUri(), 
 				request.getType().get(), 
@@ -49,9 +53,10 @@ public final class PagedIterator<T> implements Iterator<Collection<T>>, Iterable
 				request.getPageSize()
 			);
 		}
+		
 		return items;
 	}
-
+	
 	public AssemblaClient getClient() {
 		return this.client;
 	}

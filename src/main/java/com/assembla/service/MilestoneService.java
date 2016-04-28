@@ -1,7 +1,7 @@
 package com.assembla.service;
 
 import static java.lang.String.format;
-
+import static com.assembla.utils.ObjectUtils.notNull;
 import com.assembla.Milestone;
 import com.assembla.client.AssemblaClient;
 import com.assembla.client.AssemblaConstants;
@@ -22,8 +22,8 @@ public class MilestoneService extends AbstractBaseService {
 	}
 
 	public PagedIterator<Milestone> getAll() {
-		PagedAssemblaRequest request = new PagedAssemblaRequest(format(AssemblaConstants.MILESTONE_ALL,
-				super.getSpaceId()), Milestone[].class);
+		PagedAssemblaRequest request = new PagedAssemblaRequest(format(AssemblaConstants.MILESTONE_ALL, super.getSpaceId()),
+				Milestone[].class);
 		return new PagedIterator<>(request, client);
 	}
 
@@ -40,9 +40,7 @@ public class MilestoneService extends AbstractBaseService {
 	}
 
 	public Milestone get(String milestoneId) {
-		if(milestoneId == null) {
-			throw new IllegalArgumentException("milestoneId == null");
-		}
+		notNull(milestoneId, "milestoneId == null");
 		String uri = format(AssemblaConstants.MILESTONE_BY_ID, super.getSpaceId(), milestoneId);
 		AssemblaRequest request = new AssemblaRequest(uri, Milestone.class);
 		return super.get(request, format("Milestone with id %s does not exist", milestoneId));
@@ -56,9 +54,9 @@ public class MilestoneService extends AbstractBaseService {
 	}
 
 	public void update(Milestone milestone) {
-		if (milestone == null || milestone.getId() == null) {
-			throw new IllegalArgumentException("milestone == null' or milestone.getId() == null");
-		}
+		notNull(milestone, "milestone == null");
+		notNull(milestone, "milestone requires a id");
+		
 		AssemblaRequest request = new AssemblaRequest(format(AssemblaConstants.MILESTONE_BY_ID, super.getSpaceId(),
 				milestone.getId()), Milestone.class);
 		request.withBody(milestone);
@@ -66,9 +64,9 @@ public class MilestoneService extends AbstractBaseService {
 	}
 
 	public void delete(Milestone milestone) {
-		if (milestone == null || milestone.getId() == null) {
-			throw new IllegalArgumentException("milestone == null' or milestone.getId() == null");
-		}
+		notNull(milestone, "milestone == null");
+		notNull(milestone, "milestone requires a id");
+		
 		AssemblaRequest request = new AssemblaRequest(format(AssemblaConstants.MILESTONE_BY_ID, super.getSpaceId(),
 				milestone.getId()), Milestone.class);
 		request.withBody(milestone);

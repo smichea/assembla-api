@@ -1,4 +1,5 @@
 package com.assembla.service;
+import static com.assembla.utils.ObjectUtils.notNull;
 import static java.lang.String.format;
 
 import java.util.List;
@@ -68,9 +69,9 @@ public class TicketService extends AbstractBaseService {
 	}
 
 	public void updateTicket(Ticket ticket) {
-		if(ticket == null || ticket.getNumber() == null) {
-			throw new IllegalArgumentException("Ticket must not be null and must have a valid number");
-		}
+		notNull(ticket, "ticket == null");
+		notNull(ticket.getNumber(), "ticket requires a number");
+
 		String uri = format(AssemblaConstants.TICKET_BY_NUMBER, super.getSpaceId(), ticket.getNumber());
 		AssemblaRequest request = new AssemblaRequest(uri);
 		request.withBody(ticket);
@@ -84,9 +85,9 @@ public class TicketService extends AbstractBaseService {
 	}
 
 	public void deleteTicket(Ticket ticket) {
-		if(ticket == null || ticket.getNumber() == null) {
-			throw new IllegalArgumentException("Ticket must not be null and have a number");
-		}
+		notNull(ticket, "ticket == null");
+		notNull(ticket.getNumber(), "ticket requires a number");
+		
 		String uri = format(AssemblaConstants.TICKET_DELETE, super.getSpaceId(), ticket.getNumber());
 		AssemblaRequest request = new AssemblaRequest(uri);
 		client.doDelete(request);

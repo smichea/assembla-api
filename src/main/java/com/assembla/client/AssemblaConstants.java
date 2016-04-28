@@ -210,4 +210,12 @@ public interface AssemblaConstants {
 	 * URI for retrieving custom fields by id
 	 */
 	String CUSTOM_FIELDS_BY_ID = "/spaces/%s/tickets/custom_fields/%d" + FILE_EXTENSION;
+	/**
+	 * URI for retrieving ticket associations by ticket number
+	 */
+	String TICKET_ASSOCIATIONS = "/spaces/%s/tickets/%d/ticket_associations" + FILE_EXTENSION;
+	/*
+	 * URI for retrieving ticket association for a ticket by id
+	 */
+	String TICKET_ASSOCIATIONS_BY_ID = "/spaces/%s/tickets/%d/ticket_associations/%d" + FILE_EXTENSION;
 }

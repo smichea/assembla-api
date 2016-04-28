@@ -1,5 +1,7 @@
 package com.assembla.service;
 
+import static com.assembla.utils.ObjectUtils.notNull;
+
 import static java.lang.String.format;
 
 import java.util.List;
@@ -28,9 +30,7 @@ public class CustomFieldService extends AbstractBaseService {
 	}
 
 	public CustomField create(CustomField customField) {
-		if(customField == null) {
-			throw new IllegalArgumentException("customField == null");
-		}
+		notNull(customField, "customerField == null");
 		String uri = format(AssemblaConstants.CUSTOM_FIELDS, super.getSpaceId());
 		AssemblaRequest request = new AssemblaRequest(uri, CustomField.class);
 		request.withBody(customField);
@@ -38,9 +38,8 @@ public class CustomFieldService extends AbstractBaseService {
 	}
 
 	public void update(CustomField customField) {
-		if(customField == null || customField.getId() == null) {
-			throw new IllegalArgumentException("customField == null || customField::getId == null");
-		}
+		notNull(customField, "customerField == null");
+		notNull(customField.getId(), "customField requires an id");
 		String uri = format(AssemblaConstants.CUSTOM_FIELDS_BY_ID, super.getSpaceId(), customField.getId());
 		AssemblaRequest request = new AssemblaRequest(uri);
 		request.withBody(customField);
@@ -48,9 +47,8 @@ public class CustomFieldService extends AbstractBaseService {
 	}
 
 	public void delete(CustomField customField) {
-		if(customField == null || customField.getId() == null) {
-			throw new IllegalArgumentException("customField == null || customField::getId == null");
-		}
+		notNull(customField, "customerField == null");
+		notNull(customField.getId(), "customField requires an id");
 		String uri = format(AssemblaConstants.CUSTOM_FIELDS_BY_ID, super.getSpaceId(), customField.getId());
 		AssemblaRequest request = new AssemblaRequest(uri);
 		client.doDelete(request);

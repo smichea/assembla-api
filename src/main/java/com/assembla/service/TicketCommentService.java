@@ -1,4 +1,5 @@
 package com.assembla.service;
+import static com.assembla.utils.ObjectUtils.notNull;
 import static java.lang.String.format;
 
 import com.assembla.Ticket;
@@ -16,9 +17,9 @@ public class TicketCommentService extends AbstractBaseService {
 	}
 
 	public PagedIterator<TicketComment> getTicketComments(Ticket ticket) {
-		if (ticket == null || ticket.getNumber() == null) {
-			throw new IllegalArgumentException("ticket == null");
-		}
+		notNull(ticket, "ticket == null");
+		notNull(ticket.getNumber(), "ticket requires a number");
+
 		String uri = format(AssemblaConstants.TICKET_COMMENTS_FOR_TICKET, super.getSpaceId(), ticket.getNumber());
 		PagedAssemblaRequest request = new PagedAssemblaRequest(uri, TicketComment[].class);
 		return new PagedIterator<TicketComment>(request, client);
@@ -39,12 +40,11 @@ public class TicketCommentService extends AbstractBaseService {
 	}
 
 	public void updateTicketComment(Ticket ticket, TicketComment ticketComment) {
-		if (ticket == null || ticketComment == null) {
-			throw new IllegalArgumentException("ticket == null || ticketComment == null");
-		}
-		if(ticket.getNumber() == null || ticketComment.getId() == null) {
-			throw new IllegalArgumentException("Ticket number of ticketComment id are null");
-		}
+		notNull(ticket, "ticket == null");
+		notNull(ticketComment, "ticketComment == null");
+		notNull(ticket.getNumber(), "ticket requires a number");
+		notNull(ticketComment.getId(), "ticketComment requires an id");
+
 		String uri = format(AssemblaConstants.TICKET_COMMENT, super.getSpaceId(), ticket.getNumber(), ticketComment.getId());
 		AssemblaRequest request = new AssemblaRequest(uri);
 		request.withBody(ticketComment);	

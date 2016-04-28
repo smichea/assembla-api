@@ -1,5 +1,6 @@
 package com.assembla.service;
 
+import static com.assembla.utils.ObjectUtils.notNull;
 import static java.lang.String.format;
 
 import java.util.List;
@@ -21,9 +22,7 @@ public class UserService extends AbstractBaseService {
 	}
 
 	public User getUser(String name) {
-		if (name == null) {
-			throw new IllegalArgumentException("Name cannot be null");
-		}
+		notNull(name, "name == null");
 		String uri = format(AssemblaConstants.USER_ID_OR_LOGIN, name);
 		AssemblaRequest request = new AssemblaRequest(uri, User.class);
 		return super.get(request, format("User not found with id/login : %s", name));

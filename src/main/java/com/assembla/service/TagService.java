@@ -1,5 +1,6 @@
 package com.assembla.service;
 
+import static com.assembla.utils.ObjectUtils.notNull;
 import static java.lang.String.format;
 
 import com.assembla.Tag;
@@ -41,9 +42,9 @@ public class TagService extends AbstractBaseService {
 	}
 
 	public PagedIterator<Ticket> getTicketsForTag(Tag tag) {
-		if (tag == null || tag.getId() == null) {
-			throw new IllegalArgumentException("tag == null || tag.getId() == null");
-		}
+		notNull(tag, "tag == null");
+		notNull(tag.getId(), "tag requires an id");
+		
 		String uri = format(AssemblaConstants.TICKETS_BY_TAG, super.getSpaceId(), tag.getId());
 		PagedAssemblaRequest request = new PagedAssemblaRequest(uri, Tag[].class);
 		return new PagedIterator<>(request, client);
@@ -56,9 +57,8 @@ public class TagService extends AbstractBaseService {
 	}
 
 	public Tag createTag(Tag tag) {
-		if (tag == null) {
-			throw new IllegalArgumentException("tag == null");
-		}
+		notNull(tag, "tag == null");
+		
 		String uri = format(AssemblaConstants.TAGS, super.getSpaceId());
 		AssemblaRequest request = new AssemblaRequest(uri, Tag.class);
 		request.withBody(tag);
@@ -66,9 +66,9 @@ public class TagService extends AbstractBaseService {
 	}
 
 	public void updateTag(Tag tag) {
-		if (tag == null || tag.getId() == null) {
-			throw new IllegalArgumentException("tag == null || tag.getId() == null");
-		}
+		notNull(tag, "tag == null");
+		notNull(tag.getId(), "tag requires an id");
+
 		String uri = format(AssemblaConstants.TAG_BY_ID, super.getSpaceId(), tag.getId());
 		AssemblaRequest request = new AssemblaRequest(uri);
 		request.withBody(tag);
@@ -76,9 +76,9 @@ public class TagService extends AbstractBaseService {
 	}
 
 	public void deleteTag(Tag tag) {
-		if (tag == null || tag.getId() == null) {
-			throw new IllegalArgumentException("tag == null || tag.getId() == null");
-		}
+		notNull(tag, "tag == null");
+		notNull(tag.getId(), "tag requires an id");
+		
 		String uri = format(AssemblaConstants.TAG_BY_ID, super.getSpaceId(), tag.getId());
 		AssemblaRequest request = new AssemblaRequest(uri);
 		client.doDelete(request);
