@@ -107,7 +107,7 @@ public class CustomFieldServiceTest extends ServiceTest {
 	
 	@Test
 	public void deleteCustomFieldTest() {
-		when(assemblaClient.doDelete(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(null, null));
+		when(assemblaClient.doDelete(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse());
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/tickets/custom_fields/100.json");
 		
 		CustomField toDelete = new CustomField();

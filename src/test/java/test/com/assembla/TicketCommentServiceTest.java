@@ -63,7 +63,7 @@ public class TicketCommentServiceTest extends ServiceTest {
 	
 	@Test(expected=AssemblaAPIException.class)
 	public void getTicketNoCommentExistsWithId() {
-		when(assemblaClient.doGet(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(null ,TicketComment.class));
+		when(assemblaClient.doGet(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(TicketComment.class));
 		int id = 200;
 		Ticket ticket = new Ticket();
 		ticket.setNumber(1000);
@@ -99,7 +99,7 @@ public class TicketCommentServiceTest extends ServiceTest {
 	
 	@Test
 	public void updateTicektCommentTest() {
-		when(assemblaClient.doPut(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(null ,null));
+		when(assemblaClient.doPut(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse());
 		TicketComment ticketComment = new TicketComment();
 		ticketComment.setId(200);
 		ticketComment.setComment("New comment");

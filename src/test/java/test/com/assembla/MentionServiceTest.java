@@ -47,7 +47,7 @@ public class MentionServiceTest extends ServiceTest {
 	public void getAllUserMentionsNoneTest() {
 		// Given a user with no mentions, when we request all mentions then we
 		// get empty list
-		when(assemblaClient.doGet(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(null, Mention[].class));
+		when(assemblaClient.doGet(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(Mention[].class));
 		List<Mention> mentions = mentionService.getAll();
 		assertEquals("Mentions not an empty list", Collections.emptyList(), mentions);
 	}
@@ -89,7 +89,7 @@ public class MentionServiceTest extends ServiceTest {
 
 	@Test(expected = AssemblaAPIException.class)
 	public void getMentionByIdNoneTest() {
-		when(assemblaClient.doGet(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(null, Mention.class));
+		when(assemblaClient.doGet(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(Mention.class));
 		mentionService.getMention(100);
 	}
 

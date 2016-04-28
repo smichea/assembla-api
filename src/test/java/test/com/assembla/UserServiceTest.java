@@ -77,7 +77,7 @@ public class UserServiceTest extends ServiceTest {
 	
 	@Test
 	public void getUsersForSpaceNoUsers() {
-		when(assemblaClient.doGet(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(null, User[].class));
+		when(assemblaClient.doGet(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(User[].class));
 		//Given request to get a user with id/login test-user-name
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/users.json", User[].class);
 		//When we make the request

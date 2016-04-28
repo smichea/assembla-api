@@ -96,7 +96,7 @@ public class SpaceServiceTest extends ServiceTest {
 	
 	@Test
 	public void updateSpaceTest() {
-		when(assemblaClient.doPut(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(null, Space.class));
+		when(assemblaClient.doPut(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(Space.class));
 		Space space = new Space();
 		space.setId("100");
 		AssemblaRequest request = new AssemblaRequest("/spaces/100.json", Space.class);

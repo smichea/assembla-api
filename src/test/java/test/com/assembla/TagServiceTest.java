@@ -141,7 +141,7 @@ public class TagServiceTest extends ServiceTest {
 	@Test
 	public void updateTagTest() {
 		when(assemblaClient.doPut(any(AssemblaRequest.class))).thenReturn(
-				new AssemblaResponse(null, Tag.class));
+				new AssemblaResponse(Tag.class));
 		
 		Tag tag  = new Tag();
 		tag.setId(100);;
@@ -162,7 +162,7 @@ public class TagServiceTest extends ServiceTest {
 	@Test
 	public void deleteTagTest() {
 		when(assemblaClient.doDelete(any(AssemblaRequest.class))).thenReturn(
-				new AssemblaResponse(null, Tag.class));
+				new AssemblaResponse(Tag.class));
 		
 		Tag tag  = new Tag();
 		tag.setId(100);;

@@ -48,7 +48,7 @@ public class TicketServiceTest extends ServiceTest {
 	@Test(expected=AssemblaAPIException.class)
 	public void getTicketByIdNotFoundTest() {
 		//Given a request to get a ticket by id 123, when this ticket does not exist, then throw an exception
-		when(assemblaClient.doGet(Matchers.any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(null, Ticket.class));
+		when(assemblaClient.doGet(Matchers.any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(Ticket.class));
 		ticketService.getTicketById("123");
 	}
 
@@ -64,7 +64,7 @@ public class TicketServiceTest extends ServiceTest {
 	@Test(expected=AssemblaAPIException.class)
 	public void getTicketByNumberNotFoundTest() {
 		//Given a request to get a ticket by number 123, when this ticket does not exist, then throw an exception
-		when(assemblaClient.doGet(Matchers.any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(null, Ticket.class));
+		when(assemblaClient.doGet(Matchers.any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(Ticket.class));
 		ticketService.getTicketByNumber(123);
 	}
 	
@@ -161,7 +161,7 @@ public class TicketServiceTest extends ServiceTest {
 	@Test
 	public void deleteTicketTest() {
 		//Given ticket 100, when we delete this ticket, then expect to see a request like this created
-		when(assemblaClient.doGet(Matchers.any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(null, null));
+		when(assemblaClient.doGet(Matchers.any(AssemblaRequest.class))).thenReturn(new AssemblaResponse());
 		Ticket ticket = new Ticket();
 		ticket.setNumber(100);
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/tickets/100.json");
