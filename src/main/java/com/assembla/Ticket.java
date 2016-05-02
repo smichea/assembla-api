@@ -1,4 +1,5 @@
 package com.assembla;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -8,14 +9,6 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 @JsonRootName(value = "ticket")
 public class Ticket {
-	
-	public Ticket() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	public Ticket(int id) {
-		this.id = id;
-	}
 
 	private Integer id;
 	private Integer number;
@@ -46,10 +39,17 @@ public class Ticket {
 	private Integer hierarchyType;
 	private List<String> tags;
 
+	public Ticket() {
+	}
+
+	public Ticket(int id) {
+		this.id = id;
+	}
+
 	public Integer getNumber() {
 		return number;
 	}
-	
+
 	public Ticket setNumber(int number) {
 		this.number = number;
 		return this;
@@ -59,235 +59,263 @@ public class Ticket {
 		this.status = status;
 		return this;
 	}
-	
+
 	public List<String> getTags() {
 		return tags;
 	}
 
-	public void setTags(List<String> tags) {
+	public Ticket setTags(List<String> tags) {
 		this.tags = tags;
+		return this;
 	}
 
 	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public Ticket setId(Integer id) {
 		this.id = id;
+		return this;
 	}
 
 	public String getSummary() {
 		return summary;
 	}
 
-	public void setSummary(String summary) {
+	public Ticket setSummary(String summary) {
 		this.summary = summary;
+		return this;
 	}
 
 	public String getDescription() {
 		return description;
 	}
 
-	public void setDescription(String description) {
+	public Ticket setDescription(String description) {
 		this.description = description;
+		return this;
 	}
 
 	public Integer getPriority() {
 		return priority;
 	}
 
-	public void setPriority(Integer priority) {
+	public Ticket setPriority(Integer priority) {
 		this.priority = priority;
+		return this;
 	}
 
 	public Object getCompletedDate() {
 		return completedDate;
 	}
 
-	public void setCompletedDate(Object completedDate) {
+	public Ticket setCompletedDate(Object completedDate) {
 		this.completedDate = completedDate;
+		return this;
 	}
 
 	public Object getComponentId() {
 		return componentId;
 	}
 
-	public void setComponentId(Object componentId) {
+	public Ticket setComponentId(Object componentId) {
 		this.componentId = componentId;
+		return this;
 	}
 
 	public String getCreatedOn() {
 		return createdOn;
 	}
 
-	public void setCreatedOn(String createdOn) {
+	public Ticket setCreatedOn(String createdOn) {
 		this.createdOn = createdOn;
+		return this;
 	}
 
 	public Integer getPermissionType() {
 		return permissionType;
 	}
 
-	public void setPermissionType(Integer permissionType) {
+	public Ticket setPermissionType(Integer permissionType) {
 		this.permissionType = permissionType;
+		return this;
 	}
 
 	public Double getImportance() {
 		return importance;
 	}
 
-	public void setImportance(Double importance) {
+	public Ticket setImportance(Double importance) {
 		this.importance = importance;
+		return this;
 	}
 
 	public Boolean getIsStory() {
 		return isStory;
 	}
 
-	public void setIsStory(Boolean isStory) {
+	public Ticket setIsStory(Boolean isStory) {
 		this.isStory = isStory;
+		return this;
 	}
 
 	public Object getMilestoneId() {
 		return milestoneId;
 	}
 
-	public void setMilestoneId(Object milestoneId) {
+	public Ticket setMilestoneId(Object milestoneId) {
 		this.milestoneId = milestoneId;
+		return this;
 	}
 
 	public String getNotificationList() {
 		return notificationList;
 	}
 
-	public void setNotificationList(String notificationList) {
+	public Ticket setNotificationList(String notificationList) {
 		this.notificationList = notificationList;
+		return this;
 	}
 
 	public String getSpaceId() {
 		return spaceId;
 	}
 
-	public void setSpaceId(String spaceId) {
+	public Ticket setSpaceId(String spaceId) {
 		this.spaceId = spaceId;
+		return this;
 	}
 
 	public Integer getState() {
 		return state;
 	}
 
-	public void setState(Integer state) {
+	public Ticket setState(Integer state) {
 		this.state = state;
+		return this;
 	}
 
 	public Integer getStoryImportance() {
 		return storyImportance;
 	}
 
-	public void setStoryImportance(Integer storyImportance) {
+	public Ticket setStoryImportance(Integer storyImportance) {
 		this.storyImportance = storyImportance;
+		return this;
 	}
 
 	public String getUpdatedAt() {
 		return updatedAt;
 	}
 
-	public void setUpdatedAt(String updatedAt) {
+	public Ticket setUpdatedAt(String updatedAt) {
 		this.updatedAt = updatedAt;
+		return this;
 	}
 
 	public Double getWorkingHours() {
 		return workingHours;
 	}
 
-	public void setWorkingHours(Double workingHours) {
+	public Ticket setWorkingHours(Double workingHours) {
 		this.workingHours = workingHours;
+		return this;
 	}
 
 	public Double getEstimate() {
 		return estimate;
 	}
 
-	public void setEstimate(Double estimate) {
+	public Ticket setEstimate(Double estimate) {
 		this.estimate = estimate;
+		return this;
 	}
 
 	public Double getTotalEstimate() {
 		return totalEstimate;
 	}
 
-	public void setTotalEstimate(Double totalEstimate) {
+	public Ticket setTotalEstimate(Double totalEstimate) {
 		this.totalEstimate = totalEstimate;
+		return this;
 	}
 
 	public Double getTotalInvestedHours() {
 		return totalInvestedHours;
 	}
 
-	public void setTotalInvestedHours(Double totalInvestedHours) {
+	public Ticket setTotalInvestedHours(Double totalInvestedHours) {
 		this.totalInvestedHours = totalInvestedHours;
+		return this;
 	}
 
 	public Double getTotalWorkingHours() {
 		return totalWorkingHours;
 	}
 
-	public void setTotalWorkingHours(Double totalWorkingHours) {
+	public Ticket setTotalWorkingHours(Double totalWorkingHours) {
 		this.totalWorkingHours = totalWorkingHours;
+		return this;
 	}
 
 	public String getAssignedToId() {
 		return assignedToId;
 	}
 
-	public void setAssignedToId(String assignedToId) {
+	public Ticket setAssignedToId(String assignedToId) {
 		this.assignedToId = assignedToId;
+		return this;
 	}
 
 	public String getReporterId() {
 		return reporterId;
 	}
 
-	public void setReporterId(String reporterId) {
+	public Ticket setReporterId(String reporterId) {
 		this.reporterId = reporterId;
+		return this;
 	}
 
 	public Map<String, Object> getCustomFields() {
 		return customFields;
 	}
 
-	public void setCustomFields(Map<String, Object> customFields) {
+	public Ticket setCustomFields(Map<String, Object> customFields) {
 		this.customFields = customFields;
+		return this;
 	}
 
 	public Integer getHierarchyType() {
 		return hierarchyType;
 	}
 
-	public void setHierarchyType(Integer hierarchyType) {
+	public Ticket setHierarchyType(Integer hierarchyType) {
 		this.hierarchyType = hierarchyType;
+		return this;
 	}
 
 	public String getStatus() {
 		return status;
 	}
 
-	public void setNumber(Integer number) {
+	public Ticket setNumber(Integer number) {
 		this.number = number;
+		return this;
 	}
-	
+
 	@JsonProperty("tags")
-	public List<String> tags(){
+	public List<String> tags() {
 		return tags;
 	}
-	
+
 	public Ticket addTag(String tag) {
-		if(tags == null) {
+		if (tags == null) {
 			tags = new ArrayList<>();
 		}
 		this.tags.add(tag);
 		return this;
 	}
+
 
 	@Override
 	public String toString() {
@@ -296,16 +324,78 @@ public class Ticket {
 		builder.append(id);
 		builder.append(", number=");
 		builder.append(number);
-		builder.append(", milestoneId=");
-		builder.append(milestoneId);
+		builder.append(", summary=");
+		builder.append(summary);
+		builder.append(", description=");
+		builder.append(description);
 		builder.append(", status=");
 		builder.append(status);
-		builder.append(", customFields=");
-		if(tags != null) {
-			tags().stream().forEach(builder::append);
-		}
 		builder.append("]");
 		return builder.toString();
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((number == null) ? 0 : number.hashCode());
+		result = prime * result + ((spaceId == null) ? 0 : spaceId.hashCode());
+		result = prime * result + ((status == null) ? 0 : status.hashCode());
+		result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		Ticket other = (Ticket) obj;
+		if (id == null) {
+			if (other.id != null) {
+				return false;
+			}
+		} else if (!id.equals(other.id)) {
+			return false;
+		}
+		if (number == null) {
+			if (other.number != null) {
+				return false;
+			}
+		} else if (!number.equals(other.number)) {
+			return false;
+		}
+		if (spaceId == null) {
+			if (other.spaceId != null) {
+				return false;
+			}
+		} else if (!spaceId.equals(other.spaceId)) {
+			return false;
+		}
+		if (status == null) {
+			if (other.status != null) {
+				return false;
+			}
+		} else if (!status.equals(other.status)) {
+			return false;
+		}
+		if (updatedAt == null) {
+			if (other.updatedAt != null) {
+				return false;
+			}
+		} else if (!updatedAt.equals(other.updatedAt)) {
+			return false;
+		}
+		return true;
+	}
+	
+	
 
 }

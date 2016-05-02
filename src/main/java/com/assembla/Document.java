@@ -26,154 +26,227 @@ public class Document {
 		return name;
 	}
 
-	public void setName(String name) {
+	public Document setName(String name) {
 		this.name = name;
+		return this;
 	}
 
 	public String getFilename() {
 		return filename;
 	}
 
-	public void setFilename(String filename) {
+	public Document setFilename(String filename) {
 		this.filename = filename;
+		return this;
 	}
 
 	public String getContentType() {
 		return contentType;
 	}
 
-	public void setContentType(String contentType) {
+	public Document setContentType(String contentType) {
 		this.contentType = contentType;
+		return this;
 	}
 
 	public String getCreatedBy() {
 		return createdBy;
 	}
 
-	public void setCreatedBy(String createdBy) {
+	public Document setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
+		return this;
 	}
 
 	public String getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public Document setId(String id) {
 		this.id = id;
+		return this;
 	}
 
 	public Integer getVersion() {
 		return version;
 	}
 
-	public void setVersion(Integer version) {
+	public Document setVersion(Integer version) {
 		this.version = version;
+		return this;
 	}
 
 	public Integer getFilesize() {
 		return filesize;
 	}
 
-	public void setFilesize(Integer filesize) {
+	public Document setFilesize(Integer filesize) {
 		this.filesize = filesize;
+		return this;
 	}
 
 	public String getUpdatedBy() {
 		return updatedBy;
 	}
 
-	public void setUpdatedBy(String updatedBy) {
+	public Document setUpdatedBy(String updatedBy) {
 		this.updatedBy = updatedBy;
+		return this;
 	}
 
 	public String getDescription() {
 		return description;
 	}
 
-	public void setDescription(String description) {
+	public Document setDescription(String description) {
 		this.description = description;
+		return this;
 	}
 
 	public String getCachedTagList() {
 		return cachedTagList;
 	}
 
-	public void setCachedTagList(String cachedTagList) {
+	public Document setCachedTagList(String cachedTagList) {
 		this.cachedTagList = cachedTagList;
+		return this;
 	}
 
 	public Integer getPosition() {
 		return position;
 	}
 
-	public void setPosition(Integer position) {
+	public Document setPosition(Integer position) {
 		this.position = position;
+		return this;
 	}
 
 	public String getUrl() {
 		return url;
 	}
 
-	public void setUrl(String url) {
+	public Document setUrl(String url) {
 		this.url = url;
+		return this;
 	}
 
 	public String getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(String createdAt) {
+	public Document setCreatedAt(String createdAt) {
 		this.createdAt = createdAt;
+		return this;
 	}
 
 	public String getUpdatedAt() {
 		return updatedAt;
 	}
 
-	public void setUpdatedAt(String updatedAt) {
+	public Document setUpdatedAt(String updatedAt) {
 		this.updatedAt = updatedAt;
+		return this;
 	}
 
 	public Integer getTicketId() {
 		return ticketId;
 	}
 
-	public void setTicketId(Integer ticketId) {
+	public Document setTicketId(Integer ticketId) {
 		this.ticketId = ticketId;
+		return this;
 	}
 
 	public String getAttachableType() {
 		return attachableType;
 	}
 
-	public void setAttachableType(String attachableType) {
+	public Document setAttachableType(String attachableType) {
 		this.attachableType = attachableType;
+		return this;
 	}
 
 	public Boolean getHasThumbnail() {
 		return hasThumbnail;
 	}
 
-	public void setHasThumbnail(Boolean hasThumbnail) {
+	public Document setHasThumbnail(Boolean hasThumbnail) {
 		this.hasThumbnail = hasThumbnail;
+		return this;
 	}
 
 	public String getSpaceId() {
 		return spaceId;
 	}
 
-	public void setSpaceId(String spaceId) {
+	public Document setSpaceId(String spaceId) {
 		this.spaceId = spaceId;
+		return this;
 	}
 
 	public Integer getAttachableId() {
 		return attachableId;
 	}
 
-	public void setAttachableId(Integer attachableId) {
+	public Document setAttachableId(Integer attachableId) {
 		this.attachableId = attachableId;
+		return this;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((spaceId == null) ? 0 : spaceId.hashCode());
+		result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
+		result = prime * result + ((updatedBy == null) ? 0 : updatedBy.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		Document other = (Document) obj;
+		if (id == null) {
+			if (other.id != null) {
+				return false;
+			}
+		} else if (!id.equals(other.id)) {
+			return false;
+		}
+		if (spaceId == null) {
+			if (other.spaceId != null) {
+				return false;
+			}
+		} else if (!spaceId.equals(other.spaceId)) {
+			return false;
+		}
+		if (updatedAt == null) {
+			if (other.updatedAt != null) {
+				return false;
+			}
+		} else if (!updatedAt.equals(other.updatedAt)) {
+			return false;
+		}
+		if (updatedBy == null) {
+			if (other.updatedBy != null) {
+				return false;
+			}
+		} else if (!updatedBy.equals(other.updatedBy)) {
+			return false;
+		}
+		return true;
+	}
+	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();

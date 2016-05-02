@@ -12,40 +12,45 @@ public class User {
 		return phone;
 	}
 
-	public void setPhone(String phone) {
+	public User setPhone(String phone) {
 		this.phone = phone;
+		return this;
 	}
 
 	public String getLogin() {
 		return login;
 	}
 
-	public void setLogin(String login) {
+	public User setLogin(String login) {
 		this.login = login;
+		return this;
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
+	public User setName(String name) {
 		this.name = name;
+		return this;
 	}
 
 	public String getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public User setId(String id) {
 		this.id = id;
+		return this;
 	}
 
 	public String getOrganization() {
 		return organization;
 	}
 
-	public void setOrganization(String organization) {
+	public User setOrganization(String organization) {
 		this.organization = organization;
+		return this;
 	}
 
 	@Override

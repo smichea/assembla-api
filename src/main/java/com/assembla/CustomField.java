@@ -15,69 +15,159 @@ public class CustomField {
 	private String defaultValue;
 	private String createdAt;
 	private String updatedAt;
-	
+
 	public CustomField() {
 	}
-	
+
 	public Integer getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+
+	public CustomField setId(Integer id) {
 		this.id = id;
+		return this;
 	}
+
 	public String getSpaceToolId() {
 		return spaceToolId;
 	}
-	public void setSpaceToolId(String spaceToolId) {
+
+	public CustomField setSpaceToolId(String spaceToolId) {
 		this.spaceToolId = spaceToolId;
+		return this;
 	}
+
 	public String getType() {
 		return type;
 	}
-	public void setType(String type) {
+
+	public CustomField setType(String type) {
 		this.type = type;
+		return this;
 	}
+
 	public String getTitle() {
 		return title;
 	}
-	public void setTitle(String title) {
+
+	public CustomField setTitle(String title) {
 		this.title = title;
+		return this;
 	}
+
 	public Object getOrder() {
 		return order;
 	}
-	public void setOrder(Object order) {
+
+	public CustomField setOrder(Object order) {
 		this.order = order;
+		return this;
 	}
+
 	public Boolean getRequired() {
 		return required;
 	}
-	public void setRequired(Boolean required) {
+
+	public CustomField setRequired(Boolean required) {
 		this.required = required;
+		return this;
 	}
+
 	public Boolean getHide() {
 		return hide;
 	}
-	public void setHide(Boolean hide) {
+
+	public CustomField setHide(Boolean hide) {
 		this.hide = hide;
+		return this;
 	}
+
 	public String getDefaultValue() {
 		return defaultValue;
 	}
-	public void setDefaultValue(String defaultValue) {
+
+	public CustomField setDefaultValue(String defaultValue) {
 		this.defaultValue = defaultValue;
+		return this;
 	}
+
 	public String getCreatedAt() {
 		return createdAt;
 	}
-	public void setCreatedAt(String createdAt) {
+
+	public CustomField setCreatedAt(String createdAt) {
 		this.createdAt = createdAt;
+		return this;
 	}
+
 	public String getUpdatedAt() {
 		return updatedAt;
 	}
-	public void setUpdatedAt(String updatedAt) {
+
+	public CustomField setUpdatedAt(String updatedAt) {
 		this.updatedAt = updatedAt;
+		return this;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		CustomField other = (CustomField) obj;
+		if (createdAt == null) {
+			if (other.createdAt != null) {
+				return false;
+			}
+		} else if (!createdAt.equals(other.createdAt)) {
+			return false;
+		}
+		if (id == null) {
+			if (other.id != null) {
+				return false;
+			}
+		} else if (!id.equals(other.id)) {
+			return false;
+		}
+		if (updatedAt == null) {
+			if (other.updatedAt != null) {
+				return false;
+			}
+		} else if (!updatedAt.equals(other.updatedAt)) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("CustomField [id=");
+		builder.append(id);
+		builder.append(", title=");
+		builder.append(title);
+		builder.append(", updatedAt=");
+		builder.append(updatedAt);
+		builder.append("]");
+		return builder.toString();
+	}
+	
+	
 
 }

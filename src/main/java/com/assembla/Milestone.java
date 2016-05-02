@@ -26,128 +26,144 @@ public class Milestone {
 		return plannerType;
 	}
 
-	public void setPlannerType(Integer plannerType) {
+	public Milestone setPlannerType(Integer plannerType) {
 		this.plannerType = plannerType;
+		return this;
 	}
 
 	public String getPrettyReleseLevel() {
 		return prettyReleseLevel;
 	}
 
-	public void setPrettyReleseLevel(String prettyReleseLevel) {
+	public Milestone setPrettyReleseLevel(String prettyReleseLevel) {
 		this.prettyReleseLevel = prettyReleseLevel;
+		return this;
 	}
 
 	public Object getReleaseNotes() {
 		return releaseNotes;
 	}
 
-	public void setReleaseNotes(Object releaseNotes) {
+	public Milestone setReleaseNotes(Object releaseNotes) {
 		this.releaseNotes = releaseNotes;
+		return this;
 	}
 
 	public String getDescription() {
 		return description;
 	}
 
-	public void setDescription(String description) {
+	public Milestone setDescription(String description) {
 		this.description = description;
+		return this;
 	}
 
 	public Object getReleaseLevel() {
 		return releaseLevel;
 	}
 
-	public void setReleaseLevel(Object releaseLevel) {
+	public Milestone setReleaseLevel(Object releaseLevel) {
 		this.releaseLevel = releaseLevel;
+		return this;
 	}
 
 	public Object getCompletedDate() {
 		return completedDate;
 	}
 
-	public void setCompletedDate(Object completedDate) {
+	public Milestone setCompletedDate(Object completedDate) {
 		this.completedDate = completedDate;
+		return this;
 	}
 
 	public String getCreatedBy() {
 		return createdBy;
 	}
 
-	public void setCreatedBy(String createdBy) {
+	public Milestone setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
+		return this;
 	}
 
 	public Object getDueDate() {
 		return dueDate;
 	}
 
-	public void setDueDate(Object dueDate) {
+	public Milestone setDueDate(Object dueDate) {
 		this.dueDate = dueDate;
+		return this;
 	}
 
 	public Boolean getIsCompleted() {
 		return isCompleted;
 	}
 
-	public void setIsCompleted(Boolean isCompleted) {
+	public Milestone setIsCompleted(Boolean isCompleted) {
 		this.isCompleted = isCompleted;
+		return this;
 	}
 
 	public String getUpdatedBy() {
 		return updatedBy;
 	}
 
-	public void setUpdatedBy(String updatedBy) {
+	public Milestone setUpdatedBy(String updatedBy) {
 		this.updatedBy = updatedBy;
+		return this;
 	}
 
 	public String getUpdatedAt() {
 		return updatedAt;
 	}
 
-	public void setUpdatedAt(String updatedAt) {
+	public Milestone setUpdatedAt(String updatedAt) {
 		this.updatedAt = updatedAt;
+		return this;
 	}
 
 	public String getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(String createdAt) {
+	public Milestone setCreatedAt(String createdAt) {
 		this.createdAt = createdAt;
+		return this;
 	}
 
 	public String getTitle() {
 		return title;
 	}
 
-	public void setTitle(String title) {
+	public Milestone setTitle(String title) {
 		this.title = title;
+		return this;
 	}
 
 	public Object getUserId() {
 		return userId;
 	}
 
-	public void setUserId(Object userId) {
+	public Milestone setUserId(Object userId) {
 		this.userId = userId;
+		return this;
 	}
 
 	public String getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public Milestone setId(String id) {
 		this.id = id;
+		return this;
 	}
 
 	public String getSpaceId() {
 		return spaceId;
 	}
 
-	public void setSpaceId(String spaceId) {
+	public Milestone setSpaceId(String spaceId) {
 		this.spaceId = spaceId;
+		return this;
 	}
 
 	@Override

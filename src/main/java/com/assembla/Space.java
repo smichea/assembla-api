@@ -43,240 +43,270 @@ public class Space {
 		return status;
 	}
 
-	public void setStatus(Integer status) {
+	public Space setStatus(Integer status) {
 		this.status = status;
+		return this;
 	}
 
 	public Object getBannerHeight() {
 		return bannerHeight;
 	}
 
-	public void setBannerHeight(Object bannerHeight) {
+	public Space setBannerHeight(Object bannerHeight) {
 		this.bannerHeight = bannerHeight;
+		return this;
 	}
 
 	public Object getBanner() {
 		return banner;
 	}
 
-	public void setBanner(Object banner) {
+	public Space setBanner(Object banner) {
 		this.banner = banner;
+		return this;
 	}
 
 	public String getUpdatedAt() {
 		return updatedAt;
 	}
 
-	public void setUpdatedAt(String updatedAt) {
+	public Space setUpdatedAt(String updatedAt) {
 		this.updatedAt = updatedAt;
+		return this;
 	}
 
 	public Object getLastPayerChangedAt() {
 		return lastPayerChangedAt;
 	}
 
-	public void setLastPayerChangedAt(Object lastPayerChangedAt) {
+	public Space setLastPayerChangedAt(Object lastPayerChangedAt) {
 		this.lastPayerChangedAt = lastPayerChangedAt;
+		return this;
 	}
 
 	public Integer getTeamTabRole() {
 		return teamTabRole;
 	}
 
-	public void setTeamTabRole(Integer teamTabRole) {
+	public Space setTeamTabRole(Integer teamTabRole) {
 		this.teamTabRole = teamTabRole;
+		return this;
 	}
 
 	public String getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(String createdAt) {
+	public Space setCreatedAt(String createdAt) {
 		this.createdAt = createdAt;
+		return this;
 	}
 
 	public Boolean getApproved() {
 		return approved;
 	}
 
-	public void setApproved(Boolean approved) {
+	public Space setApproved(Boolean approved) {
 		this.approved = approved;
+		return this;
 	}
 
 	public Object getTabsOrder() {
 		return tabsOrder;
 	}
 
-	public void setTabsOrder(Object tabsOrder) {
+	public Space setTabsOrder(Object tabsOrder) {
 		this.tabsOrder = tabsOrder;
+		return this;
 	}
 
 	public Boolean getIsCommercial() {
 		return isCommercial;
 	}
 
-	public void setIsCommercial(Boolean isCommercial) {
+	public Space setIsCommercial(Boolean isCommercial) {
 		this.isCommercial = isCommercial;
+		return this;
 	}
 
 	public Boolean getIsManager() {
 		return isManager;
 	}
 
-	public void setIsManager(Boolean isManager) {
+	public Space setIsManager(Boolean isManager) {
 		this.isManager = isManager;
+		return this;
 	}
 
 	public Integer getTeamPermissions() {
 		return teamPermissions;
 	}
 
-	public void setTeamPermissions(Integer teamPermissions) {
+	public Space setTeamPermissions(Integer teamPermissions) {
 		this.teamPermissions = teamPermissions;
+		return this;
 	}
 
 	public Boolean getCanJoin() {
 		return canJoin;
 	}
 
-	public void setCanJoin(Boolean canJoin) {
+	public Space setCanJoin(Boolean canJoin) {
 		this.canJoin = canJoin;
+		return this;
 	}
 
 	public Object getBannerText() {
 		return bannerText;
 	}
 
-	public void setBannerText(Object bannerText) {
+	public Space setBannerText(Object bannerText) {
 		this.bannerText = bannerText;
+		return this;
 	}
 
 	public Boolean getRestricted() {
 		return restricted;
 	}
 
-	public void setRestricted(Boolean restricted) {
+	public Space setRestricted(Boolean restricted) {
 		this.restricted = restricted;
+		return this;
 	}
 
 	public Boolean getSharePermissions() {
 		return sharePermissions;
 	}
 
-	public void setSharePermissions(Boolean sharePermissions) {
+	public Space setSharePermissions(Boolean sharePermissions) {
 		this.sharePermissions = sharePermissions;
+		return this;
 	}
 
 	public Boolean getCanApply() {
 		return canApply;
 	}
 
-	public void setCanApply(Boolean canApply) {
+	public Space setCanApply(Boolean canApply) {
 		this.canApply = canApply;
+		return this;
 	}
 
 	public Boolean getIsVolunteer() {
 		return isVolunteer;
 	}
 
-	public void setIsVolunteer(Boolean isVolunteer) {
+	public Space setIsVolunteer(Boolean isVolunteer) {
 		this.isVolunteer = isVolunteer;
+		return this;
 	}
 
 	public Integer getPrivatePermissions() {
 		return privatePermissions;
 	}
 
-	public void setPrivatePermissions(Integer privatePermissions) {
+	public Space setPrivatePermissions(Integer privatePermissions) {
 		this.privatePermissions = privatePermissions;
+		return this;
 	}
 
 	public String getWikiName() {
 		return wikiName;
 	}
 
-	public void setWikiName(String wikiName) {
+	public Space setWikiName(String wikiName) {
 		this.wikiName = wikiName;
+		return this;
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
+	public Space setName(String name) {
 		this.name = name;
+		return this;
 	}
 
 	public Object getStyle() {
 		return style;
 	}
 
-	public void setStyle(Object style) {
+	public Space setStyle(Object style) {
 		this.style = style;
+		return this;
 	}
 
 	public Object getParentId() {
 		return parentId;
 	}
 
-	public void setParentId(Object parentId) {
+	public Space setParentId(Object parentId) {
 		this.parentId = parentId;
+		return this;
 	}
 
 	public String getDefaultShowpage() {
 		return defaultShowpage;
 	}
 
-	public void setDefaultShowpage(String defaultShowpage) {
+	public Space setDefaultShowpage(String defaultShowpage) {
 		this.defaultShowpage = defaultShowpage;
+		return this;
 	}
 
 	public Object getDescription() {
 		return description;
 	}
 
-	public void setDescription(Object description) {
+	public Space setDescription(Object description) {
 		this.description = description;
+		return this;
 	}
 
 	public String getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public Space setId(String id) {
 		this.id = id;
+		return this;
 	}
 
 	public Object getBannerLink() {
 		return bannerLink;
 	}
 
-	public void setBannerLink(Object bannerLink) {
+	public Space setBannerLink(Object bannerLink) {
 		this.bannerLink = bannerLink;
+		return this;
 	}
 
 	public Object getCommercialFrom() {
 		return commercialFrom;
 	}
 
-	public void setCommercialFrom(Object commercialFrom) {
+	public Space setCommercialFrom(Object commercialFrom) {
 		this.commercialFrom = commercialFrom;
+		return this;
 	}
 
 	public Object getRestrictedDate() {
 		return restrictedDate;
 	}
 
-	public void setRestrictedDate(Object restrictedDate) {
+	public Space setRestrictedDate(Object restrictedDate) {
 		this.restrictedDate = restrictedDate;
+		return this;
 	}
 
 	public Integer getWatcherPermissions() {
 		return watcherPermissions;
 	}
 
-	public void setWatcherPermissions(Integer watcherPermissions) {
+	public Space setWatcherPermissions(Integer watcherPermissions) {
 		this.watcherPermissions = watcherPermissions;
+		return this;
 	}
 
 	@Override
