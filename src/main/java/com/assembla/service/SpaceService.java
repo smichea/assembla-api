@@ -1,6 +1,5 @@
 package com.assembla.service;
 
-import static com.assembla.utils.ObjectUtils.notNull;
 import static java.lang.String.format;
 
 import java.util.List;
@@ -9,6 +8,7 @@ import com.assembla.Space;
 import com.assembla.client.AssemblaClient;
 import com.assembla.client.AssemblaConstants;
 import com.assembla.client.AssemblaRequest;
+import com.assembla.utils.ObjectUtils;
 
 public class SpaceService extends AbstractBaseService {
 
@@ -22,7 +22,7 @@ public class SpaceService extends AbstractBaseService {
 	}
 
 	public Space getSpace(String id) {
-		notNull(id, "id == null");
+		ObjectUtils.notNull(id, "id == null");
 		AssemblaRequest request = new AssemblaRequest(format(AssemblaConstants.SPACE_BY_ID, id), Space.class);
 		return super.get(request, format("Space with id %s does not exist", id));
 	}
@@ -34,8 +34,8 @@ public class SpaceService extends AbstractBaseService {
 	}
 
 	public void updateSpace(Space space) {
-		notNull(space, "space == null");
-		notNull(space.getId(), "space requires an id");
+		ObjectUtils.notNull(space, "space == null");
+		ObjectUtils.notNull(space.getId(), "space requires an id");
 
 		String uri = format(AssemblaConstants.SPACE_BY_ID, space.getId());
 		AssemblaRequest request = new AssemblaRequest(uri, Space.class);
@@ -44,8 +44,8 @@ public class SpaceService extends AbstractBaseService {
 	}
 
 	public void deleteSpace(Space space) {
-		notNull(space, "space == null");
-		notNull(space.getId(), "space requires an id");
+		ObjectUtils.notNull(space, "space == null");
+		ObjectUtils.notNull(space.getId(), "space requires an id");
 		
 		String uri = format(AssemblaConstants.SPACE_BY_ID, space.getId());
 		AssemblaRequest request = new AssemblaRequest(uri);
@@ -53,9 +53,9 @@ public class SpaceService extends AbstractBaseService {
 	}
 
 	public Space copySpace(Space oldSpace, String name, String wikiName) {
-		notNull(oldSpace, "oldSpace == null");
-		notNull(name, "name must not be null");
-		notNull(wikiName, "wikiName must not be null");
+		ObjectUtils.notNull(oldSpace, "oldSpace == null");
+		ObjectUtils.notNull(name, "name must not be null");
+		ObjectUtils.notNull(wikiName, "wikiName must not be null");
 		
 		String uri = format(AssemblaConstants.SPACE_COPY, oldSpace.getId());
 		AssemblaRequest request = new AssemblaRequest(uri, Space.class);

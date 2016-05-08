@@ -17,10 +17,9 @@ public class ObjectUtilTest {
 	public void illegalArgumentTest() throws Exception {
 		exception.expect(IllegalArgumentException.class);
 		exception.expectMessage("Ticket must not be null");
- 		ObjectUtils.notNull(null, "Ticket must not be null");
+		ObjectUtils.notNull(null, "Ticket must not be null");
 	}
-	
-	
+
 	@Test
 	public void correctArgumentTest() throws Exception {
 		Ticket ticket = new Ticket();

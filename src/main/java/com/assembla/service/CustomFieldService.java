@@ -1,7 +1,5 @@
 package com.assembla.service;
 
-import static com.assembla.utils.ObjectUtils.notNull;
-
 import static java.lang.String.format;
 
 import java.util.List;
@@ -10,6 +8,7 @@ import com.assembla.CustomField;
 import com.assembla.client.AssemblaClient;
 import com.assembla.client.AssemblaConstants;
 import com.assembla.client.AssemblaRequest;
+import com.assembla.utils.ObjectUtils;
 
 public class CustomFieldService extends AbstractBaseService {
 
@@ -30,7 +29,7 @@ public class CustomFieldService extends AbstractBaseService {
 	}
 
 	public CustomField create(CustomField customField) {
-		notNull(customField, "customerField == null");
+		ObjectUtils.notNull(customField, "customerField == null");
 		String uri = format(AssemblaConstants.CUSTOM_FIELDS, super.getSpaceId());
 		AssemblaRequest request = new AssemblaRequest(uri, CustomField.class);
 		request.withBody(customField);
@@ -38,8 +37,8 @@ public class CustomFieldService extends AbstractBaseService {
 	}
 
 	public void update(CustomField customField) {
-		notNull(customField, "customerField == null");
-		notNull(customField.getId(), "customField requires an id");
+		ObjectUtils.notNull(customField, "customerField == null");
+		ObjectUtils.notNull(customField.getId(), "customField requires an id");
 		String uri = format(AssemblaConstants.CUSTOM_FIELDS_BY_ID, super.getSpaceId(), customField.getId());
 		AssemblaRequest request = new AssemblaRequest(uri);
 		request.withBody(customField);
@@ -47,8 +46,8 @@ public class CustomFieldService extends AbstractBaseService {
 	}
 
 	public void delete(CustomField customField) {
-		notNull(customField, "customerField == null");
-		notNull(customField.getId(), "customField requires an id");
+		ObjectUtils.notNull(customField, "customerField == null");
+		ObjectUtils.notNull(customField.getId(), "customField requires an id");
 		String uri = format(AssemblaConstants.CUSTOM_FIELDS_BY_ID, super.getSpaceId(), customField.getId());
 		AssemblaRequest request = new AssemblaRequest(uri);
 		client.doDelete(request);

@@ -1,5 +1,4 @@
 package com.assembla.service;
-import static com.assembla.utils.ObjectUtils.notNull;
 import static java.lang.String.format;
 
 import java.util.List;
@@ -13,6 +12,7 @@ import com.assembla.client.AssemblaConstants;
 import com.assembla.client.AssemblaRequest;
 import com.assembla.client.PagedAssemblaRequest;
 import com.assembla.client.PagedIterator;
+import com.assembla.utils.ObjectUtils;
 
 public class TicketService extends AbstractBaseService {
 
@@ -69,8 +69,8 @@ public class TicketService extends AbstractBaseService {
 	}
 
 	public void updateTicket(Ticket ticket) {
-		notNull(ticket, "ticket == null");
-		notNull(ticket.getNumber(), "ticket requires a number");
+		ObjectUtils.notNull(ticket, "ticket == null");
+		ObjectUtils.notNull(ticket.getNumber(), "ticket requires a number");
 
 		String uri = format(AssemblaConstants.TICKET_BY_NUMBER, super.getSpaceId(), ticket.getNumber());
 		AssemblaRequest request = new AssemblaRequest(uri);
@@ -85,8 +85,8 @@ public class TicketService extends AbstractBaseService {
 	}
 
 	public void deleteTicket(Ticket ticket) {
-		notNull(ticket, "ticket == null");
-		notNull(ticket.getNumber(), "ticket requires a number");
+		ObjectUtils.notNull(ticket, "ticket == null");
+		ObjectUtils.notNull(ticket.getNumber(), "ticket requires a number");
 		
 		String uri = format(AssemblaConstants.TICKET_DELETE, super.getSpaceId(), ticket.getNumber());
 		AssemblaRequest request = new AssemblaRequest(uri);

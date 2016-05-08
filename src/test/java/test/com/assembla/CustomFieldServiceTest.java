@@ -65,7 +65,6 @@ public class CustomFieldServiceTest extends ServiceTest {
 				new AssemblaResponse(expectedValue, CustomField.class));
 
 		CustomField customFieldToCreate = new CustomField();
-		;
 		customFieldToCreate.setTitle("Test title");
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/tickets/custom_fields.json", CustomField.class);
 		request.withBody(customFieldToCreate);

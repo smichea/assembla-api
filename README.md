@@ -14,12 +14,12 @@ Assembla API documentation can be found [here](https://api-doc.assembla.com/cont
 | Mentions                       | Yes       |
 | Users                          | Yes       |
 | Spaces                         | Yes       |
-| User Roles (Space members)     | No        |
-| Space tools                    | No        |
+| User Roles (Space members)     | Yes       |
+| Space tools                    | Yes       | 
 | Tickets                        | Yes       |
-| Ticket statuses                | No        |
+| Ticket statuses                | Yes       |
 | Tags                           | Yes       |
-| Tickets custom fields          | No        |
+| Tickets custom fields          | Yes       |
 | Ticket Associations            | Yes       |
 | Ticket Comments                | Yes       |
 | Milestones                     | Yes       |
@@ -48,3 +48,5 @@ Assembla API documentation can be found [here](https://api-doc.assembla.com/cont
 | SSH Servers                    | No        |
 | SSH Actions                    | No        |
 | SSH Action Launches            | No        |
+
+

@@ -131,6 +131,10 @@ public class AssemblaRequest {
 		builder.append(type);
 		builder.append(", getFullURI()=");
 		builder.append(getFullURI());
+		builder.append(", parameters=");
+		builder.append(parameters);
+		builder.append(", body=");
+		builder.append(body);
 		builder.append("]");
 		return builder.toString();
 	}

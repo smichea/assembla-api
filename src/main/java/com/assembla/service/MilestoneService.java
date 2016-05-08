@@ -1,13 +1,13 @@
 package com.assembla.service;
 
 import static java.lang.String.format;
-import static com.assembla.utils.ObjectUtils.notNull;
 import com.assembla.Milestone;
 import com.assembla.client.AssemblaClient;
 import com.assembla.client.AssemblaConstants;
 import com.assembla.client.AssemblaRequest;
 import com.assembla.client.PagedAssemblaRequest;
 import com.assembla.client.PagedIterator;
+import com.assembla.utils.ObjectUtils;
 
 public class MilestoneService extends AbstractBaseService {
 
@@ -40,7 +40,7 @@ public class MilestoneService extends AbstractBaseService {
 	}
 
 	public Milestone get(String milestoneId) {
-		notNull(milestoneId, "milestoneId == null");
+		ObjectUtils.notNull(milestoneId, "milestoneId == null");
 		String uri = format(AssemblaConstants.MILESTONE_BY_ID, super.getSpaceId(), milestoneId);
 		AssemblaRequest request = new AssemblaRequest(uri, Milestone.class);
 		return super.get(request, format("Milestone with id %s does not exist", milestoneId));
@@ -54,8 +54,8 @@ public class MilestoneService extends AbstractBaseService {
 	}
 
 	public void update(Milestone milestone) {
-		notNull(milestone, "milestone == null");
-		notNull(milestone, "milestone requires a id");
+		ObjectUtils.notNull(milestone, "milestone == null");
+		ObjectUtils.notNull(milestone, "milestone requires a id");
 		
 		AssemblaRequest request = new AssemblaRequest(format(AssemblaConstants.MILESTONE_BY_ID, super.getSpaceId(),
 				milestone.getId()), Milestone.class);
@@ -64,8 +64,8 @@ public class MilestoneService extends AbstractBaseService {
 	}
 
 	public void delete(Milestone milestone) {
-		notNull(milestone, "milestone == null");
-		notNull(milestone, "milestone requires a id");
+		ObjectUtils.notNull(milestone, "milestone == null");
+		ObjectUtils.notNull(milestone, "milestone requires a id");
 		
 		AssemblaRequest request = new AssemblaRequest(format(AssemblaConstants.MILESTONE_BY_ID, super.getSpaceId(),
 				milestone.getId()), Milestone.class);
