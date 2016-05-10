@@ -2,7 +2,7 @@ package com.assembla;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-@JsonRootName(value = "ticket")
+@JsonRootName(value = "custom_field")
 public class CustomField {
 
 	private Integer id;

@@ -3,8 +3,8 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.assembla</groupId>
 	<artifactId>assembla-api</artifactId>
-	<version>0.0.1</version>
-	<name>Assembla Updater</name>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>Assembla API</name>
 	<packaging>jar</packaging>
 	<dependencies>
 		<dependency>
@@ -16,6 +16,11 @@
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 			<version>2.7.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jsr310</artifactId>
+			<version>2.6.1</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>

@@ -339,4 +339,18 @@ public class Space {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Space [status=");
+		builder.append(status);
+		builder.append(", bannerText=");
+		builder.append(bannerText);
+		builder.append(", name=");
+		builder.append(name);
+		builder.append(", id=");
+		builder.append(id);
+		builder.append("]");
+		return builder.toString();
+	}
 }

@@ -12,7 +12,7 @@ Assembla API documentation can be found [here](https://api-doc.assembla.com/cont
 | Type                           | Supported |
 |--------------------------------|-----------|
 | Mentions                       | Yes       |
-| Users                          | Yes       |
+| Users                          | Partial   |
 | Spaces                         | Yes       |
 | User Roles (Space members)     | Yes       |
 | Space tools                    | Yes       | 

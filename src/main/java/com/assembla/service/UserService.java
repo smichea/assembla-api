@@ -21,11 +21,11 @@ public class UserService extends AbstractBaseService {
 		return super.get(request, "Error retreiving current user");
 	}
 
-	public User getUser(String name) {
-		ObjectUtils.notNull(name, "name == null");
-		String uri = format(AssemblaConstants.USER_ID_OR_LOGIN, name);
+	public User getUser(String idOrLogin) {
+		ObjectUtils.notNull(idOrLogin, "idOrLogin == null");
+		String uri = format(AssemblaConstants.USER_ID_OR_LOGIN, idOrLogin);
 		AssemblaRequest request = new AssemblaRequest(uri, User.class);
-		return super.get(request, format("User not found with id/login : %s", name));
+		return super.get(request, format("User not found with id/login : %s", idOrLogin));
 	}
 
 	public List<User> getUsersForSpace() {

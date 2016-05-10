@@ -1,11 +1,15 @@
 package com.assembla;
 
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.assembla.client.CustomFieldSerializer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @JsonRootName(value = "ticket")
 public class Ticket {
@@ -14,17 +18,17 @@ public class Ticket {
 	private Integer number;
 	private String summary;
 	private String description;
-	private Integer priority;
-	private Object completedDate;
-	private Object componentId;
+	private Priority priority;
+	private ZonedDateTime completedDate;
+	private Integer componentId;
 	private String createdOn;
-	private Integer permissionType;
+	private PermissionType permissionType;
 	private Double importance;
 	private Boolean isStory;
-	private Object milestoneId;
+	private Integer milestoneId;
 	private String notificationList;
 	private String spaceId;
-	private Integer state;
+	private State state;
 	private String status;
 	private Integer storyImportance;
 	private String updatedAt;
@@ -35,9 +39,13 @@ public class Ticket {
 	private Double totalWorkingHours;
 	private String assignedToId;
 	private String reporterId;
-	private Map<String, Object> customFields;
-	private Integer hierarchyType;
+	@JsonSerialize(keyUsing = CustomFieldSerializer.class)
+	private Map<String, String> customFields;
+	private HeirarchyType hierarchyType;
+	@JsonProperty("tags")
 	private List<String> tags;
+	private Boolean isSupport;
+	private List<String> followers;
 
 	public Ticket() {
 	}
@@ -96,29 +104,29 @@ public class Ticket {
 		return this;
 	}
 
-	public Integer getPriority() {
+	public Priority getPriority() {
 		return priority;
 	}
 
-	public Ticket setPriority(Integer priority) {
+	public Ticket setPriority(Priority priority) {
 		this.priority = priority;
 		return this;
 	}
 
-	public Object getCompletedDate() {
+	public ZonedDateTime getCompletedDate() {
 		return completedDate;
 	}
 
-	public Ticket setCompletedDate(Object completedDate) {
+	public Ticket setCompletedDate(ZonedDateTime completedDate) {
 		this.completedDate = completedDate;
 		return this;
 	}
 
-	public Object getComponentId() {
+	public Integer getComponentId() {
 		return componentId;
 	}
 
-	public Ticket setComponentId(Object componentId) {
+	public Ticket setComponentId(Integer componentId) {
 		this.componentId = componentId;
 		return this;
 	}
@@ -132,11 +140,11 @@ public class Ticket {
 		return this;
 	}
 
-	public Integer getPermissionType() {
+	public PermissionType getPermissionType() {
 		return permissionType;
 	}
 
-	public Ticket setPermissionType(Integer permissionType) {
+	public Ticket setPermissionType(PermissionType permissionType) {
 		this.permissionType = permissionType;
 		return this;
 	}
@@ -159,11 +167,11 @@ public class Ticket {
 		return this;
 	}
 
-	public Object getMilestoneId() {
+	public Integer getMilestoneId() {
 		return milestoneId;
 	}
 
-	public Ticket setMilestoneId(Object milestoneId) {
+	public Ticket setMilestoneId(Integer milestoneId) {
 		this.milestoneId = milestoneId;
 		return this;
 	}
@@ -186,11 +194,11 @@ public class Ticket {
 		return this;
 	}
 
-	public Integer getState() {
+	public State getState() {
 		return state;
 	}
 
-	public Ticket setState(Integer state) {
+	public Ticket setState(State state) {
 		this.state = state;
 		return this;
 	}
@@ -276,20 +284,28 @@ public class Ticket {
 		return this;
 	}
 
-	public Map<String, Object> getCustomFields() {
+	public Map<String, String> getCustomFields() {
 		return customFields;
 	}
 
-	public Ticket setCustomFields(Map<String, Object> customFields) {
+	public Ticket setCustomFields(Map<String, String> customFields) {
 		this.customFields = customFields;
 		return this;
 	}
 
-	public Integer getHierarchyType() {
+	public Ticket addCustomField(String name, String value) {
+		if (this.customFields == null) {
+			this.customFields = new HashMap<>();
+		}
+		customFields.put(name, value);
+		return this;
+	}
+
+	public HeirarchyType getHierarchyType() {
 		return hierarchyType;
 	}
 
-	public Ticket setHierarchyType(Integer hierarchyType) {
+	public Ticket setHierarchyType(HeirarchyType hierarchyType) {
 		this.hierarchyType = hierarchyType;
 		return this;
 	}
@@ -303,19 +319,31 @@ public class Ticket {
 		return this;
 	}
 
-	@JsonProperty("tags")
-	public List<String> tags() {
-		return tags;
+	public Boolean isSupport() {
+		return isSupport;
 	}
 
-	public Ticket addTag(String tag) {
-		if (tags == null) {
-			tags = new ArrayList<>();
-		}
-		this.tags.add(tag);
+	public Ticket setIsSupport(Boolean isSupport) {
+		this.isSupport = isSupport;
 		return this;
 	}
 
+	public List<String> getFollowers() {
+		return followers;
+	}
+
+	public Ticket setFollowers(List<String> followers) {
+		this.followers = followers;
+		return this;
+	}
+
+	public Ticket addFollower(String follower) {
+		if (this.followers == null) {
+			this.followers = new ArrayList<>();
+		}
+		followers.add(follower);
+		return this;
+	}
 
 	@Override
 	public String toString() {
@@ -395,7 +423,5 @@ public class Ticket {
 		}
 		return true;
 	}
-	
-	
 
 }
