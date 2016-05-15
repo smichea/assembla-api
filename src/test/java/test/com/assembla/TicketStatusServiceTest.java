@@ -13,6 +13,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import com.assembla.TicketStatus;
 import com.assembla.client.AssemblaRequest;
 import com.assembla.client.AssemblaResponse;
+import com.assembla.enums.State;
 import com.assembla.service.TicketStatusService;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -48,7 +49,7 @@ public class TicketStatusServiceTest extends ServiceTest {
 
 		TicketStatus status = new TicketStatus();
 		status.setName("New Status");
-		status.setState(1);
+		status.setState(State.OPEN);
 
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/tickets/statuses.json", TicketStatus.class);
 		request.withBody(status);
@@ -70,7 +71,7 @@ public class TicketStatusServiceTest extends ServiceTest {
 		TicketStatus status = new TicketStatus();
 		status.setId(100);
 		status.setName("New Status");
-		status.setState(1);
+		status.setState(State.CLOSED);
 
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/tickets/statuses/100.json", TicketStatus.class);
 		request.withBody(status);

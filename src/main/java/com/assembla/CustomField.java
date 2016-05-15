@@ -1,20 +1,28 @@
 package com.assembla;
 
+import java.time.ZonedDateTime;
+import java.util.List;
+
+import com.assembla.enums.FieldType;
+import com.assembla.serialization.StringToListDeserializer;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @JsonRootName(value = "custom_field")
 public class CustomField {
 
 	private Integer id;
 	private String spaceToolId;
-	private String type;
+	private FieldType type;
 	private String title;
-	private Object order;
+	private Integer order;
 	private Boolean required;
 	private Boolean hide;
 	private String defaultValue;
-	private String createdAt;
-	private String updatedAt;
+	private ZonedDateTime createdAt;
+	private ZonedDateTime updatedAt;
+	@JsonDeserialize(using = StringToListDeserializer.class)
+	private List<String> listOptions;
 
 	public CustomField() {
 	}
@@ -37,11 +45,11 @@ public class CustomField {
 		return this;
 	}
 
-	public String getType() {
+	public FieldType getType() {
 		return type;
 	}
 
-	public CustomField setType(String type) {
+	public CustomField setType(FieldType type) {
 		this.type = type;
 		return this;
 	}
@@ -55,11 +63,11 @@ public class CustomField {
 		return this;
 	}
 
-	public Object getOrder() {
+	public Integer getOrder() {
 		return order;
 	}
 
-	public CustomField setOrder(Object order) {
+	public CustomField setOrder(Integer order) {
 		this.order = order;
 		return this;
 	}
@@ -91,83 +99,45 @@ public class CustomField {
 		return this;
 	}
 
-	public String getCreatedAt() {
+	public ZonedDateTime getCreatedAt() {
 		return createdAt;
 	}
 
-	public CustomField setCreatedAt(String createdAt) {
+	public CustomField setCreatedAt(ZonedDateTime createdAt) {
 		this.createdAt = createdAt;
 		return this;
 	}
 
-	public String getUpdatedAt() {
+	public ZonedDateTime getUpdatedAt() {
 		return updatedAt;
 	}
 
-	public CustomField setUpdatedAt(String updatedAt) {
+	public CustomField setUpdatedAt(ZonedDateTime updatedAt) {
 		this.updatedAt = updatedAt;
 		return this;
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		CustomField other = (CustomField) obj;
-		if (createdAt == null) {
-			if (other.createdAt != null) {
-				return false;
-			}
-		} else if (!createdAt.equals(other.createdAt)) {
-			return false;
-		}
-		if (id == null) {
-			if (other.id != null) {
-				return false;
-			}
-		} else if (!id.equals(other.id)) {
-			return false;
-		}
-		if (updatedAt == null) {
-			if (other.updatedAt != null) {
-				return false;
-			}
-		} else if (!updatedAt.equals(other.updatedAt)) {
-			return false;
-		}
-		return true;
-	}
-
-	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("CustomField [id=");
-		builder.append(id);
-		builder.append(", title=");
-		builder.append(title);
-		builder.append(", updatedAt=");
-		builder.append(updatedAt);
+		builder.append("CustomField [");
+		if (id != null) {
+			builder.append("id=");
+			builder.append(id);
+			builder.append(", ");
+		}
+		if (spaceToolId != null) {
+			builder.append("spaceToolId=");
+			builder.append(spaceToolId);
+			builder.append(", ");
+		}
+		if (type != null) {
+			builder.append("type=");
+			builder.append(type);
+		}
 		builder.append("]");
 		return builder.toString();
 	}
-	
-	
+
 
 }

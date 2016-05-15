@@ -15,6 +15,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import com.assembla.SpaceTool;
 import com.assembla.client.AssemblaRequest;
 import com.assembla.client.AssemblaResponse;
+import com.assembla.enums.WatcherPermission;
 import com.assembla.service.SpaceToolService;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -88,7 +89,7 @@ public class SpaceToolServiceTest extends ServiceTest {
 	public void updateSpaceToolByIdSuccess() {
 		SpaceTool tool = new SpaceTool();
 		tool.setId("100");
-		tool.setWatcherPermissions(1);
+		tool.setWatcherPermissions(WatcherPermission.READ);
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/space_tools/100.json", SpaceTool.class);
 		request.withBody(tool);
 		spaceToolService.update(tool);
@@ -99,7 +100,7 @@ public class SpaceToolServiceTest extends ServiceTest {
 	public void updateSpaceToolByNameSuccess() {
 		SpaceTool tool = new SpaceTool();
 		tool.setName("testName");
-		tool.setWatcherPermissions(1);
+		tool.setWatcherPermissions(WatcherPermission.READ);
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/space_tools/testName.json", SpaceTool.class);
 		request.withBody(tool);
 		spaceToolService.update(tool);
@@ -130,7 +131,7 @@ public class SpaceToolServiceTest extends ServiceTest {
 	public void deleteSpaceToolByNameSuccess() {
 		SpaceTool tool = new SpaceTool();
 		tool.setName("testName");
-		tool.setWatcherPermissions(1);
+		tool.setWatcherPermissions(WatcherPermission.READ);
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/space_tools/testName.json");
 		spaceToolService.delete(tool);
 		verify(assemblaClient).doDelete(request);

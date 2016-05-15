@@ -1,5 +1,11 @@
 package com.assembla;
 
+import java.time.ZonedDateTime;
+
+import com.assembla.enums.AttachableType;
+import com.fasterxml.jackson.annotation.JsonRootName;
+
+@JsonRootName("document")
 public class Document {
 
 	private String name;
@@ -14,13 +20,14 @@ public class Document {
 	private String cachedTagList;
 	private Integer position;
 	private String url;
-	private String createdAt;
-	private String updatedAt;
+	private ZonedDateTime createdAt;
+	private ZonedDateTime updatedAt;
 	private Integer ticketId;
-	private String attachableType;
+	private AttachableType attachableType;
 	private Boolean hasThumbnail;
 	private String spaceId;
 	private Integer attachableId;
+	private String attachableGuid;
 
 	public String getName() {
 		return name;
@@ -130,20 +137,20 @@ public class Document {
 		return this;
 	}
 
-	public String getCreatedAt() {
+	public ZonedDateTime getCreatedAt() {
 		return createdAt;
 	}
 
-	public Document setCreatedAt(String createdAt) {
+	public Document setCreatedAt(ZonedDateTime createdAt) {
 		this.createdAt = createdAt;
 		return this;
 	}
 
-	public String getUpdatedAt() {
+	public ZonedDateTime getUpdatedAt() {
 		return updatedAt;
 	}
 
-	public Document setUpdatedAt(String updatedAt) {
+	public Document setUpdatedAt(ZonedDateTime updatedAt) {
 		this.updatedAt = updatedAt;
 		return this;
 	}
@@ -157,11 +164,11 @@ public class Document {
 		return this;
 	}
 
-	public String getAttachableType() {
+	public AttachableType getAttachableType() {
 		return attachableType;
 	}
 
-	public Document setAttachableType(String attachableType) {
+	public Document setAttachableType(AttachableType attachableType) {
 		this.attachableType = attachableType;
 		return this;
 	}
@@ -193,71 +200,33 @@ public class Document {
 		return this;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((spaceId == null) ? 0 : spaceId.hashCode());
-		result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
-		result = prime * result + ((updatedBy == null) ? 0 : updatedBy.hashCode());
-		return result;
+	public String getAttachableGuid() {
+		return attachableGuid;
+	}
+
+	public Document setAttachableGuid(String attachableGuid) {
+		this.attachableGuid = attachableGuid;
+		return this;
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		Document other = (Document) obj;
-		if (id == null) {
-			if (other.id != null) {
-				return false;
-			}
-		} else if (!id.equals(other.id)) {
-			return false;
-		}
-		if (spaceId == null) {
-			if (other.spaceId != null) {
-				return false;
-			}
-		} else if (!spaceId.equals(other.spaceId)) {
-			return false;
-		}
-		if (updatedAt == null) {
-			if (other.updatedAt != null) {
-				return false;
-			}
-		} else if (!updatedAt.equals(other.updatedAt)) {
-			return false;
-		}
-		if (updatedBy == null) {
-			if (other.updatedBy != null) {
-				return false;
-			}
-		} else if (!updatedBy.equals(other.updatedBy)) {
-			return false;
-		}
-		return true;
-	}
-	
-	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Document [name=");
-		builder.append(name);
-		builder.append(", filename=");
-		builder.append(filename);
-		builder.append(", id=");
-		builder.append(id);
-		builder.append(", url=");
-		builder.append(url);
+		builder.append("Document [");
+		if (name != null) {
+			builder.append("name=");
+			builder.append(name);
+			builder.append(", ");
+		}
+		if (id != null) {
+			builder.append("id=");
+			builder.append(id);
+			builder.append(", ");
+		}
+		if (url != null) {
+			builder.append("url=");
+			builder.append(url);
+		}
 		builder.append("]");
 		return builder.toString();
 	}

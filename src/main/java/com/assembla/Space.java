@@ -1,67 +1,78 @@
 package com.assembla;
 
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.util.List;
+
+import com.assembla.enums.PublicPermission;
+import com.assembla.enums.SpaceStatus;
+import com.assembla.enums.TeamPermission;
+import com.assembla.enums.WatcherPermission;
+import com.assembla.serialization.StringToListDeserializer;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @JsonRootName(value = "space")
 public class Space {
 
-	private Integer status;
-	private Object bannerHeight;
-	private Object banner;
+	private SpaceStatus status;
+	private Integer bannerHeight;
+	private String banner;
 	private String updatedAt;
-	private Object lastPayerChangedAt;
+	private LocalDate lastPayerChangedAt;
 	private Integer teamTabRole;
-	private String createdAt;
+	private ZonedDateTime createdAt;
 	private Boolean approved;
-	private Object tabsOrder;
+	@JsonDeserialize(using = StringToListDeserializer.class)
+	private List<String> tabsOrder;
 	private Boolean isCommercial;
 	private Boolean isManager;
-	private Integer teamPermissions;
+	private TeamPermission teamPermissions;
 	private Boolean canJoin;
-	private Object bannerText;
+	private String bannerText;
 	private Boolean restricted;
 	private Boolean sharePermissions;
 	private Boolean canApply;
 	private Boolean isVolunteer;
-	private Integer privatePermissions;
 	private String wikiName;
 	private String name;
-	private Object style;
-	private Object parentId;
+	private String style;
+	private String parentId;
 	private String defaultShowpage;
-	private Object description;
+	private String description;
 	private String id;
-	private Object bannerLink;
-	private Object commercialFrom;
-	private Object restrictedDate;
-	private Integer watcherPermissions;
+	private String bannerLink;
+	private ZonedDateTime commercialFrom;
+	private LocalDate restrictedDate;
+	private WatcherPermission watcherPermissions;
+	private PublicPermission publicPermissions;
 
 	public Space() {
 	}
 
-	public Integer getStatus() {
+	public SpaceStatus getStatus() {
 		return status;
 	}
 
-	public Space setStatus(Integer status) {
+	public Space setStatus(SpaceStatus status) {
 		this.status = status;
 		return this;
 	}
 
-	public Object getBannerHeight() {
+	public Integer getBannerHeight() {
 		return bannerHeight;
 	}
 
-	public Space setBannerHeight(Object bannerHeight) {
+	public Space setBannerHeight(Integer bannerHeight) {
 		this.bannerHeight = bannerHeight;
 		return this;
 	}
 
-	public Object getBanner() {
+	public String getBanner() {
 		return banner;
 	}
 
-	public Space setBanner(Object banner) {
+	public Space setBanner(String banner) {
 		this.banner = banner;
 		return this;
 	}
@@ -75,11 +86,11 @@ public class Space {
 		return this;
 	}
 
-	public Object getLastPayerChangedAt() {
+	public LocalDate getLastPayerChangedAt() {
 		return lastPayerChangedAt;
 	}
 
-	public Space setLastPayerChangedAt(Object lastPayerChangedAt) {
+	public Space setLastPayerChangedAt(LocalDate lastPayerChangedAt) {
 		this.lastPayerChangedAt = lastPayerChangedAt;
 		return this;
 	}
@@ -93,11 +104,11 @@ public class Space {
 		return this;
 	}
 
-	public String getCreatedAt() {
+	public ZonedDateTime getCreatedAt() {
 		return createdAt;
 	}
 
-	public Space setCreatedAt(String createdAt) {
+	public Space setCreatedAt(ZonedDateTime createdAt) {
 		this.createdAt = createdAt;
 		return this;
 	}
@@ -111,11 +122,11 @@ public class Space {
 		return this;
 	}
 
-	public Object getTabsOrder() {
+	public List<String> getTabsOrder() {
 		return tabsOrder;
 	}
 
-	public Space setTabsOrder(Object tabsOrder) {
+	public Space setTabsOrder(List<String> tabsOrder) {
 		this.tabsOrder = tabsOrder;
 		return this;
 	}
@@ -138,11 +149,11 @@ public class Space {
 		return this;
 	}
 
-	public Integer getTeamPermissions() {
+	public TeamPermission getTeamPermissions() {
 		return teamPermissions;
 	}
 
-	public Space setTeamPermissions(Integer teamPermissions) {
+	public Space setTeamPermissions(TeamPermission teamPermissions) {
 		this.teamPermissions = teamPermissions;
 		return this;
 	}
@@ -156,11 +167,11 @@ public class Space {
 		return this;
 	}
 
-	public Object getBannerText() {
+	public String getBannerText() {
 		return bannerText;
 	}
 
-	public Space setBannerText(Object bannerText) {
+	public Space setBannerText(String bannerText) {
 		this.bannerText = bannerText;
 		return this;
 	}
@@ -201,15 +212,6 @@ public class Space {
 		return this;
 	}
 
-	public Integer getPrivatePermissions() {
-		return privatePermissions;
-	}
-
-	public Space setPrivatePermissions(Integer privatePermissions) {
-		this.privatePermissions = privatePermissions;
-		return this;
-	}
-
 	public String getWikiName() {
 		return wikiName;
 	}
@@ -228,20 +230,20 @@ public class Space {
 		return this;
 	}
 
-	public Object getStyle() {
+	public String getStyle() {
 		return style;
 	}
 
-	public Space setStyle(Object style) {
+	public Space setStyle(String style) {
 		this.style = style;
 		return this;
 	}
 
-	public Object getParentId() {
+	public String getParentId() {
 		return parentId;
 	}
 
-	public Space setParentId(Object parentId) {
+	public Space setParentId(String parentId) {
 		this.parentId = parentId;
 		return this;
 	}
@@ -255,11 +257,11 @@ public class Space {
 		return this;
 	}
 
-	public Object getDescription() {
+	public String getDescription() {
 		return description;
 	}
 
-	public Space setDescription(Object description) {
+	public Space setDescription(String description) {
 		this.description = description;
 		return this;
 	}
@@ -273,84 +275,81 @@ public class Space {
 		return this;
 	}
 
-	public Object getBannerLink() {
+	public String getBannerLink() {
 		return bannerLink;
 	}
 
-	public Space setBannerLink(Object bannerLink) {
+	public Space setBannerLink(String bannerLink) {
 		this.bannerLink = bannerLink;
 		return this;
 	}
 
-	public Object getCommercialFrom() {
+	public ZonedDateTime getCommercialFrom() {
 		return commercialFrom;
 	}
 
-	public Space setCommercialFrom(Object commercialFrom) {
+	public Space setCommercialFrom(ZonedDateTime commercialFrom) {
 		this.commercialFrom = commercialFrom;
 		return this;
 	}
 
-	public Object getRestrictedDate() {
+	public LocalDate getRestrictedDate() {
 		return restrictedDate;
 	}
 
-	public Space setRestrictedDate(Object restrictedDate) {
+	public Space setRestrictedDate(LocalDate restrictedDate) {
 		this.restrictedDate = restrictedDate;
 		return this;
 	}
 
-	public Integer getWatcherPermissions() {
+	public WatcherPermission getWatcherPermissions() {
 		return watcherPermissions;
 	}
 
-	public Space setWatcherPermissions(Integer watcherPermissions) {
+	public Space setWatcherPermissions(WatcherPermission watcherPermissions) {
 		this.watcherPermissions = watcherPermissions;
 		return this;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
+	public PublicPermission getPublicPermissions() {
+		return publicPermissions;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		Space other = (Space) obj;
-		if (id == null) {
-			if (other.id != null) {
-				return false;
-			}
-		} else if (!id.equals(other.id)) {
-			return false;
-		}
-		return true;
+	public void setPublicPermissions(PublicPermission publicPermissions) {
+		this.publicPermissions = publicPermissions;
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Space [status=");
-		builder.append(status);
-		builder.append(", bannerText=");
-		builder.append(bannerText);
-		builder.append(", name=");
-		builder.append(name);
-		builder.append(", id=");
-		builder.append(id);
+		builder.append("Space [");
+		if (status != null) {
+			builder.append("status=");
+			builder.append(status);
+			builder.append(", ");
+		}
+		if (wikiName != null) {
+			builder.append("wikiName=");
+			builder.append(wikiName);
+			builder.append(", ");
+		}
+		if (name != null) {
+			builder.append("name=");
+			builder.append(name);
+			builder.append(", ");
+		}
+		if (description != null) {
+			builder.append("description=");
+			builder.append(description);
+			builder.append(", ");
+		}
+		if (id != null) {
+			builder.append("id=");
+			builder.append(id);
+		}
 		builder.append("]");
 		return builder.toString();
 	}
+
+
 }

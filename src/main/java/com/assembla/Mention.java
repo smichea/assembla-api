@@ -1,5 +1,8 @@
 package com.assembla;
 
+import java.time.LocalTime;
+import java.time.ZonedDateTime;
+
 public class Mention {
 
 	private Integer id;
@@ -7,7 +10,7 @@ public class Mention {
 	private String link;
 	private String message;
 	private Boolean read;
-	private String createdAt;
+	private ZonedDateTime createdAt;
 
 	public Integer getId() {
 		return id;
@@ -54,11 +57,11 @@ public class Mention {
 		return this;
 	}
 
-	public String getCreatedAt() {
+	public ZonedDateTime getCreatedAt() {
 		return createdAt;
 	}
 
-	public Mention setCreatedAt(String createdAt) {
+	public Mention setCreatedAt(ZonedDateTime createdAt) {
 		this.createdAt = createdAt;
 		return this;
 	}
@@ -66,60 +69,33 @@ public class Mention {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Mention [id=");
-		builder.append(id);
-		builder.append(", message=");
-		builder.append(message);
-		builder.append(", read=");
-		builder.append(read);
+		builder.append("Mention [");
+		if (id != null) {
+			builder.append("id=");
+			builder.append(id);
+			builder.append(", ");
+		}
+		if (authorId != null) {
+			builder.append("authorId=");
+			builder.append(authorId);
+			builder.append(", ");
+		}
+		if (link != null) {
+			builder.append("link=");
+			builder.append(link);
+			builder.append(", ");
+		}
+		if (message != null) {
+			builder.append("message=");
+			builder.append(message);
+			builder.append(", ");
+		}
+		if (read != null) {
+			builder.append("read=");
+			builder.append(read);
+		}
 		builder.append("]");
 		return builder.toString();
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((authorId == null) ? 0 : authorId.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((message == null) ? 0 : message.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		Mention other = (Mention) obj;
-		if (authorId == null) {
-			if (other.authorId != null) {
-				return false;
-			}
-		} else if (!authorId.equals(other.authorId)) {
-			return false;
-		}
-		if (id == null) {
-			if (other.id != null) {
-				return false;
-			}
-		} else if (!id.equals(other.id)) {
-			return false;
-		}
-		if (message == null) {
-			if (other.message != null) {
-				return false;
-			}
-		} else if (!message.equals(other.message)) {
-			return false;
-		}
-		return true;
 	}
 
 }

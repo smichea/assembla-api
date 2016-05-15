@@ -15,6 +15,7 @@ import com.assembla.Ticket;
 import com.assembla.TicketAssociation;
 import com.assembla.client.AssemblaRequest;
 import com.assembla.client.AssemblaResponse;
+import com.assembla.enums.TicketRelationship;
 import com.assembla.service.TicketAssociationService;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -109,7 +110,7 @@ public class TicketAssociationServiceTest extends ServiceTest {
 		TicketAssociation association = new TicketAssociation();
 		association.setId(123456);
 		association.setTicket2Id(100);
-		association.setRelationship(1);
+		association.setRelationship(TicketRelationship.CHILD);
 		request.withBody(association);
 
 		ticketAssociationService.update(ticket, association);
@@ -128,7 +129,7 @@ public class TicketAssociationServiceTest extends ServiceTest {
 
 		TicketAssociation association = new TicketAssociation();
 		association.setTicket2Id(100);
-		association.setRelationship(1);
+		association.setRelationship(TicketRelationship.CHILD);
 
 		ticketAssociationService.update(ticket, association);
 	}
@@ -140,7 +141,7 @@ public class TicketAssociationServiceTest extends ServiceTest {
 
 		// No ticket 2 id
 		TicketAssociation association = new TicketAssociation();
-		association.setRelationship(1);
+		association.setRelationship(TicketRelationship.BLOCK);
 
 		ticketAssociationService.update(ticket, association);
 	}

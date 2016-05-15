@@ -1,6 +1,7 @@
 package com.assembla;
 
 
+import com.assembla.enums.State;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 @JsonRootName("status")
@@ -9,7 +10,7 @@ public class TicketStatus {
 	public Integer id;
 	public String spaceToolId;
 	public String name;
-	public Integer state;
+	public State state;
 	public Integer listOrder;
 	public String createdAt;
 	public String updatedAt;
@@ -38,11 +39,11 @@ public class TicketStatus {
 		this.name = name;
 	}
 
-	public Integer getState() {
+	public State getState() {
 		return state;
 	}
 
-	public void setState(Integer state) {
+	public void setState(State state) {
 		this.state = state;
 	}
 
@@ -71,98 +72,31 @@ public class TicketStatus {
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((listOrder == null) ? 0 : listOrder.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((spaceToolId == null) ? 0 : spaceToolId.hashCode());
-		result = prime * result + ((state == null) ? 0 : state.hashCode());
-		result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		TicketStatus other = (TicketStatus) obj;
-		if (createdAt == null) {
-			if (other.createdAt != null) {
-				return false;
-			}
-		} else if (!createdAt.equals(other.createdAt)) {
-			return false;
-		}
-		if (id == null) {
-			if (other.id != null) {
-				return false;
-			}
-		} else if (!id.equals(other.id)) {
-			return false;
-		}
-		if (listOrder == null) {
-			if (other.listOrder != null) {
-				return false;
-			}
-		} else if (!listOrder.equals(other.listOrder)) {
-			return false;
-		}
-		if (name == null) {
-			if (other.name != null) {
-				return false;
-			}
-		} else if (!name.equals(other.name)) {
-			return false;
-		}
-		if (spaceToolId == null) {
-			if (other.spaceToolId != null) {
-				return false;
-			}
-		} else if (!spaceToolId.equals(other.spaceToolId)) {
-			return false;
-		}
-		if (state == null) {
-			if (other.state != null) {
-				return false;
-			}
-		} else if (!state.equals(other.state)) {
-			return false;
-		}
-		if (updatedAt == null) {
-			if (other.updatedAt != null) {
-				return false;
-			}
-		} else if (!updatedAt.equals(other.updatedAt)) {
-			return false;
-		}
-		return true;
-	}
-
-	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("TicketStatus [id=");
-		builder.append(id);
-		builder.append(", name=");
-		builder.append(name);
-		builder.append(", state=");
-		builder.append(state);
-		builder.append(", updatedAt=");
-		builder.append(updatedAt);
+		builder.append("TicketStatus [");
+		if (id != null) {
+			builder.append("id=");
+			builder.append(id);
+			builder.append(", ");
+		}
+		if (spaceToolId != null) {
+			builder.append("spaceToolId=");
+			builder.append(spaceToolId);
+			builder.append(", ");
+		}
+		if (name != null) {
+			builder.append("name=");
+			builder.append(name);
+			builder.append(", ");
+		}
+		if (state != null) {
+			builder.append("state=");
+			builder.append(state);
+		}
 		builder.append("]");
 		return builder.toString();
 	}
-	
-	
 
+	
 }

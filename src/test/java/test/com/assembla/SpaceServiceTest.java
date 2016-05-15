@@ -11,6 +11,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.assembla.Space;
@@ -144,17 +145,17 @@ public class SpaceServiceTest extends ServiceTest {
 		Space oldSpace = new Space();
 		oldSpace.setId("100");
 		
-		Space space = new Space();
-		space.setWikiName("test wiki name");
-		space.setName("test name");
-		
-		AssemblaRequest request = new AssemblaRequest("/spaces/100/copy.json", Space.class);
-		request.withBody(space);
 		// When we make the request
 		Space newSpace = spaceService.copySpace(oldSpace, "test name", "test wiki name");
 		// Then the request should look like the sample and return a space
 		assertNotNull(newSpace);
-		verify(assemblaClient).doPost((request));
+		
+		ArgumentCaptor<AssemblaRequest> captor = ArgumentCaptor.forClass(AssemblaRequest.class);
+		verify(assemblaClient).doPost((captor.capture()));
+		
+		Space space = (Space) captor.getValue().getBody().get();
+		assertEquals("test name", space.getName());
+		assertEquals("test wiki name", space.getWikiName());
 	}
 	
 	@Test(expected=IllegalArgumentException.class)

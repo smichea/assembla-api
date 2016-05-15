@@ -46,7 +46,7 @@ public class SpaceService extends AbstractBaseService {
 	public void deleteSpace(Space space) {
 		ObjectUtils.notNull(space, "space == null");
 		ObjectUtils.notNull(space.getId(), "space requires an id");
-		
+
 		String uri = format(AssemblaConstants.SPACE_BY_ID, space.getId());
 		AssemblaRequest request = new AssemblaRequest(uri);
 		client.doDelete(request);
@@ -56,15 +56,15 @@ public class SpaceService extends AbstractBaseService {
 		ObjectUtils.notNull(oldSpace, "oldSpace == null");
 		ObjectUtils.notNull(name, "name must not be null");
 		ObjectUtils.notNull(wikiName, "wikiName must not be null");
-		
+
 		String uri = format(AssemblaConstants.SPACE_COPY, oldSpace.getId());
 		AssemblaRequest request = new AssemblaRequest(uri, Space.class);
-		//Template for serializing
+		// Template for serializing
 		Space space = new Space();
 		space.setName(name);
 		space.setWikiName(wikiName);
 		request.withBody(space);
-		
+
 		return super.post(request);
 	}
 

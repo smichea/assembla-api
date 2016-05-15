@@ -117,7 +117,6 @@ public class AssemblaClient  {
 			// Otherwise we can return the response in requested format
 			charStream = response.body().charStream();
 			return new AssemblaResponse(mapper.readValue(charStream, type.get()), type.get());
-			
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new AssemblaAPIException("Error making request" , e);

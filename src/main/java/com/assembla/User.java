@@ -7,6 +7,9 @@ public class User {
 	private String name;
 	private String id;
 	private String organization;
+	private String picture;
+	private InstantMessenger im;
+	private InstantMessenger im2;
 
 	public String getPhone() {
 		return phone;
@@ -53,71 +56,71 @@ public class User {
 		return this;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((login == null) ? 0 : login.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((organization == null) ? 0 : organization.hashCode());
-		return result;
+	public String getPicture() {
+		return picture;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		User other = (User) obj;
-		if (id == null) {
-			if (other.id != null) {
-				return false;
-			}
-		} else if (!id.equals(other.id)) {
-			return false;
-		}
-		if (login == null) {
-			if (other.login != null) {
-				return false;
-			}
-		} else if (!login.equals(other.login)) {
-			return false;
-		}
-		if (name == null) {
-			if (other.name != null) {
-				return false;
-			}
-		} else if (!name.equals(other.name)) {
-			return false;
-		}
-		if (organization == null) {
-			if (other.organization != null) {
-				return false;
-			}
-		} else if (!organization.equals(other.organization)) {
-			return false;
-		}
-		return true;
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
+
+	public InstantMessenger getIm() {
+		return im;
+	}
+
+	public void setIm(InstantMessenger im) {
+		this.im = im;
+	}
+
+	public InstantMessenger getIm2() {
+		return im2;
+	}
+
+	public void setIm2(InstantMessenger im2) {
+		this.im2 = im2;
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("User [login=");
-		builder.append(login);
-		builder.append(", name=");
-		builder.append(name);
-		builder.append(", id=");
-		builder.append(id);
+		builder.append("User [");
+		if (phone != null) {
+			builder.append("phone=");
+			builder.append(phone);
+			builder.append(", ");
+		}
+		if (login != null) {
+			builder.append("login=");
+			builder.append(login);
+			builder.append(", ");
+		}
+		if (name != null) {
+			builder.append("name=");
+			builder.append(name);
+			builder.append(", ");
+		}
+		if (id != null) {
+			builder.append("id=");
+			builder.append(id);
+			builder.append(", ");
+		}
+		if (organization != null) {
+			builder.append("organization=");
+			builder.append(organization);
+			builder.append(", ");
+		}
+		if (im != null) {
+			builder.append("im=");
+			builder.append(im);
+			builder.append(", ");
+		}
+		if (im2 != null) {
+			builder.append("im2=");
+			builder.append(im2);
+		}
 		builder.append("]");
 		return builder.toString();
 	}
+
 
 }

@@ -1,5 +1,7 @@
 package com.assembla;
 
+import java.time.ZonedDateTime;
+
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 @JsonRootName(value = "ticket_comment")
@@ -7,10 +9,10 @@ public class TicketComment {
 
 	private String ticketChanges;
 	private Integer id;
-	private String createdOn;
+	private ZonedDateTime createdOn;
 	private Integer ticketId;
 	private String comment;
-	private String updatedAt;
+	private ZonedDateTime updatedAt;
 
 	private String userId;
 
@@ -32,11 +34,11 @@ public class TicketComment {
 		return this;
 	}
 
-	public String getCreatedOn() {
+	public ZonedDateTime getCreatedOn() {
 		return createdOn;
 	}
 
-	public TicketComment setCreatedOn(String createdOn) {
+	public TicketComment setCreatedOn(ZonedDateTime createdOn) {
 		this.createdOn = createdOn;
 		return this;
 	}
@@ -59,11 +61,11 @@ public class TicketComment {
 		return this;
 	}
 
-	public String getUpdatedAt() {
+	public ZonedDateTime getUpdatedAt() {
 		return updatedAt;
 	}
 
-	public TicketComment setUpdatedAt(String updatedAt) {
+	public TicketComment setUpdatedAt(ZonedDateTime updatedAt) {
 		this.updatedAt = updatedAt;
 		return this;
 	}
@@ -80,78 +82,30 @@ public class TicketComment {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("TicketComment [id=");
-		builder.append(id);
-		builder.append(", ticketId=");
-		builder.append(ticketId);
-		builder.append(", comment=");
-		builder.append(comment);
-		builder.append(", userId=");
-		builder.append(userId);
+		builder.append("TicketComment [");
+		if (id != null) {
+			builder.append("id=");
+			builder.append(id);
+			builder.append(", ");
+		}
+		if (ticketId != null) {
+			builder.append("ticketId=");
+			builder.append(ticketId);
+			builder.append(", ");
+		}
+		if (comment != null) {
+			builder.append("comment=");
+			builder.append(comment);
+			builder.append(", ");
+		}
+		if (userId != null) {
+			builder.append("userId=");
+			builder.append(userId);
+		}
 		builder.append("]");
 		return builder.toString();
 	}
-	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((comment == null) ? 0 : comment.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((ticketId == null) ? 0 : ticketId.hashCode());
-		result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
-		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
-		return result;
-	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		TicketComment other = (TicketComment) obj;
-		if (comment == null) {
-			if (other.comment != null) {
-				return false;
-			}
-		} else if (!comment.equals(other.comment)) {
-			return false;
-		}
-		if (id == null) {
-			if (other.id != null) {
-				return false;
-			}
-		} else if (!id.equals(other.id)) {
-			return false;
-		}
-		if (ticketId == null) {
-			if (other.ticketId != null) {
-				return false;
-			}
-		} else if (!ticketId.equals(other.ticketId)) {
-			return false;
-		}
-		if (updatedAt == null) {
-			if (other.updatedAt != null) {
-				return false;
-			}
-		} else if (!updatedAt.equals(other.updatedAt)) {
-			return false;
-		}
-		if (userId == null) {
-			if (other.userId != null) {
-				return false;
-			}
-		} else if (!userId.equals(other.userId)) {
-			return false;
-		}
-		return true;
-	}
+	
 
 }

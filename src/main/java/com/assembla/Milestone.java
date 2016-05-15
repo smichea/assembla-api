@@ -1,50 +1,56 @@
 package com.assembla;
 
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
+
+import com.assembla.enums.PlannerType;
+import com.assembla.enums.ReleaseLevel;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 @JsonRootName(value = "milestone")
 public class Milestone {
 
-	private Integer plannerType;
-	private String prettyReleseLevel;
-	private Object releaseNotes;
+	private PlannerType plannerType;
+	private String prettyReleaseLevel;
+	private String releaseNotes;
 	private String description;
-	private Object releaseLevel;
-	private Object completedDate;
+	private ReleaseLevel releaseLevel;
+	private LocalDate completedDate;
 	private String createdBy;
-	private Object dueDate;
+	private LocalDate dueDate;
 	private Boolean isCompleted;
 	private String updatedBy;
-	private String updatedAt;
-	private String createdAt;
+	private ZonedDateTime updatedAt;
+	private ZonedDateTime createdAt;
 	private String title;
-	private Object userId;
+	private String userId;
 	private String id;
 	private String spaceId;
+	private Double budget;
 
-	public Integer getPlannerType() {
+	public PlannerType getPlannerType() {
 		return plannerType;
 	}
 
-	public Milestone setPlannerType(Integer plannerType) {
+	public Milestone setPlannerType(PlannerType plannerType) {
 		this.plannerType = plannerType;
 		return this;
 	}
 
 	public String getPrettyReleseLevel() {
-		return prettyReleseLevel;
+		return prettyReleaseLevel;
 	}
 
 	public Milestone setPrettyReleseLevel(String prettyReleseLevel) {
-		this.prettyReleseLevel = prettyReleseLevel;
+		this.prettyReleaseLevel = prettyReleseLevel;
 		return this;
 	}
 
-	public Object getReleaseNotes() {
+	public String getReleaseNotes() {
 		return releaseNotes;
 	}
 
-	public Milestone setReleaseNotes(Object releaseNotes) {
+	public Milestone setReleaseNotes(String releaseNotes) {
 		this.releaseNotes = releaseNotes;
 		return this;
 	}
@@ -58,20 +64,20 @@ public class Milestone {
 		return this;
 	}
 
-	public Object getReleaseLevel() {
+	public ReleaseLevel getReleaseLevel() {
 		return releaseLevel;
 	}
 
-	public Milestone setReleaseLevel(Object releaseLevel) {
+	public Milestone setReleaseLevel(ReleaseLevel releaseLevel) {
 		this.releaseLevel = releaseLevel;
 		return this;
 	}
 
-	public Object getCompletedDate() {
+	public LocalDate getCompletedDate() {
 		return completedDate;
 	}
 
-	public Milestone setCompletedDate(Object completedDate) {
+	public Milestone setCompletedDate(LocalDate completedDate) {
 		this.completedDate = completedDate;
 		return this;
 	}
@@ -85,11 +91,11 @@ public class Milestone {
 		return this;
 	}
 
-	public Object getDueDate() {
+	public LocalDate getDueDate() {
 		return dueDate;
 	}
 
-	public Milestone setDueDate(Object dueDate) {
+	public Milestone setDueDate(LocalDate dueDate) {
 		this.dueDate = dueDate;
 		return this;
 	}
@@ -112,20 +118,20 @@ public class Milestone {
 		return this;
 	}
 
-	public String getUpdatedAt() {
+	public ZonedDateTime getUpdatedAt() {
 		return updatedAt;
 	}
 
-	public Milestone setUpdatedAt(String updatedAt) {
+	public Milestone setUpdatedAt(ZonedDateTime updatedAt) {
 		this.updatedAt = updatedAt;
 		return this;
 	}
 
-	public String getCreatedAt() {
+	public ZonedDateTime getCreatedAt() {
 		return createdAt;
 	}
 
-	public Milestone setCreatedAt(String createdAt) {
+	public Milestone setCreatedAt(ZonedDateTime createdAt) {
 		this.createdAt = createdAt;
 		return this;
 	}
@@ -139,11 +145,11 @@ public class Milestone {
 		return this;
 	}
 
-	public Object getUserId() {
+	public String getUserId() {
 		return userId;
 	}
 
-	public Milestone setUserId(Object userId) {
+	public Milestone setUserId(String userId) {
 		this.userId = userId;
 		return this;
 	}
@@ -166,71 +172,41 @@ public class Milestone {
 		return this;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((spaceId == null) ? 0 : spaceId.hashCode());
-		result = prime * result + ((title == null) ? 0 : title.hashCode());
-		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
-		return result;
+	public Double getBudget() {
+		return budget;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		Milestone other = (Milestone) obj;
-		if (id == null) {
-			if (other.id != null) {
-				return false;
-			}
-		} else if (!id.equals(other.id)) {
-			return false;
-		}
-		if (spaceId == null) {
-			if (other.spaceId != null) {
-				return false;
-			}
-		} else if (!spaceId.equals(other.spaceId)) {
-			return false;
-		}
-		if (title == null) {
-			if (other.title != null) {
-				return false;
-			}
-		} else if (!title.equals(other.title)) {
-			return false;
-		}
-		if (userId == null) {
-			if (other.userId != null) {
-				return false;
-			}
-		} else if (!userId.equals(other.userId)) {
-			return false;
-		}
-		return true;
+	public Milestone setBudget(Double budget) {
+		this.budget = budget;
+		return this;
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Milestone [title=");
-		builder.append(title);
-		builder.append(", id=");
-		builder.append(id);
-		builder.append(", spaceId=");
-		builder.append(spaceId);
+		builder.append("Milestone [");
+		if (description != null) {
+			builder.append("description=");
+			builder.append(description);
+			builder.append(", ");
+		}
+		if (title != null) {
+			builder.append("title=");
+			builder.append(title);
+			builder.append(", ");
+		}
+		if (id != null) {
+			builder.append("id=");
+			builder.append(id);
+			builder.append(", ");
+		}
+		if (spaceId != null) {
+			builder.append("spaceId=");
+			builder.append(spaceId);
+		}
 		builder.append("]");
 		return builder.toString();
 	}
+
 
 }

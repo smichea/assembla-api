@@ -4,19 +4,19 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.assembla.HeirarchyType;
-import com.assembla.PermissionType;
-import com.assembla.Priority;
-import com.assembla.State;
+import com.assembla.enums.HeirarchyType;
+import com.assembla.enums.PermissionType;
+import com.assembla.enums.Priority;
+import com.assembla.enums.State;
 
 public class TicketTest {
 
 	@Test
 	public void hierarchyTypeCorrect() {
-		assertEquals(HeirarchyType.NO_PLAN.getValue(), 0);
-		assertEquals(HeirarchyType.SUB_TASK.getValue(), 1);
-		assertEquals(HeirarchyType.STORY.getValue(), 2);
-		assertEquals(HeirarchyType.EPIC.getValue(), 3);
+		assertEquals(HeirarchyType.NO_PLAN.getValue().intValue(), 0);
+		assertEquals(HeirarchyType.SUB_TASK.getValue().intValue(), 1);
+		assertEquals(HeirarchyType.STORY.getValue().intValue(), 2);
+		assertEquals(HeirarchyType.EPIC.getValue().intValue(), 3);
 	}
 	
 	@Test
@@ -29,21 +29,21 @@ public class TicketTest {
 
 	@Test
 	public void ticketStateCorrect() {
-		assertEquals(0, State.OPEN.getValue());
-		assertEquals(1, State.CLOSED.getValue());
+		assertEquals(1, State.OPEN.getValue().intValue());
+		assertEquals(0, State.CLOSED.getValue().intValue());
 	}
 
 	@Test
 	public void ticketByValue() {
-		assertEquals(State.OPEN, State.parse(0));
-		assertEquals(State.CLOSED, State.parse(1));
+		assertEquals(State.OPEN, State.parse(1));
+		assertEquals(State.CLOSED, State.parse(0));
 	}
 
 	@Test
 	public void permissionTypeCorrect() {
-		assertEquals(0, PermissionType.DEVELOPMENT.getValue());
-		assertEquals(1, PermissionType.SUPPORT_PRIVATE.getValue());
-		assertEquals(2, PermissionType.SUPPORT_PUBLIC.getValue());
+		assertEquals(0, PermissionType.DEVELOPMENT.getValue().intValue());
+		assertEquals(1, PermissionType.SUPPORT_PRIVATE.getValue().intValue());
+		assertEquals(2, PermissionType.SUPPORT_PUBLIC.getValue().intValue());
 	}
 
 	@Test
@@ -55,11 +55,11 @@ public class TicketTest {
 
 	@Test
 	public void ticketPriorityCorrect() {
-		assertEquals(1, Priority.HIGHEST.getValue());
-		assertEquals(2, Priority.HIGH.getValue());
-		assertEquals(3, Priority.NORMAL.getValue());
-		assertEquals(4, Priority.LOW.getValue());
-		assertEquals(5, Priority.LOWEST.getValue());
+		assertEquals(1, Priority.HIGHEST.getValue().intValue());
+		assertEquals(2, Priority.HIGH.getValue().intValue());
+		assertEquals(3, Priority.NORMAL.getValue().intValue());
+		assertEquals(4, Priority.LOW.getValue().intValue());
+		assertEquals(5, Priority.LOWEST.getValue().intValue());
 	}
 
 	@Test
