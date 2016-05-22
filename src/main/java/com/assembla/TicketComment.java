@@ -106,6 +106,4 @@ public class TicketComment {
 		return builder.toString();
 	}
 
-	
-
 }

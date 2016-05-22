@@ -62,7 +62,7 @@ public class TicketAssociationService extends AbstractBaseService {
 		ObjectUtils.notNull(association, "association == null");
 		ObjectUtils.notNull(association.getId(), "Association must have an id");
 		ObjectUtils.notNull(ticket.getNumber(), "ticket must have a number");
-		
+
 		String uri = format(AssemblaConstants.TICKET_ASSOCIATIONS_BY_ID, super.getSpaceId(), ticket.getNumber(),
 				association.getId());
 		AssemblaRequest request = new AssemblaRequest(uri);

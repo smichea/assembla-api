@@ -41,6 +41,4 @@ public class Report {
 		return builder.toString();
 	}
 
-
-
 }

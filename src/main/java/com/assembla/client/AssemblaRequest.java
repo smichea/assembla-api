@@ -1,9 +1,11 @@
 package com.assembla.client;
+
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Encapsulate request parameters for Assembla api
@@ -22,11 +24,11 @@ public class AssemblaRequest {
 		this.uri = uri;
 		this.type = type;
 	}
-	
+
 	public AssemblaRequest(String uri) {
 		this(uri, null);
 	}
-	
+
 	public AssemblaRequest withBody(Object body) {
 		this.body = body;
 		return this;
@@ -34,6 +36,7 @@ public class AssemblaRequest {
 
 	/**
 	 * Return type that this request will return
+	 * 
 	 * @return Optional wrapped type whcih this request will return
 	 */
 	public Optional<Class<?>> getType() {
@@ -54,24 +57,12 @@ public class AssemblaRequest {
 	}
 
 	protected String buildParameters() {
-		Set<String> keys = this.parameters.keySet();
-		if (keys.isEmpty()) {
+		if (this.parameters.isEmpty()) {
 			return "";
 		}
-		StringBuilder sb = new StringBuilder();
-		boolean isFirst = true;
-
-		for (String s : keys) {
-			if (isFirst) {
-				sb.append("?");
-				isFirst = false;
-			} else {
-				sb.append("&");
-			}
-			sb.append(s).append("=").append(parameters.get(s));
-		}
-
-		return sb.toString();
+		return "?" + this.parameters.entrySet().stream()
+		.map(e -> e.getKey() + "=" + e.getValue())
+		.collect(Collectors.joining("&"));
 	}
 
 	public final String getFullURI() {
@@ -141,6 +132,11 @@ public class AssemblaRequest {
 
 	public Optional<Object> getBody() {
 		return Optional.ofNullable(body);
+	}
+
+	public AssemblaRequest addAllParameters(Map<String, Object> params) {
+		this.parameters.putAll(params);
+		return this;
 	}
 
 }

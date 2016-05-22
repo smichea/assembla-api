@@ -139,5 +139,4 @@ public class CustomField {
 		return builder.toString();
 	}
 
-
 }

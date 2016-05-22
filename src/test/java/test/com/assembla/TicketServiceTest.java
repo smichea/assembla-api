@@ -1,11 +1,16 @@
 package test.com.assembla;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static org.hamcrest.collection.IsMapContaining.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,11 +22,14 @@ import com.assembla.CustomReport;
 import com.assembla.Document;
 import com.assembla.Tag;
 import com.assembla.Ticket;
+import com.assembla.client.AssemblaConstants;
 import com.assembla.client.AssemblaRequest;
 import com.assembla.client.AssemblaResponse;
 import com.assembla.client.PagedAssemblaRequest;
 import com.assembla.client.PagedIterator;
+import com.assembla.enums.TicketReport;
 import com.assembla.exception.AssemblaAPIException;
+import com.assembla.service.TicketRequest;
 import com.assembla.service.TicketService;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -201,6 +209,29 @@ public class TicketServiceTest extends ServiceTest {
 		when(assemblaClient.doPost(Matchers.any(AssemblaRequest.class))).thenThrow(new AssemblaAPIException("Error making request"));
 		Ticket ticket = ticketService.createTicket(new Ticket());
 		assertNull("Ticket should be null", ticket);
+	}
+	
+	@Test
+	public void getTicketsWithParameters() {
+		TicketRequest ticketRequest = new TicketRequest.Builder()
+		.report(TicketReport.ACTIVE_BY_USER)
+		.sortBy("id")
+		.page(2)
+		.pageSize(60)
+		.desc().build();
+		
+		PagedIterator<Ticket> tickets = ticketService.get(ticketRequest);
+		Map<String, Object> parameters = tickets.getRequest().getParameters();
+		
+		//Non paging parameters
+		assertThat(parameters, hasEntry("report", 3));
+		assertThat(parameters, hasEntry("sort_order", "desc"));
+		assertThat(parameters, hasEntry("sort_by", "id"));
+		
+		//paging parameters
+		assertEquals(tickets.getRequest().getPage(), 2);
+		assertEquals(tickets.getRequest().getPageSize(), 60);
+		
 	}
 	
 	

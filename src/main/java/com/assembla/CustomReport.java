@@ -43,5 +43,4 @@ public class CustomReport {
 		return builder.toString();
 	}
 
-
 }

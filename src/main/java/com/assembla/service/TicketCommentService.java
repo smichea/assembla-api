@@ -1,4 +1,5 @@
 package com.assembla.service;
+
 import static java.lang.String.format;
 
 import com.assembla.Ticket;
@@ -29,7 +30,7 @@ public class TicketCommentService extends AbstractBaseService {
 	public TicketComment getTicketComment(Ticket ticket, int commentId) {
 		String uri = format(AssemblaConstants.TICKET_COMMENT, super.getSpaceId(), ticket.getNumber(), commentId);
 		AssemblaRequest request = new AssemblaRequest(uri, TicketComment.class);
-		return super.get(request,format("No ticket with id %d for ticket %d exists", commentId, ticket.getNumber()));
+		return super.get(request, format("No ticket with id %d for ticket %d exists", commentId, ticket.getNumber()));
 	}
 
 	public TicketComment createTicketComment(Ticket ticket, TicketComment newTicketComment) {
@@ -47,8 +48,8 @@ public class TicketCommentService extends AbstractBaseService {
 
 		String uri = format(AssemblaConstants.TICKET_COMMENT, super.getSpaceId(), ticket.getNumber(), ticketComment.getId());
 		AssemblaRequest request = new AssemblaRequest(uri);
-		request.withBody(ticketComment);	
+		request.withBody(ticketComment);
 		client.doPut(request);
 	}
-	
+
 }

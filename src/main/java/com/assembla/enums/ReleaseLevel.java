@@ -25,5 +25,4 @@ public enum ReleaseLevel implements IntValuedEnum {
 		return ValuedEnum.parse(value, ReleaseLevel.values());
 	}
 
-
 }

@@ -52,6 +52,7 @@ public final class PagedIterator<T> implements Iterator<Collection<T>>, Iterable
 				request.getPage() + 1,
 				request.getPageSize()
 			);
+			request.addAllParameters(lastRequest.getParameters());
 		}
 		
 		return items;

@@ -28,22 +28,24 @@ public  final class PagedAssemblaRequest extends AssemblaRequest {
 	
 	@Override
 	protected String buildParameters() {
-		String pagingParameters = new StringBuilder()
-		.append(AssemblaConstants.PAGE_PARAMETER)
+		StringBuilder sb = new StringBuilder();
+		String parameters = super.buildParameters();
+		if(parameters.isEmpty()) {
+			sb.append("?");
+		}else {
+			sb.append(parameters)
+			.append("&");
+		}
+		
+		sb.append(AssemblaConstants.PAGE_PARAMETER)
 		.append("=")
 		.append(page)
 		.append("&")
 		.append(AssemblaConstants.PAGE_SIZE_PARAMETER)
 		.append("=")
-		.append(pageSize)
-		.toString();
+		.append(pageSize);
 		
-		String parameters = super.buildParameters();
-		if(parameters.isEmpty()) {
-			return "?" + pagingParameters;
-		}else {
-			return "&" + pagingParameters;
-		}
+		return sb.toString();
 	}
 
 	@Override
@@ -75,7 +77,5 @@ public  final class PagedAssemblaRequest extends AssemblaRequest {
 		}
 		return true;
 	}
-
-
 
 }

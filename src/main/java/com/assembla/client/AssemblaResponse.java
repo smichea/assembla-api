@@ -1,4 +1,5 @@
 package com.assembla.client;
+
 import java.util.Optional;
 
 public class AssemblaResponse {
@@ -10,11 +11,11 @@ public class AssemblaResponse {
 		this.value = value;
 		this.type = type;
 	}
-	
+
 	public AssemblaResponse(Object value) {
 		this(value, null);
 	}
-	
+
 	public AssemblaResponse(Class<?> type) {
 		this(null, type);
 	}

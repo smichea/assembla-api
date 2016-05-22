@@ -44,7 +44,7 @@ public class TagService extends AbstractBaseService {
 	public PagedIterator<Ticket> getTicketsForTag(Tag tag) {
 		ObjectUtils.notNull(tag, "tag == null");
 		ObjectUtils.notNull(tag.getId(), "tag requires an id");
-		
+
 		String uri = format(AssemblaConstants.TICKETS_BY_TAG, super.getSpaceId(), tag.getId());
 		PagedAssemblaRequest request = new PagedAssemblaRequest(uri, Tag[].class);
 		return new PagedIterator<>(request, client);
@@ -58,7 +58,7 @@ public class TagService extends AbstractBaseService {
 
 	public Tag createTag(Tag tag) {
 		ObjectUtils.notNull(tag, "tag == null");
-		
+
 		String uri = format(AssemblaConstants.TAGS, super.getSpaceId());
 		AssemblaRequest request = new AssemblaRequest(uri, Tag.class);
 		request.withBody(tag);
@@ -78,7 +78,7 @@ public class TagService extends AbstractBaseService {
 	public void deleteTag(Tag tag) {
 		ObjectUtils.notNull(tag, "tag == null");
 		ObjectUtils.notNull(tag.getId(), "tag requires an id");
-		
+
 		String uri = format(AssemblaConstants.TAG_BY_ID, super.getSpaceId(), tag.getId());
 		AssemblaRequest request = new AssemblaRequest(uri);
 		client.doDelete(request);

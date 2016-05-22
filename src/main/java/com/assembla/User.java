@@ -122,5 +122,4 @@ public class User {
 		return builder.toString();
 	}
 
-
 }

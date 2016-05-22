@@ -14,6 +14,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import com.assembla.Ticket;
 import com.assembla.TicketComment;
+import com.assembla.client.AssemblaConstants;
 import com.assembla.client.AssemblaRequest;
 import com.assembla.client.AssemblaResponse;
 import com.assembla.client.PagedIterator;
@@ -36,7 +37,7 @@ public class TicketCommentServiceTest extends ServiceTest {
 		Ticket ticket = new Ticket();
 		ticket.setNumber(100);
 		PagedIterator<TicketComment> it =ticketCommentService.getTicketComments(ticket);
-		assertEquals("Request.getFullURI is incorrect","/spaces/test_space_id/tickets/100/ticket_comments.json?page=1&per_page=25",it.getRequest().getFullURI()); 
+		assertEquals("Request.getFullURI is incorrect","/spaces/test_space_id/tickets/100/ticket_comments.json?page=1&per_page="+AssemblaConstants.DEFAULT_PAGE_SIZE,it.getRequest().getFullURI()); 
 		assertNotNull("PagedIterator == null", it);
 	}
 	

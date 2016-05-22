@@ -1,7 +1,10 @@
 package com.assembla.service;
+
 import static java.lang.String.format;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.assembla.CustomReport;
 import com.assembla.Document;
@@ -57,7 +60,7 @@ public class TicketService extends AbstractBaseService {
 	}
 
 	public List<Tag> getAllTagsForTicket(int ticketNumber) {
-		String uri = format(AssemblaConstants.TAGS_FOR_TICKET, super.getSpaceId(), ticketNumber	);
+		String uri = format(AssemblaConstants.TAGS_FOR_TICKET, super.getSpaceId(), ticketNumber);
 		AssemblaRequest request = new AssemblaRequest(uri, Tag[].class);
 		return super.getList(request);
 	}
@@ -87,7 +90,7 @@ public class TicketService extends AbstractBaseService {
 	public void deleteTicket(Ticket ticket) {
 		ObjectUtils.notNull(ticket, "ticket == null");
 		ObjectUtils.notNull(ticket.getNumber(), "ticket requires a number");
-		
+
 		String uri = format(AssemblaConstants.TICKET_DELETE, super.getSpaceId(), ticket.getNumber());
 		AssemblaRequest request = new AssemblaRequest(uri);
 		client.doDelete(request);
@@ -99,5 +102,23 @@ public class TicketService extends AbstractBaseService {
 		request.withBody(ticket);
 		return super.post(request);
 	}
-	
+
+	public PagedIterator<Ticket> get(TicketRequest ticketRequest) {
+		String uri = format(AssemblaConstants.TICKETS_BY_SPACE, super.getSpaceId());
+		PagedAssemblaRequest request = new PagedAssemblaRequest(
+			uri,
+			Ticket[].class, 
+			ticketRequest.getPageNumber(), 
+			ticketRequest.getPageSize()
+		);
+
+		Map<String, Object> params = new HashMap<>();
+		ticketRequest.getReport().ifPresent(x -> params.put(AssemblaConstants.REPORT_PARAMETER, x.getValue()));
+		ticketRequest.getSortBy().ifPresent(x -> params.put(AssemblaConstants.SORT_BY_PARAMETER, x));
+		ticketRequest.getDirection().ifPresent(x -> params.put(AssemblaConstants.SORT_DIRECTION_PARAMETER, x.getValue()));
+		request.addAllParameters(params);
+		
+		return new PagedIterator<>(request, client);
+	}
+
 }

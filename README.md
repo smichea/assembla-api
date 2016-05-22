@@ -11,6 +11,7 @@ Assembla API documentation can be found [here](https://api-doc.assembla.com/cont
 
 | Type                           | Supported |
 |--------------------------------|-----------|
+| Activity                       | Yes       | 
 | Mentions                       | Yes       |
 | Users                          | Partial   |
 | Spaces                         | Yes       |

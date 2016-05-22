@@ -24,4 +24,5 @@ public enum TeamTabRole implements IntValuedEnum {
 	public static TeamTabRole parse(int value) {
 		return ValuedEnum.parse(value, TeamTabRole.values());
 	}
+	
 }

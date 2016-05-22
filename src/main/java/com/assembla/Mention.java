@@ -1,6 +1,5 @@
 package com.assembla;
 
-import java.time.LocalTime;
 import java.time.ZonedDateTime;
 
 public class Mention {

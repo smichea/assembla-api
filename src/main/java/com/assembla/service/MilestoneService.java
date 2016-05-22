@@ -56,7 +56,7 @@ public class MilestoneService extends AbstractBaseService {
 	public void update(Milestone milestone) {
 		ObjectUtils.notNull(milestone, "milestone == null");
 		ObjectUtils.notNull(milestone, "milestone requires a id");
-		
+
 		AssemblaRequest request = new AssemblaRequest(format(AssemblaConstants.MILESTONE_BY_ID, super.getSpaceId(),
 				milestone.getId()), Milestone.class);
 		request.withBody(milestone);
@@ -66,7 +66,7 @@ public class MilestoneService extends AbstractBaseService {
 	public void delete(Milestone milestone) {
 		ObjectUtils.notNull(milestone, "milestone == null");
 		ObjectUtils.notNull(milestone, "milestone requires a id");
-		
+
 		AssemblaRequest request = new AssemblaRequest(format(AssemblaConstants.MILESTONE_BY_ID, super.getSpaceId(),
 				milestone.getId()), Milestone.class);
 		request.withBody(milestone);

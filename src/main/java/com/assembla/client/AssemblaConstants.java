@@ -59,7 +59,7 @@ public interface AssemblaConstants {
 	/**
 	 * Default page size when making request which returns paginated results
 	 */
-	int DEFAULT_PAGE_SIZE = 25;
+	int DEFAULT_PAGE_SIZE = 75;
 	/**
 	 * Media Type for JSON
 	 */
@@ -241,9 +241,37 @@ public interface AssemblaConstants {
 	/*
 	 * URI for retrieving space tool by id
 	 */
-	String SPACE_TOOLS_ID = "/spaces/%s/space_tools/%s.json" ;
+	String SPACE_TOOLS_ID = "/spaces/%s/space_tools/%s.json";
 	/*
 	 * URI for adding a new space tool to a space
 	 */
 	String SPACE_TOOLS_ADD = "/spaces/%s/space_tools/%d/add.json";
+	/**
+	 * URI for retrieving user activity feed
+	 */
+	String ACTIVITY = "/activity.json";
+	/**
+	 * yyy-MM-dd HH:mm date format
+	 */
+	String YYYY_MM_DD_HH_MM = "yyyy-MM-dd HH:mm";
+	/*
+	 * Parameter used to specify from date
+	 */
+	String DATE_FROM_PARAMETER = "from";
+	/*
+	 * Parameter used to specify to date
+	 */
+	String DATE_TO_PARAMETER = "to";
+	/*
+	 * Parameter used to specify report to use when retrieving tickets
+	 */
+	String REPORT_PARAMETER = "report";
+	/*
+	 * Parameter used to specify field to sort on when retrieving tickets
+	 */
+	String SORT_BY_PARAMETER = "sort_by";
+	/*
+	 * Parameter used to specify sort direction to use when retrieving tickets
+	 */
+	String SORT_DIRECTION_PARAMETER = "sort_order";
 }

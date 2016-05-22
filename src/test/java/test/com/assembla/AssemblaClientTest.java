@@ -1,8 +1,7 @@
 package test.com.assembla;
-import static org.hamcrest.CoreMatchers.hasItems;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 
+import static org.hamcrest.CoreMatchers.hasItems;
+import static org.junit.Assert.*;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -79,12 +78,13 @@ public class AssemblaClientTest {
 	public void createPagedRequestTest() {
 		//Given a new paged resquest
 		PagedAssemblaRequest pagedRequest = new PagedAssemblaRequest("paged_test",Ticket[].class);
-
+		pagedRequest.addParam("key", "value");
 		//When we interogate the object then all of the values have been initalised to the default value 
 		assertEquals("Default page size is not set correcty", AssemblaConstants.DEFAULT_PAGE_SIZE, pagedRequest.getPageSize());
 		assertEquals("Default page is not set correcty", AssemblaConstants.DEFAULT_PAGE, pagedRequest.getPage());
 		
 		StringBuilder sb = new StringBuilder("paged_test?")
+		.append("key=value&")
 		.append(AssemblaConstants.PAGE_PARAMETER)
 		.append("=")
 		.append(pagedRequest.getPage())
@@ -133,6 +133,45 @@ public class AssemblaClientTest {
 		Mockito.verify(client).doGet(Mockito.any(AssemblaRequest.class));
 	}
 	
+	
+	@Test
+	public void makePagedGETRequestWithParamTest() {
+		//Given a paged request with default page settings
+		AssemblaClient client = Mockito.mock(AssemblaClient.class);
+		PagedAssemblaRequest pagedRequest = new PagedAssemblaRequest("paged_test", Ticket[].class);
+		pagedRequest.addParam("key", "value");
+		PagedIterator<Ticket> it = new PagedIterator<>(pagedRequest, client);
+		
+		Ticket[] ticketList = new Ticket[25];
+		Arrays.fill(ticketList, new Ticket());
+		Mockito.when(client.doGet(pagedRequest)).thenReturn(new AssemblaResponse(ticketList , Ticket[].class));
+		
+		StringBuilder sb = new StringBuilder("paged_test?")
+		.append("key=value&")
+		.append(AssemblaConstants.PAGE_PARAMETER)
+		.append("=")
+		.append(1)
+		.append("&")
+		.append(AssemblaConstants.PAGE_SIZE_PARAMETER)
+		.append("=")
+		.append(AssemblaConstants.DEFAULT_PAGE_SIZE);	
+		
+		assertEquals("URL for next request does not have correct parameters", sb.toString(),  it.getRequest().getFullURI());
+		it.next();
+		
+		 sb = new StringBuilder("paged_test?")
+		.append("key=value&")
+		.append(AssemblaConstants.PAGE_PARAMETER)
+		.append("=")
+		.append(2)
+		.append("&")
+		.append(AssemblaConstants.PAGE_SIZE_PARAMETER)
+		.append("=")
+		.append(AssemblaConstants.DEFAULT_PAGE_SIZE);	
+		
+		 assertEquals("URL for next request does not have correct parameters", sb.toString(),  it.getRequest().getFullURI());
+	}
+	
 	@Test()
 	public void pagedIteratorNoElementTest() {
 		AssemblaClient client = Mockito.mock(AssemblaClient.class);
@@ -160,6 +199,25 @@ public class AssemblaClientTest {
 	@Test(expected=IllegalArgumentException.class)
 	public void pagedRequestHasToBeArrayTest() {
 		new PagedAssemblaRequest("paged_test", Ticket.class);
+	}
+	
+	@Test
+	public void assemblaRequestAddAllParameters() {
+		AssemblaRequest request = new AssemblaRequest("test_url", Ticket.class);
+		Map<String, Object> params = new HashMap<>();
+		params.put("key", "value");
+		params.put("key2", "value2");
+		request.addAllParameters(params);
+		request.addParam("key3", "value3");
+		
+		assertTrue("key does not exist in parameters", request.getParameters().containsKey("key"));
+		assertEquals("key has wrong value in parameters", "value" , request.getParameters().get("key"));
+		
+		assertTrue("key2 does not exist in parameters", request.getParameters().containsKey("key2"));
+		assertEquals("key2 has wrong value in parameters", "value2" , request.getParameters().get("key2"));
+
+		assertTrue("key3 does not exist in parameters", request.getParameters().containsKey("key3"));
+		assertEquals("key3 has wrong value in parameters", "value3" , request.getParameters().get("key3"));
 	}
 	
 }
