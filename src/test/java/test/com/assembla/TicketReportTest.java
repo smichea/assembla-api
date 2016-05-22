@@ -1,4 +1,4 @@
-package com.assembla.service;
+package test.com.assembla;
 
 import static org.junit.Assert.*;
 

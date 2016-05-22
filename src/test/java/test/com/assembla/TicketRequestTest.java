@@ -1,4 +1,4 @@
-package com.assembla.service;
+package test.com.assembla;
 
 import static org.junit.Assert.*;
 
@@ -10,6 +10,7 @@ import com.assembla.client.AssemblaConstants;
 import com.assembla.client.Paging;
 import com.assembla.client.Sort;
 import com.assembla.enums.TicketReport;
+import com.assembla.service.TicketRequest;
 
 public class TicketRequestTest {
 	@Test
@@ -24,7 +25,7 @@ public class TicketRequestTest {
 
 		assertEquals(2, request.getPageNumber());
 		assertEquals(50, request.getPageSize());
-		assertEquals(Sort.Direction.DESC, request.getDirection());
+		assertEquals(Sort.Direction.DESC, request.getDirection().get());
 		assertEquals("id", request.getSortBy().get());
 		assertEquals(TicketReport.ALL, request.getReport().get());
 	}

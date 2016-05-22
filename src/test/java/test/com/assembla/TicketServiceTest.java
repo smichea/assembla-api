@@ -6,7 +6,6 @@ import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +21,6 @@ import com.assembla.CustomReport;
 import com.assembla.Document;
 import com.assembla.Tag;
 import com.assembla.Ticket;
-import com.assembla.client.AssemblaConstants;
 import com.assembla.client.AssemblaRequest;
 import com.assembla.client.AssemblaResponse;
 import com.assembla.client.PagedAssemblaRequest;
