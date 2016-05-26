@@ -41,11 +41,9 @@ public class ActivityServiceTest extends ServiceTest {
 	public void returnPageOfActivityByDate() {
 		LocalDateTime dt1 = LocalDateTime.of(2016, Month.MAY, 1, 0, 0);
 		LocalDateTime dt2 = LocalDateTime.of(2016, Month.JUNE, 1, 0, 0);
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		DateRange range = new DateRange(dt1, dt2);
 
-		DateRange range = new DateRange(dt1, dt2, formatter);
-
-		PagedIterator<Event> events = activityService.get(range);
+		PagedIterator<Event> events = activityService.get(dt1, dt2);
 		PagedAssemblaRequest request = new PagedAssemblaRequest("/activity.json", Event[].class);
 		request.addParam("from", range.getFromString());
 		request.addParam("to", range.getToString());
@@ -58,12 +56,10 @@ public class ActivityServiceTest extends ServiceTest {
 
 	@Test
 	public void datePeriodWrapperTest() {
-
 		LocalDateTime dt1 = LocalDateTime.of(2016, Month.MAY, 1, 0, 0);
 		LocalDateTime dt2 = LocalDateTime.of(2016, Month.JUNE, 1, 0, 0);
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-		DateRange range = new DateRange(dt1, dt2, formatter);
+		DateRange range = new DateRange(dt1, dt2);
 		assertEquals(dt1, range.getFrom());
 		assertEquals(dt2, range.getTo());
 
@@ -71,33 +67,22 @@ public class ActivityServiceTest extends ServiceTest {
 		assertEquals("2016-06-01 00:00", range.getToString());
 	}
 	
-	@Test
-	public void nullDateRangeDefault() {
-		PagedIterator<Event> events = activityService.get(null);
-		PagedAssemblaRequest request = new PagedAssemblaRequest("/activity.json", Event[].class);
-		assertEquals("PagedAssemblaRequest not equal to expected value", request, events.getRequest());
-	}
-
 	@Test(expected = IllegalArgumentException.class)
 	public void datePeriodNullStart() {
 		LocalDateTime dt1 = LocalDateTime.of(2016, Month.MAY, 1, 0, 0);
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
-		DateRange range = new DateRange(null, dt1, formatter);
+		DateRange range = new DateRange(null, dt1);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void datePeriodNullEnd() {
 		LocalDateTime dt1 = LocalDateTime.of(2016, Month.MAY, 1, 0, 0);
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
-		DateRange range = new DateRange(dt1, null, formatter);
+		DateRange range = new DateRange(dt1, null);
 	}
 
 	@Test()
 	public void datePeriodFormatterDefault() {
 		LocalDateTime dt1 = LocalDateTime.of(2016, Month.MAY, 1, 0, 0);
-		DateRange range = new DateRange(dt1, dt1, null);
+		DateRange range = new DateRange(dt1, dt1);
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 		assertEquals(formatter.format(dt1), range.getFromString());
 	}
@@ -106,8 +91,7 @@ public class ActivityServiceTest extends ServiceTest {
 	public void datePeriodFormatterEndBeforeStart() {
 		LocalDateTime dt1 = LocalDateTime.of(2016, Month.MAY, 1, 0, 0);
 		LocalDateTime dt2 = LocalDateTime.of(2016, Month.MARCH, 1, 0, 0);
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-		DateRange range = new DateRange(dt1, dt2, formatter);
+		DateRange range = new DateRange(dt1, dt2);
 	}
 
 }

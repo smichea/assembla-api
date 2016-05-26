@@ -17,6 +17,7 @@ public class Event {
 	private String whatchanged;
 	private Ticket ticket;
 	private String commentOrDescription;
+	private String ticketOperation;
 
 	public String getObject() {
 		return object;
@@ -68,6 +69,10 @@ public class Event {
 
 	public String getCommentOrDescription() {
 		return commentOrDescription;
+	}
+	
+	public String getTicketOperation() {
+		return ticketOperation;
 	}
 
 	@Override

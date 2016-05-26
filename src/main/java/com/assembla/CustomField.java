@@ -3,13 +3,37 @@ package com.assembla;
 import java.time.ZonedDateTime;
 import java.util.List;
 
-import com.assembla.enums.FieldType;
+import com.assembla.enums.ValuedEnum;
 import com.assembla.serialization.StringToListDeserializer;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @JsonRootName(value = "custom_field")
 public class CustomField {
+
+	public enum FieldType implements ValuedEnum<String> {
+		TEXT("text"), NUMERIC("numeric"), TEAM_LIST("team list"), LIST("list"), DATE("date");
+
+		private String value;
+
+		FieldType(String value) {
+			this.value = value;
+		}
+
+		@Override
+		@JsonValue
+		public String getValue() {
+			return value;
+		}
+
+		@JsonCreator
+		public static FieldType parse(String value) {
+			return ValuedEnum.parse(value.toLowerCase(), FieldType.values());
+		}
+
+	}
 
 	private Integer id;
 	private String spaceToolId;

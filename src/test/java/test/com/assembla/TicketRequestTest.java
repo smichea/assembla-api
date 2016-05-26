@@ -6,10 +6,10 @@ import java.util.Optional;
 
 import org.junit.Test;
 
+import com.assembla.TicketReport;
 import com.assembla.client.AssemblaConstants;
 import com.assembla.client.Paging;
 import com.assembla.client.Sort;
-import com.assembla.enums.TicketReport;
 import com.assembla.service.TicketRequest;
 
 public class TicketRequestTest {
@@ -43,16 +43,16 @@ public class TicketRequestTest {
 	
 	@Test
 	public void cratePagingParameterObject() {
-		Paging paging = new Paging(25, 1);
+		Paging paging = new Paging(1, 25);
 		assertEquals(25, paging.size());
 		assertEquals(1, paging.page());
 	}
 
 	@Test
 	public void createNextPage() {
-		Paging paging = new Paging(25, 1).next();
-		assertEquals(25, paging.size());
-		assertEquals(2, paging.page());
+		Paging paging = new Paging(1, 25).next();
+		assertEquals(2, paging.size());
+		assertEquals(25, paging.page());
 	}
 
 	@Test

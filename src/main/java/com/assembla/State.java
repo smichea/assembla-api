@@ -1,11 +1,12 @@
-package com.assembla.enums;
+package com.assembla;
 
+import com.assembla.enums.IntValuedEnum;
+import com.assembla.enums.ValuedEnum;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum State implements IntValuedEnum {
-	CLOSED(0), 
-	OPEN(1);
+	CLOSED(0), OPEN(1);
 
 	private int value;
 

@@ -274,4 +274,41 @@ public interface AssemblaConstants {
 	 * Parameter used to specify sort direction to use when retrieving tickets
 	 */
 	String SORT_DIRECTION_PARAMETER = "sort_order";
+	/*
+	 * URI for retrieving merge requests
+	 */
+	String MERGE_REQUESTS = "/spaces/%s/space_tools/%d/merge_requests.json";
+	/*
+	 * URI for retrieving merge request by id
+	 */
+	String MERGE_REQUEST_BY_ID = "/spaces/%s/space_tools/%s/merge_requests/%d.json";
+	/*
+	 * URI for retrieving comments for merge request URI for retrieving comments
+	 * for merge request
+	 */
+	String MERGE_REQUEST_COMMENTS = "/spaces/%s/space_tools/%s/merge_requests/%d/comments.json";
+	/*
+	 * URI for applying and closing merge request by id
+	 */
+	String MERGE_AND_CLOSE = "/spaces/%s/space_tools/%s/merge_requests/%d/merge_and_close.json";
+	/*
+	 * URI for ignoring merge request by id
+	 */
+	String MERGE_REQUEST_IGNORE = "/spaces/%s/space_tools/%s/merge_requests/%d/ignore.json";
+	/*
+	 * URI for retrieving tickets associated to a merge request
+	 */
+	String MERGE_REQUEST_TICKETS = "/spaces/%s/space_tools/%s/merge_requests/%d/tickets.json";
+	/*
+	 * URI for retrieving versions of a merge request
+	 */
+	String MERGE_REQUEST_VERSIONS = "/spaces/%s/space_tools/%s/merge_requests/%d/versions.json";
+	/*
+	 * URI for retrieving merge request version
+	 */
+	String MERGE_REQUEST_VERSION = "/spaces/%s/space_tools/%s/merge_requests/%d/versions/%d.json";
+	/*
+	 * URI for retrieving merge request version comments
+	 */
+	String MERGE_REQUEST_VERSION_COMMENTS = "/spaces/%s/space_tools/%s/merge_requests/%d/versions/%d/comments.json";
 }

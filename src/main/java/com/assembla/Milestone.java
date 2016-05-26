@@ -3,12 +3,59 @@ package com.assembla;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 
-import com.assembla.enums.PlannerType;
-import com.assembla.enums.ReleaseLevel;
+import com.assembla.enums.IntValuedEnum;
+import com.assembla.enums.ValuedEnum;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 @JsonRootName(value = "milestone")
 public class Milestone {
+
+	public enum PlannerType implements IntValuedEnum {
+		NONE(0), BACKLOG(1), CURRENT(2);
+
+		private int value;
+
+		PlannerType(int value) {
+			this.value = value;
+		}
+
+		@Override
+		@JsonGetter
+		public Integer getValue() {
+			return this.value;
+		}
+
+		@JsonCreator
+		public static PlannerType parse(int value) {
+			return ValuedEnum.parse(value, PlannerType.values());
+		}
+
+	}
+
+	public enum ReleaseLevel implements IntValuedEnum {
+		ALPHA(1), BETA(2), STABLE(3);
+
+		private int value;
+
+		ReleaseLevel(int value) {
+			this.value = value;
+		}
+
+		@Override
+		@JsonValue
+		public Integer getValue() {
+			return this.value;
+		}
+
+		@JsonCreator
+		public static ReleaseLevel parse(int value) {
+			return ValuedEnum.parse(value, ReleaseLevel.values());
+		}
+
+	}
 
 	private PlannerType plannerType;
 	private String prettyReleaseLevel;

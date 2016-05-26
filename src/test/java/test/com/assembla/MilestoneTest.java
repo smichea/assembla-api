@@ -1,12 +1,11 @@
 package test.com.assembla;
 
-
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.assembla.enums.PlannerType;
-import com.assembla.enums.ReleaseLevel;
+import com.assembla.Milestone.PlannerType;
+import com.assembla.Milestone.ReleaseLevel;
 
 public class MilestoneTest {
 
@@ -23,7 +22,7 @@ public class MilestoneTest {
 		assertEquals(PlannerType.BACKLOG, PlannerType.parse(1));
 		assertEquals(PlannerType.CURRENT, PlannerType.parse(2));
 	}
-	
+
 	@Test
 	public void releaseLevelValuesCorrect() {
 		assertEquals(1, ReleaseLevel.ALPHA.getValue().intValue());

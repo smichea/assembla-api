@@ -13,9 +13,9 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import com.assembla.Ticket;
 import com.assembla.TicketAssociation;
+import com.assembla.TicketAssociation.TicketRelationship;
 import com.assembla.client.AssemblaRequest;
 import com.assembla.client.AssemblaResponse;
-import com.assembla.enums.TicketRelationship;
 import com.assembla.service.TicketAssociationService;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -145,7 +145,7 @@ public class TicketAssociationServiceTest extends ServiceTest {
 
 		ticketAssociationService.update(ticket, association);
 	}
-	
+
 	@Test
 	public void deleteTicketAssociationTest() throws Exception {
 		when(assemblaClient.doDelete(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse());
@@ -153,10 +153,10 @@ public class TicketAssociationServiceTest extends ServiceTest {
 
 		Ticket ticket = new Ticket();
 		ticket.setNumber(200);
-		
+
 		TicketAssociation association = new TicketAssociation();
 		association.setId(100);
-		
+
 		ticketAssociationService.delete(ticket, association);
 		verify(assemblaClient).doDelete(request);
 	}
@@ -165,5 +165,5 @@ public class TicketAssociationServiceTest extends ServiceTest {
 	public void deleteAssociationBadArgTest() {
 		ticketAssociationService.delete(null, null);
 	}
-	
+
 }

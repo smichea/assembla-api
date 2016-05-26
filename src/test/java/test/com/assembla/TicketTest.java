@@ -4,10 +4,10 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.assembla.enums.HeirarchyType;
-import com.assembla.enums.PermissionType;
-import com.assembla.enums.Priority;
-import com.assembla.enums.State;
+import com.assembla.State;
+import com.assembla.Ticket.HeirarchyType;
+import com.assembla.Ticket.PermissionType;
+import com.assembla.Ticket.Priority;
 
 public class TicketTest {
 
@@ -18,7 +18,7 @@ public class TicketTest {
 		assertEquals(HeirarchyType.STORY.getValue().intValue(), 2);
 		assertEquals(HeirarchyType.EPIC.getValue().intValue(), 3);
 	}
-	
+
 	@Test
 	public void hierarchyByValue() {
 		assertEquals(HeirarchyType.NO_PLAN, HeirarchyType.parse(0));

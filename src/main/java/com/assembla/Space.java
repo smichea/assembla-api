@@ -4,23 +4,65 @@ import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.List;
 
-import com.assembla.enums.PublicPermission;
-import com.assembla.enums.SpaceStatus;
-import com.assembla.enums.TeamPermission;
-import com.assembla.enums.WatcherPermission;
+import com.assembla.enums.IntValuedEnum;
+import com.assembla.enums.ValuedEnum;
 import com.assembla.serialization.StringToListDeserializer;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @JsonRootName(value = "space")
 public class Space {
+
+	public enum SpaceStatus implements IntValuedEnum {
+		PROPOSED(0), ACTIVE(1), ARCHIVED(2), SHARED(4);
+
+		private int value;
+
+		private SpaceStatus(int value) {
+			this.value = value;
+		}
+
+		@Override
+		@JsonValue
+		public Integer getValue() {
+			return this.value;
+		}
+
+		@JsonCreator
+		public static SpaceStatus parse(int value) {
+			return ValuedEnum.parse(value, SpaceStatus.values());
+		}
+	}
+
+	public enum TeamTabRole implements IntValuedEnum {
+		ALL(0), WATCHERS_AND_USERS(10), MEMBERS_AND_USERS(50), OWNER(90);
+
+		private int value;
+
+		TeamTabRole(int value) {
+			this.value = value;
+		}
+
+		@JsonValue
+		public Integer getValue() {
+			return value;
+		}
+
+		@JsonCreator
+		public static TeamTabRole parse(int value) {
+			return ValuedEnum.parse(value, TeamTabRole.values());
+		}
+
+	}
 
 	private SpaceStatus status;
 	private Integer bannerHeight;
 	private String banner;
 	private String updatedAt;
 	private LocalDate lastPayerChangedAt;
-	private Integer teamTabRole;
+	private TeamTabRole teamTabRole;
 	private ZonedDateTime createdAt;
 	private Boolean approved;
 	@JsonDeserialize(using = StringToListDeserializer.class)
@@ -95,11 +137,11 @@ public class Space {
 		return this;
 	}
 
-	public Integer getTeamTabRole() {
+	public TeamTabRole getTeamTabRole() {
 		return teamTabRole;
 	}
 
-	public Space setTeamTabRole(Integer teamTabRole) {
+	public Space setTeamTabRole(TeamTabRole teamTabRole) {
 		this.teamTabRole = teamTabRole;
 		return this;
 	}

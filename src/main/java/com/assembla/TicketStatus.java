@@ -1,6 +1,5 @@
 package com.assembla;
 
-import com.assembla.enums.State;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 @JsonRootName("status")

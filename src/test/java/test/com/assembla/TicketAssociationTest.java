@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.assembla.enums.TicketRelationship;
+import com.assembla.TicketAssociation.TicketRelationship;
 
 public class TicketAssociationTest {
 

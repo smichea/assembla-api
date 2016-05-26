@@ -4,38 +4,38 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.assembla.enums.PublicPermission;
-import com.assembla.enums.SpaceStatus;
-import com.assembla.enums.TeamPermission;
-import com.assembla.enums.TeamTabRole;
-import com.assembla.enums.WatcherPermission;
+import com.assembla.PublicPermission;
+import com.assembla.TeamPermission;
+import com.assembla.WatcherPermission;
+import com.assembla.Space.SpaceStatus;
+import com.assembla.Space.TeamTabRole;
 
 public class SpaceTest {
-	
+
 	@Test
 	public void publicPermissionsCorrect() {
 		assertEquals(0, PublicPermission.NONE.getValue().intValue());
 		assertEquals(1, PublicPermission.READ.getValue().intValue());
 		assertEquals(2, PublicPermission.WRITE.getValue().intValue());
 	}
-	
+
 	@Test
 	public void publicPermissionsByValueCorrect() {
 		assertEquals(PublicPermission.NONE, PublicPermission.parse(0));
 		assertEquals(PublicPermission.READ, PublicPermission.parse(1));
 		assertEquals(PublicPermission.WRITE, PublicPermission.parse(2));
 	}
-	
+
 	@Test
 	public void watcherPermissionsCorrect() {
 		assertEquals(1, WatcherPermission.READ.getValue().intValue());
 	}
-	
+
 	@Test
 	public void watcherPermissionsByValueCorrect() {
 		assertEquals(WatcherPermission.READ, WatcherPermission.parse(1));
 	}
-	
+
 	@Test
 	public void spaceStatusCorrect() {
 		assertEquals(0, SpaceStatus.PROPOSED.getValue().intValue());
@@ -43,6 +43,7 @@ public class SpaceTest {
 		assertEquals(2, SpaceStatus.ARCHIVED.getValue().intValue());
 		assertEquals(4, SpaceStatus.SHARED.getValue().intValue());
 	}
+
 	@Test
 	public void spaceStatusByValue() {
 		assertEquals(SpaceStatus.PROPOSED, SpaceStatus.parse(0));
@@ -85,7 +86,7 @@ public class SpaceTest {
 		assertEquals(TeamPermission.WRITE, TeamPermission.parse(2));
 		assertEquals(TeamPermission.ALL, TeamPermission.parse(3));
 	}
-	
+
 	@Test(expected = IllegalArgumentException.class)
 	public void illegalTeamPermissionValue() {
 		TeamPermission.parse(999);

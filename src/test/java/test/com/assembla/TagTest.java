@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.assembla.enums.TagStatus;
+import com.assembla.Tag.TagStatus;
 
 public class TagTest {
 	@Test

@@ -2,11 +2,11 @@ package com.assembla.service;
 
 import java.util.Optional;
 
+import com.assembla.TicketReport;
 import com.assembla.client.AssemblaConstants;
 import com.assembla.client.Paging;
 import com.assembla.client.Sort;
 import com.assembla.client.Sort.Direction;
-import com.assembla.enums.TicketReport;
 
 public class TicketRequest {
 
@@ -15,7 +15,7 @@ public class TicketRequest {
 	private Sort sort;
 
 	public TicketRequest(Builder builder) {
-		this.paging = new Paging(builder.pageSize, builder.pageNumber);
+		this.paging = new Paging(builder.pageNumber, builder.pageSize);
 		this.sort = new Sort(builder.sortByField, builder.sortDirection);
 		this.report = builder.report;
 	}

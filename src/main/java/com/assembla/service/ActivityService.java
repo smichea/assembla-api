@@ -1,5 +1,7 @@
 package com.assembla.service;
 
+import java.time.LocalDateTime;
+
 import com.assembla.Event;
 import com.assembla.client.AssemblaClient;
 import com.assembla.client.AssemblaConstants;
@@ -17,10 +19,8 @@ public class ActivityService extends AbstractBaseService {
 		return new PagedIterator<>(request, super.client);
 	}
 
-	public PagedIterator<Event> get(DateRange range) {
-		if (range == null) {
-			return get();
-		}
+	public PagedIterator<Event> get(LocalDateTime start, LocalDateTime end) {
+		DateRange range = new DateRange(start, end);
 		PagedAssemblaRequest request = new PagedAssemblaRequest(AssemblaConstants.ACTIVITY, Event[].class);
 		request.addParam(AssemblaConstants.DATE_FROM_PARAMETER, range.getFromString());
 		request.addParam(AssemblaConstants.DATE_TO_PARAMETER, range.getToString());

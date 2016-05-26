@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.assembla.enums.FieldType;
+import com.assembla.CustomField.FieldType;
 
 public class CustomFieldTest {
 	@Test
@@ -24,20 +24,20 @@ public class CustomFieldTest {
 		assertEquals(FieldType.LIST, FieldType.parse("list"));
 		assertEquals(FieldType.DATE, FieldType.parse("date"));
 	}
-	
+
 	@Test
 	public void customFieldTypeByValueAnyCaseCorrect() {
 		assertEquals(FieldType.TEXT, FieldType.parse("TEXT"));
 		assertEquals(FieldType.TEXT, FieldType.parse("TExT"));
-		
+
 		assertEquals(FieldType.NUMERIC, FieldType.parse("numeRic"));
 		assertEquals(FieldType.NUMERIC, FieldType.parse("NumeRic"));
 		assertEquals(FieldType.TEAM_LIST, FieldType.parse("TEam list"));
 		assertEquals(FieldType.TEAM_LIST, FieldType.parse("TEam LIST"));
-		
+
 		assertEquals(FieldType.LIST, FieldType.parse("liSt"));
 		assertEquals(FieldType.LIST, FieldType.parse("LIST"));
-		
+
 		assertEquals(FieldType.DATE, FieldType.parse("dATe"));
 		assertEquals(FieldType.DATE, FieldType.parse("Date"));
 	}

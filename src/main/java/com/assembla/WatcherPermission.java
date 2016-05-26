@@ -1,4 +1,7 @@
-package com.assembla.enums;
+package com.assembla;
+
+import com.assembla.enums.IntValuedEnum;
+import com.assembla.enums.ValuedEnum;
 
 
 public enum WatcherPermission implements IntValuedEnum {

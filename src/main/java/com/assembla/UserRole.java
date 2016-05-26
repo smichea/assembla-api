@@ -2,11 +2,36 @@ package com.assembla;
 
 import java.time.ZonedDateTime;
 
-import com.assembla.enums.UserRoleStatus;
+import com.assembla.enums.IntValuedEnum;
+import com.assembla.enums.ValuedEnum;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 @JsonRootName("user_role")
 public class UserRole {
+	
+	public enum UserRoleStatus implements IntValuedEnum {
+		INVITED(1), ACCEPTED(2), REMOVED(3);
+
+		private int value;
+
+		UserRoleStatus(int value) {
+			this.value = value;
+		}
+
+		@Override
+		@JsonValue
+		public Integer getValue() {
+			return this.value;
+		}
+
+		@JsonCreator
+		public static UserRoleStatus parse(int value) {
+			return ValuedEnum.parse(value, UserRoleStatus.values());
+		}
+
+	}
 
 	public String invitedById;
 	public ZonedDateTime agreedTime;

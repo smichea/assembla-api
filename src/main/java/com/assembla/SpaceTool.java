@@ -2,9 +2,6 @@ package com.assembla;
 
 import java.time.ZonedDateTime;
 
-import com.assembla.enums.PublicPermission;
-import com.assembla.enums.TeamPermission;
-import com.assembla.enums.WatcherPermission;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 @JsonRootName("space_tool")

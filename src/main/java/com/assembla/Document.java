@@ -2,11 +2,35 @@ package com.assembla;
 
 import java.time.ZonedDateTime;
 
-import com.assembla.enums.AttachableType;
+import com.assembla.enums.ValuedEnum;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 @JsonRootName("document")
 public class Document {
+	
+	public enum AttachableType implements ValuedEnum<String> {
+		TICKET("Ticket"), FLOW("Flow"), MILESTONE("Milestone");
+
+		private String value;
+
+		private AttachableType(String value) {
+			this.value = value;
+		}
+
+		@Override
+		@JsonValue
+		public String getValue() {
+			return value;
+		}
+
+		@JsonCreator
+		public static AttachableType parse(String value) {
+			return ValuedEnum.parse(value, AttachableType.values());
+		}
+
+	}
 
 	private String name;
 	private String filename;

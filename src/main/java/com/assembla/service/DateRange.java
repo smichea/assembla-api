@@ -26,7 +26,7 @@ public class DateRange {
 	private final DateTimeFormatter formatter;
 	private final Duration duration;
 
-	public DateRange(LocalDateTime start, LocalDateTime end, DateTimeFormatter formatter) {
+	public DateRange(LocalDateTime start, LocalDateTime end) {
 		ObjectUtils.notNull(start, "Must enter start");
 		ObjectUtils.notNull(end, "Must enter end");
 
@@ -36,12 +36,8 @@ public class DateRange {
 
 		this.start = start;
 		this.end = end;
-		this.formatter = formatter != null ? formatter : DEFAULT_FORMATTER;
+		this.formatter = DEFAULT_FORMATTER;
 		this.duration = Duration.between(start, end);
-	}
-
-	public DateRange(LocalDateTime start, LocalDateTime end) {
-		this(start, end, null);
 	}
 
 	public LocalDateTime getFrom() {

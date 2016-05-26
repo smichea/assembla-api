@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.assembla.enums.AttachableType;
+import com.assembla.Document.AttachableType;
 
 public class DocumentTest {
 

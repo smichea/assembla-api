@@ -13,9 +13,9 @@ import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.assembla.SpaceTool;
+import com.assembla.WatcherPermission;
 import com.assembla.client.AssemblaRequest;
 import com.assembla.client.AssemblaResponse;
-import com.assembla.enums.WatcherPermission;
 import com.assembla.service.SpaceToolService;
 
 @RunWith(MockitoJUnitRunner.class)

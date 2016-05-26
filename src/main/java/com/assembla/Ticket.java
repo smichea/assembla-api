@@ -6,17 +6,82 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.assembla.enums.HeirarchyType;
-import com.assembla.enums.PermissionType;
-import com.assembla.enums.Priority;
-import com.assembla.enums.State;
+import com.assembla.enums.IntValuedEnum;
+import com.assembla.enums.ValuedEnum;
 import com.assembla.serialization.CustomFieldSerializer;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @JsonRootName(value = "ticket")
 public class Ticket {
+
+	public enum Priority implements IntValuedEnum {
+		HIGHEST(1), HIGH(2), NORMAL(3), LOW(4), LOWEST(5);
+
+		private int value;
+
+		Priority(int value) {
+			this.value = value;
+		}
+
+		@JsonValue
+		@Override
+		public Integer getValue() {
+			return value;
+		}
+
+		@JsonCreator
+		public static Priority parse(int priority) {
+			return ValuedEnum.parse(priority, Priority.values());
+		}
+	}
+
+	public enum PermissionType implements IntValuedEnum {
+		DEVELOPMENT(0), SUPPORT_PRIVATE(1), SUPPORT_PUBLIC(2);
+
+		private int value;
+
+		PermissionType(int value) {
+			this.value = value;
+		}
+
+		@JsonValue
+		@Override
+		public Integer getValue() {
+			return value;
+		}
+
+		@JsonCreator
+		public static PermissionType parse(int permission) {
+			return ValuedEnum.parse(permission, PermissionType.values());
+		}
+
+	}
+
+	public enum HeirarchyType implements IntValuedEnum {
+		NO_PLAN(0), SUB_TASK(1), STORY(2), EPIC(3);
+
+		public int value;
+
+		HeirarchyType(int value) {
+			this.value = value;
+		}
+
+		@JsonValue
+		@Override
+		public Integer getValue() {
+			return value;
+		}
+
+		@JsonCreator
+		public static HeirarchyType parse(int value) {
+			return ValuedEnum.parse(value, HeirarchyType.values());
+		}
+
+	}
 
 	private Integer id;
 	private Integer number;

@@ -1,12 +1,12 @@
-package com.assembla.enums;
+package com.assembla;
 
+import com.assembla.enums.IntValuedEnum;
+import com.assembla.enums.ValuedEnum;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum PublicPermission implements IntValuedEnum {
-	NONE(0), 
-	READ(1),
-	WRITE(2);
+	NONE(0), READ(1), WRITE(2);
 
 	private int value;
 

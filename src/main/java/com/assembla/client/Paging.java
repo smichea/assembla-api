@@ -5,7 +5,7 @@ public class Paging {
 	private final int size;
 	private final int page;
 
-	public Paging(int size, int page) {
+	public Paging(int page, int size) {
 		this.size = size;
 		this.page = page;
 	}

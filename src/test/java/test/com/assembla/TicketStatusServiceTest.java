@@ -10,10 +10,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import com.assembla.State;
 import com.assembla.TicketStatus;
 import com.assembla.client.AssemblaRequest;
 import com.assembla.client.AssemblaResponse;
-import com.assembla.enums.State;
 import com.assembla.service.TicketStatusService;
 
 @RunWith(MockitoJUnitRunner.class)

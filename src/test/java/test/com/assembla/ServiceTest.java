@@ -21,19 +21,19 @@ public abstract class ServiceTest {
 		when(assemblaClient.doGet(any(AssemblaRequest.class))).thenReturn(response);
 	}
 
-	public void mockGetWithError(String err) {
+	protected void mockGetWithError(String err) {
 		when(assemblaClient.doGet(any(AssemblaRequest.class))).thenThrow(new AssemblaAPIException(err));
 	}
 
-	public void mockPost(AssemblaResponse response) {
+	protected void mockPost(AssemblaResponse response) {
 		when(assemblaClient.doPost(any(AssemblaRequest.class))).thenReturn(response);
 	}
 
-	public void mockPut(AssemblaResponse response) {
+	protected void mockPut(AssemblaResponse response) {
 		when(assemblaClient.doPut(any(AssemblaRequest.class))).thenReturn(response);
 	}
 
-	public void mockDelete(AssemblaResponse response) {
+	protected void mockDelete(AssemblaResponse response) {
 		when(assemblaClient.doDelete(any(AssemblaRequest.class))).thenReturn(response);
 	}
 }

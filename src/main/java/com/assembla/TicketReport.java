@@ -1,4 +1,4 @@
-package com.assembla.enums;
+package com.assembla;
 
 public enum TicketReport {
 	ALL(0),
