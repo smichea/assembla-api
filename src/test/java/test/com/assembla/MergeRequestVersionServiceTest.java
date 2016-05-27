@@ -14,6 +14,7 @@ import org.junit.runner.RunWith;
 import com.assembla.MergeRequestComment;
 import com.assembla.MergeRequestCommentMessage;
 import com.assembla.MergeRequestVersion;
+import com.assembla.MergeRequestVote;
 import com.assembla.client.AssemblaRequest;
 import com.assembla.client.AssemblaResponse;
 import com.assembla.client.PagedAssemblaRequest;
@@ -91,7 +92,53 @@ public class MergeRequestVersionServiceTest extends ServiceTest {
 		MergeRequestComment response = mrvs.createComment(id, version, message);
 		assertNotNull(response);
 		verify(super.assemblaClient).doPost(request);
+	}
 
+	@Test
+	public void mergeRequestVersionVote() {
+		super.mockGet(new AssemblaResponse(new MergeRequestVote[10], MergeRequestVote[].class));
+		AssemblaRequest request = new AssemblaRequest(
+				"/spaces/test_space_id/space_tools/12/merge_requests/500/versions/1/votes.json", MergeRequestVote[].class);
+		int version = 1;
+		int id = 500;
+		List<MergeRequestVote> votes = mrvs.getVotes(id, version);
+		verify(assemblaClient).doGet(request);
+	}
+
+	@Test
+	public void mergeRequestVersionVoteUp() {
+		mockPost(new AssemblaResponse(new MergeRequestVote(), MergeRequestVote.class));
+		AssemblaRequest request = new AssemblaRequest(
+				"/spaces/test_space_id/space_tools/12/merge_requests/500/versions/1/votes/upvote.json", MergeRequestVote.class);
+
+		int id = 500;
+		int version = 1;
+		MergeRequestVote vote = mrvs.upvote(id, version);
+		verify(assemblaClient).doPost(request);
+	}
+
+	@Test
+	public void mergeRequestVersionVoteDown() {
+		mockPost(new AssemblaResponse(new MergeRequestVote(), MergeRequestVote.class));
+		AssemblaRequest request = new AssemblaRequest(
+				"/spaces/test_space_id/space_tools/12/merge_requests/500/versions/1/votes/downvote.json", MergeRequestVote.class);
+
+		int id = 500;
+		int version = 1;
+		MergeRequestVote vote = mrvs.downvote(id, version);
+		verify(assemblaClient).doPost(request);
+	}
+
+	@Test
+	public void mergeRequestVersionVoteDelete() {
+		mockPost(new AssemblaResponse(new MergeRequestVote(), MergeRequestVote.class));
+		AssemblaRequest request = new AssemblaRequest(
+				"/spaces/test_space_id/space_tools/12/merge_requests/500/versions/1/votes/delete.json", MergeRequestVote.class);
+
+		int id = 500;
+		int version = 1;
+		MergeRequestVote vote = mrvs.delete(id, version);
+		verify(assemblaClient).doPost(request);
 	}
 
 }

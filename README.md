@@ -30,8 +30,8 @@ Assembla API documentation can be found [here](https://api-doc.assembla.com/cont
 | Merge Requests                 | Yes       |
 | Merge Request Versions         | Yes       |
 | Merge Request Version Comments | Yes       |
-| Merge Request Version Votes    | No        |
-| Wiki Pages                     | No        |
+| Merge Request Version Votes    | Yes       |
+| Wiki Pages                     | Yes       | 
 | Wiki Page Versions             | No        |
 | Webhooks                       | No        |
 | Tasks                          | No        |

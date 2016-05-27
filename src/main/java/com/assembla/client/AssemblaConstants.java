@@ -311,4 +311,36 @@ public interface AssemblaConstants {
 	 * URI for retrieving merge request version comments
 	 */
 	String MERGE_REQUEST_VERSION_COMMENTS = "/spaces/%s/space_tools/%s/merge_requests/%d/versions/%d/comments.json";
+	/*
+	 * URI for retrieving merge request votes
+	 */
+	String MERGE_REQUEST_VOTES = "/spaces/%s/space_tools/%s/merge_requests/%d/versions/%d/votes.json";
+	/*
+	 * URI for voting up a merge request
+	 */
+	String MERGE_REQUEST_VOTE_UP = "/spaces/%s/space_tools/%s/merge_requests/%d/versions/%d/votes/upvote.json";
+	/*
+	 * URI for voting down a merge request
+	 */
+	String MERGE_REQUEST_VOTE_DOWN = "/spaces/%s/space_tools/%s/merge_requests/%d/versions/%d/votes/downvote.json";
+	/*
+	 * URI for voting deleting a merge request
+	 */
+	String MERGE_REQUEST_VOTE_DELETE = "/spaces/%s/space_tools/%s/merge_requests/%d/versions/%d/votes/delete.json";
+	/*
+	 * URI for retrieving wiki pages for space
+	 */
+	String WIKI_PAGES = "/spaces/%s/wiki_pages.json";
+	/*
+	 * URI for retrieving wiki page by id
+	 */
+	String WIKI_PAGE = "/spaces/%s/wiki_pages/%s.json";
+	/*
+	 * URI for wiki page and all sub (child) pages
+	 */
+	String WIKI_PAGE_ALL = "/spaces/%s/wiki_pages/%s/all.json";
+	/*
+	 * URI for moving all child wiki pages up one level and delete wiki page
+	 */
+	String WIKI_CONTAINER = "/spaces/%s/wiki_pages/%s/container.json";
 }

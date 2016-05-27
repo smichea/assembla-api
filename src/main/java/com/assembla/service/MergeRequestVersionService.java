@@ -6,6 +6,7 @@ import java.util.List;
 import com.assembla.MergeRequestComment;
 import com.assembla.MergeRequestCommentMessage;
 import com.assembla.MergeRequestVersion;
+import com.assembla.MergeRequestVote;
 import com.assembla.client.AssemblaClient;
 import com.assembla.client.AssemblaConstants;
 import com.assembla.client.AssemblaRequest;
@@ -57,6 +58,30 @@ public class MergeRequestVersionService extends AbstractBaseService {
 				version);
 		AssemblaRequest request = new AssemblaRequest(uri, MergeRequestComment.class);
 		request.withBody(new MergeRequestCommentMessage(message));
+		return super.post(request);
+	}
+
+	public List<MergeRequestVote> getVotes(int id, int version) {
+		String uri = String.format(AssemblaConstants.MERGE_REQUEST_VOTES, this.spaceId, this.spaceToolId, id, version);
+		AssemblaRequest request = new AssemblaRequest(uri, MergeRequestVote[].class);
+		return super.getList(request);
+	}
+
+	public MergeRequestVote upvote(int id, int version) {
+		String uri = String.format(AssemblaConstants.MERGE_REQUEST_VOTE_UP, this.spaceId, this.spaceToolId, id, version);
+		AssemblaRequest request = new AssemblaRequest(uri, MergeRequestVote.class);
+		return super.post(request);
+	}
+
+	public MergeRequestVote downvote(int id, int version) {
+		String uri = String.format(AssemblaConstants.MERGE_REQUEST_VOTE_DOWN, this.spaceId, this.spaceToolId, id, version);
+		AssemblaRequest request = new AssemblaRequest(uri, MergeRequestVote.class);
+		return super.post(request);
+	}
+
+	public MergeRequestVote delete(int id, int version) {
+		String uri = String.format(AssemblaConstants.MERGE_REQUEST_VOTE_DELETE, this.spaceId, this.spaceToolId, id, version);
+		AssemblaRequest request = new AssemblaRequest(uri, MergeRequestVote.class);
 		return super.post(request);
 	}
 
