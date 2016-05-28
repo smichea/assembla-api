@@ -3,7 +3,7 @@
 Java wrapper around Assembla API
 
 This project provides a Java wrapper around the Assembla API. It aims to support
-all Assembla API endpoints. 
+all Assembla API endpoints, excluding 'Portfolio' endpoints.
 
 Assembla API documentation can be found [here](https://api-doc.assembla.com/content/api_reference.html).
 
@@ -32,18 +32,10 @@ Assembla API documentation can be found [here](https://api-doc.assembla.com/cont
 | Merge Request Version Comments | Yes       |
 | Merge Request Version Votes    | Yes       |
 | Wiki Pages                     | Yes       | 
-| Wiki Page Versions             | No        |
+| Wiki Page Versions             | Yes       |
 | Webhooks                       | No        |
 | Tasks                          | No        |
 | User SSH keys                  | No        |
-| Portfolio Stream               | No        |
-| Portfolio Users                | No        |
-| Portfolio Invitations          | No        |
-| Portfolio Groups               | No        |
-| Portfolio Tasks                | No        |
-| Portfolio Standup Reports      | No        |
-| Portfolio Tickets              | No        |
-| Portfolio Ticket Reports       | No        |
 | Space SSH Keys                 | No        |
 | SSH Servers                    | No        |
 | SSH Actions                    | No        |

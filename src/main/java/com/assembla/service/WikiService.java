@@ -1,6 +1,7 @@
 package com.assembla.service;
 
 import com.assembla.WikiPage;
+import com.assembla.WikiPageVersion;
 import com.assembla.client.AssemblaClient;
 import com.assembla.client.AssemblaConstants;
 import com.assembla.client.AssemblaRequest;
@@ -62,6 +63,25 @@ public class WikiService extends AbstractBaseService {
 		String uri = String.format(AssemblaConstants.WIKI_CONTAINER, this.spaceId, id);
 		AssemblaRequest request = new AssemblaRequest(uri);
 		super.client.doDelete(request);
+	}
+
+	public PagedIterator<WikiPageVersion> getVersions(String id, Paging paging) {
+		String uri = String.format(AssemblaConstants.WIKI_PAGE_VERSIONS, this.spaceId, id);
+		PagedAssemblaRequest request = null;
+		if (paging == null) {
+			request = new PagedAssemblaRequest(uri, WikiPageVersion[].class);
+		} else {
+			request = new PagedAssemblaRequest(uri, WikiPageVersion[].class, paging.page(), paging.size());
+		}
+		return new PagedIterator<>(request, client);
+	}
+
+	public WikiPageVersion getVersion(String id, String versionId) {
+		ObjectUtils.notNull(id, "id == null");
+		ObjectUtils.notNull(versionId, "versionId == null");
+		String uri = String.format(AssemblaConstants.WIKI_PAGE_VERSION, this.spaceId, id, versionId);
+		AssemblaRequest request = new AssemblaRequest(uri, WikiPageVersion.class);
+		return super.get(request, String.format("No Wiki Page Version for id %s and version id %s", id, versionId));
 	}
 
 }

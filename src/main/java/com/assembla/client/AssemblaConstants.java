@@ -343,4 +343,12 @@ public interface AssemblaConstants {
 	 * URI for moving all child wiki pages up one level and delete wiki page
 	 */
 	String WIKI_CONTAINER = "/spaces/%s/wiki_pages/%s/container.json";
+	/*
+	 * URI for retrieving versions of a wiki
+	 */
+	String WIKI_PAGE_VERSIONS = "/spaces/%s/wiki_pages/%s/versions.json";
+	/*
+	 * URi for retrieving wiki page version by id
+	 */
+	String WIKI_PAGE_VERSION = "/spaces/%s/wiki_pages/%s/versions/%s.json";
 }

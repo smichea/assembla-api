@@ -1,8 +1,6 @@
 package test.com.assembla;
 
-import static org.hamcrest.core.Is.*;
 import static org.junit.Assert.*;
-import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
 
 import org.junit.Before;
@@ -11,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.assembla.WikiPage;
+import com.assembla.WikiPageVersion;
 import com.assembla.client.AssemblaRequest;
 import com.assembla.client.AssemblaResponse;
 import com.assembla.client.PagedAssemblaRequest;
@@ -117,5 +116,45 @@ public class WikiServiceTest extends ServiceTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void deleteContainerWithNullIdThrowsException() {
 		wikiService.delete(null);
+	}
+
+	@Test
+	public void getWikiPageVersions() {
+		PagedAssemblaRequest request = new PagedAssemblaRequest("/spaces/test_space_id/wiki_pages/100/versions.json",
+				WikiPageVersion[].class, 1, 25);
+
+		String id = "100";
+		Paging paging = new Paging(1, 25);
+		PagedIterator<WikiPageVersion> versions = wikiService.getVersions(id, paging);
+		assertEquals(request, versions.getRequest());
+	}
+
+	@Test
+	public void getWikiPageVersionsDefaultPaging() {
+		PagedAssemblaRequest request = new PagedAssemblaRequest("/spaces/test_space_id/wiki_pages/100/versions.json",
+				WikiPageVersion[].class);
+		String id = "100";
+		PagedIterator<WikiPageVersion> versions = wikiService.getVersions(id, null);
+		assertEquals(request, versions.getRequest());
+	}
+	
+	@Test
+	public void getWikiVersionById() {
+		mockGet(new AssemblaResponse(new WikiPageVersion(), WikiPageVersion.class));
+		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/wiki_pages/100/versions/1.json", WikiPageVersion.class);
+		String versionId = "1";
+		String id = "100";
+		WikiPageVersion version = wikiService.getVersion(id, versionId);
+		verify(super.assemblaClient).doGet(request);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void wikiVersionNullIdThrowsException() {
+		wikiService.getVersion(null, "100");
+	}
+
+	@Test(expected=IllegalArgumentException.class)
+	public void wikiVersionNullVersionIdThrowsException() {
+		wikiService.getVersion("100", null);
 	}
 }
