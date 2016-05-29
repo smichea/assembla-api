@@ -375,5 +375,13 @@ public interface AssemblaConstants {
 	 * URI for retrieving document by id 
 	 */
 	String DOCUMENT_NO_EXTENSION = "/spaces/%s/documents/%s";
+	/*
+	 * URI for retrieving all current user's ssh keys
+	 */
+	String SSH_KEY_ALL = "/user/ssh_keys.json";
+	/*
+	 * URI for retrieving SSH key by id
+	 */
+	String SSH_KEY = "/user/ssh_keys/%d.json";
 
 }
