@@ -7,26 +7,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public class SSHAction {
 
-	public enum SSHActionStatus implements IntValuedEnum {
-		IDLE(0), QUEUED(1), RUNNING(2);// ordinal
-
-		private int value;
-
-		SSHActionStatus(int value) {
-			this.value = value;
-		}
-
-		@Override
-		@JsonValue
-		public Integer getValue() {
-			return this.value;
-
-		}
-
-		@JsonCreator
-		public static SSHActionStatus parse(int value) {
-			return ValuedEnum.parse(value, SSHActionStatus.values());
-		}
+	public enum SSHActionStatus {
+		IDLE, QUEUED, RUNNING;
 	}
 
 	public enum SSHActionFrequency implements IntValuedEnum {

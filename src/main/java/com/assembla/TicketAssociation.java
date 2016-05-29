@@ -1,44 +1,14 @@
 package com.assembla;
 
-import com.assembla.enums.IntValuedEnum;
-import com.assembla.enums.ValuedEnum;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonRootName;
-import com.fasterxml.jackson.annotation.JsonValue;
 
 @JsonRootName(value = "ticket_association")
 public class TicketAssociation {
-	
-	public enum TicketRelationship implements IntValuedEnum {
-		PARENT(0), 
-		CHILD(1), 
-		RELATED(2), 
-		DUPLICATE(3), 
-		SIBLING(4), 
-		STORY(5), 
-		SUBTASK(6), 
-		DEPENDANT(7),
-		BLOCK(8); 
-		
-		private int value;
 
-		TicketRelationship(int value) {
-			this.value = value;
-		}
-
-		@Override
-		@JsonValue
-		public Integer getValue() {
-			return value;
-		}
-
-		@JsonCreator
-		public static TicketRelationship parse(int value) {
-			return ValuedEnum.parse(value, TicketRelationship.values());
-		}
-
+	public enum TicketRelationship {
+		PARENT, CHILD, RELATED, DUPLICATE, SIBLING, STORY, SUBTASK, DEPENDANT, BLOCK;
 	}
-	
+
 	public String createdAt;
 	public Integer id;
 	public TicketRelationship relationship;

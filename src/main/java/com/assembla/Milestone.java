@@ -13,26 +13,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
 @JsonRootName(value = "milestone")
 public class Milestone {
 
-	public enum PlannerType implements IntValuedEnum {
-		NONE(0), BACKLOG(1), CURRENT(2);
-
-		private int value;
-
-		PlannerType(int value) {
-			this.value = value;
-		}
-
-		@Override
-		@JsonGetter
-		public Integer getValue() {
-			return this.value;
-		}
-
-		@JsonCreator
-		public static PlannerType parse(int value) {
-			return ValuedEnum.parse(value, PlannerType.values());
-		}
-
+	public enum PlannerType {
+		NONE, BACKLOG, CURRENT;
 	}
 
 	public enum ReleaseLevel implements IntValuedEnum {

@@ -4,24 +4,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.assembla.Milestone.PlannerType;
 import com.assembla.Milestone.ReleaseLevel;
 
 public class MilestoneTest {
-
-	@Test
-	public void plannerTypeValueCorrect() {
-		assertEquals(0, PlannerType.NONE.getValue().intValue());
-		assertEquals(1, PlannerType.BACKLOG.getValue().intValue());
-		assertEquals(2, PlannerType.CURRENT.getValue().intValue());
-	}
-
-	@Test
-	public void plannerTypeByValueCorrect() {
-		assertEquals(PlannerType.NONE, PlannerType.parse(0));
-		assertEquals(PlannerType.BACKLOG, PlannerType.parse(1));
-		assertEquals(PlannerType.CURRENT, PlannerType.parse(2));
-	}
 
 	@Test
 	public void releaseLevelValuesCorrect() {

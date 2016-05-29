@@ -4,27 +4,12 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.assembla.PublicPermission;
 import com.assembla.TeamPermission;
 import com.assembla.WatcherPermission;
 import com.assembla.Space.SpaceStatus;
 import com.assembla.Space.TeamTabRole;
 
 public class SpaceTest {
-
-	@Test
-	public void publicPermissionsCorrect() {
-		assertEquals(0, PublicPermission.NONE.getValue().intValue());
-		assertEquals(1, PublicPermission.READ.getValue().intValue());
-		assertEquals(2, PublicPermission.WRITE.getValue().intValue());
-	}
-
-	@Test
-	public void publicPermissionsByValueCorrect() {
-		assertEquals(PublicPermission.NONE, PublicPermission.parse(0));
-		assertEquals(PublicPermission.READ, PublicPermission.parse(1));
-		assertEquals(PublicPermission.WRITE, PublicPermission.parse(2));
-	}
 
 	@Test
 	public void watcherPermissionsCorrect() {

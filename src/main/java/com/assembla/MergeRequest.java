@@ -2,36 +2,13 @@ package com.assembla;
 
 import java.time.ZonedDateTime;
 
-import com.assembla.enums.IntValuedEnum;
-import com.assembla.enums.ValuedEnum;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonRootName;
-import com.fasterxml.jackson.annotation.JsonValue;
 
 @JsonRootName("merge_request")
 public class MergeRequest {
 
-	public enum Status implements IntValuedEnum {
-
-		OPEN(0), CLOSED(1), IGNORED(2);// ordinal value
-
-		private int value;
-
-		Status(int value) {
-			this.value = value;
-		}
-
-		@Override
-		@JsonValue
-		public Integer getValue() {
-			return value;
-		}
-
-		@JsonCreator
-		public static Status parse(int value) {
-			return ValuedEnum.parse(value, Status.values());
-		}
-
+	public enum Status {
+		OPEN, CLOSED, IGNORED
 	}
 
 	private String processedByUserId;

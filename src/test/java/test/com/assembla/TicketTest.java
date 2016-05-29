@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.assembla.State;
 import com.assembla.Ticket.HeirarchyType;
 import com.assembla.Ticket.PermissionType;
 import com.assembla.Ticket.Priority;
@@ -25,18 +24,6 @@ public class TicketTest {
 		assertEquals(HeirarchyType.SUB_TASK, HeirarchyType.parse(1));
 		assertEquals(HeirarchyType.STORY, HeirarchyType.parse(2));
 		assertEquals(HeirarchyType.EPIC, HeirarchyType.parse(3));
-	}
-
-	@Test
-	public void ticketStateCorrect() {
-		assertEquals(1, State.OPEN.getValue().intValue());
-		assertEquals(0, State.CLOSED.getValue().intValue());
-	}
-
-	@Test
-	public void ticketByValue() {
-		assertEquals(State.OPEN, State.parse(1));
-		assertEquals(State.CLOSED, State.parse(0));
 	}
 
 	@Test
