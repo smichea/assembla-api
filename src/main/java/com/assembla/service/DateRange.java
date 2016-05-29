@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.Temporal;
 
 import com.assembla.client.AssemblaConstants;
-import com.assembla.utils.ObjectUtils;
+import com.assembla.utils.ValidationUtils;
 
 /**
  * simple wrapper around a duration , makes it easier to format and test for now
@@ -27,8 +27,13 @@ public class DateRange {
 	private final Duration duration;
 
 	public DateRange(LocalDateTime start, LocalDateTime end) {
-		ObjectUtils.notNull(start, "Must enter start");
-		ObjectUtils.notNull(end, "Must enter end");
+		this(start, end, DEFAULT_FORMATTER);
+	}
+	
+	public DateRange(LocalDateTime start, LocalDateTime end, DateTimeFormatter frmter) {
+		ValidationUtils.notNull(start, "Must enter start");
+		ValidationUtils.notNull(end, "Must enter end");
+		ValidationUtils.notNull(frmter, "Must enter frmter");
 
 		if (start.isAfter(end)) {
 			throw new IllegalArgumentException("Start must be before end");
@@ -36,7 +41,7 @@ public class DateRange {
 
 		this.start = start;
 		this.end = end;
-		this.formatter = DEFAULT_FORMATTER;
+		this.formatter = frmter;
 		this.duration = Duration.between(start, end);
 	}
 

@@ -10,12 +10,12 @@ import com.assembla.CustomReport;
 import com.assembla.Document;
 import com.assembla.Tag;
 import com.assembla.Ticket;
-import com.assembla.client.AssemblaClient;
 import com.assembla.client.AssemblaConstants;
 import com.assembla.client.AssemblaRequest;
+import com.assembla.client.AssemblaClient;
 import com.assembla.client.PagedAssemblaRequest;
 import com.assembla.client.PagedIterator;
-import com.assembla.utils.ObjectUtils;
+import com.assembla.utils.ValidationUtils;
 
 public class TicketService extends AbstractBaseService {
 
@@ -72,13 +72,13 @@ public class TicketService extends AbstractBaseService {
 	}
 
 	public void updateTicket(Ticket ticket) {
-		ObjectUtils.notNull(ticket, "ticket == null");
-		ObjectUtils.notNull(ticket.getNumber(), "ticket requires a number");
+		ValidationUtils.notNull(ticket, "ticket == null");
+		ValidationUtils.notNull(ticket.getNumber(), "ticket requires a number");
 
 		String uri = format(AssemblaConstants.TICKET_BY_NUMBER, super.getSpaceId(), ticket.getNumber());
 		AssemblaRequest request = new AssemblaRequest(uri);
 		request.withBody(ticket);
-		client.doPut(request);
+		client.put(request);
 	}
 
 	public CustomReport getCustomReports() {
@@ -88,12 +88,12 @@ public class TicketService extends AbstractBaseService {
 	}
 
 	public void deleteTicket(Ticket ticket) {
-		ObjectUtils.notNull(ticket, "ticket == null");
-		ObjectUtils.notNull(ticket.getNumber(), "ticket requires a number");
+		ValidationUtils.notNull(ticket, "ticket == null");
+		ValidationUtils.notNull(ticket.getNumber(), "ticket requires a number");
 
 		String uri = format(AssemblaConstants.TICKET_DELETE, super.getSpaceId(), ticket.getNumber());
 		AssemblaRequest request = new AssemblaRequest(uri);
-		client.doDelete(request);
+		client.delete(request);
 	}
 
 	public Ticket createTicket(Ticket ticket) {

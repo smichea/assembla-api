@@ -41,7 +41,7 @@ public class WikiServiceTest extends ServiceTest {
 		mockGet(new AssemblaResponse(new WikiPage(), WikiPage[].class));
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/wiki_pages/100.json", WikiPage.class);
 		WikiPage page = wikiService.get("100");
-		verify(assemblaClient).doGet(request);
+		verify(assemblaClient).get(request);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -59,7 +59,7 @@ public class WikiServiceTest extends ServiceTest {
 
 		WikiPage newPage = wikiService.create(page);
 
-		verify(assemblaClient).doPost(request);
+		verify(assemblaClient).post(request);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -76,7 +76,7 @@ public class WikiServiceTest extends ServiceTest {
 		request.withBody(page);
 
 		wikiService.update(page);
-		verify(super.assemblaClient).doPut(request);
+		verify(super.assemblaClient).put(request);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -96,7 +96,7 @@ public class WikiServiceTest extends ServiceTest {
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/wiki_pages/100/all.json");
 		String id = "100";
 		wikiService.deleteAll(id);
-		verify(super.assemblaClient).doDelete(request);
+		verify(super.assemblaClient).delete(request);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -110,7 +110,7 @@ public class WikiServiceTest extends ServiceTest {
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/wiki_pages/100/container.json");
 		String id = "100";
 		wikiService.delete(id);
-		verify(super.assemblaClient).doDelete(request);
+		verify(super.assemblaClient).delete(request);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -145,7 +145,7 @@ public class WikiServiceTest extends ServiceTest {
 		String versionId = "1";
 		String id = "100";
 		WikiPageVersion version = wikiService.getVersion(id, versionId);
-		verify(super.assemblaClient).doGet(request);
+		verify(super.assemblaClient).get(request);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)

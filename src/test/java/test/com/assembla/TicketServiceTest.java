@@ -38,8 +38,8 @@ public class TicketServiceTest extends ServiceTest {
 	@Before
 	public void setup() {
 		ticketService = new TicketService(assemblaClient, TEST_SPACE_ID);
-		when(assemblaClient.doGet(Matchers.any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(new Ticket(), Ticket.class));
-		when(assemblaClient.doPut(Matchers.any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(new Ticket(), Ticket.class));
+		when(assemblaClient.get(Matchers.any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(new Ticket(), Ticket.class));
+		when(assemblaClient.put(Matchers.any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(new Ticket(), Ticket.class));
 	}
 	
 	@Test
@@ -48,13 +48,13 @@ public class TicketServiceTest extends ServiceTest {
 		ticketService.getTicketById("123");
 		//When we make a request then it's equal to this request
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/tickets/id/123.json", Ticket.class);
-		verify(assemblaClient).doGet(request);
+		verify(assemblaClient).get(request);
 	}
 	
 	@Test(expected=AssemblaAPIException.class)
 	public void getTicketByIdNotFoundTest() {
 		//Given a request to get a ticket by id 123, when this ticket does not exist, then throw an exception
-		when(assemblaClient.doGet(Matchers.any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(Ticket.class));
+		when(assemblaClient.get(Matchers.any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(Ticket.class));
 		ticketService.getTicketById("123");
 	}
 
@@ -64,13 +64,13 @@ public class TicketServiceTest extends ServiceTest {
 		ticketService.getTicketByNumber(123);
 		//When we make a request then it's equal to this request
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/tickets/123.json", Ticket.class);
-		verify(assemblaClient).doGet(request);
+		verify(assemblaClient).get(request);
 	}
 	
 	@Test(expected=AssemblaAPIException.class)
 	public void getTicketByNumberNotFoundTest() {
 		//Given a request to get a ticket by number 123, when this ticket does not exist, then throw an exception
-		when(assemblaClient.doGet(Matchers.any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(Ticket.class));
+		when(assemblaClient.get(Matchers.any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(Ticket.class));
 		ticketService.getTicketByNumber(123);
 	}
 	
@@ -104,34 +104,34 @@ public class TicketServiceTest extends ServiceTest {
 	@Test
 	public void getAllActiveTickets() {
 		//Given a request to get all user's active tickets
-		when(assemblaClient.doGet(Matchers.any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(new Ticket[10], Ticket[].class));
+		when(assemblaClient.get(Matchers.any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(new Ticket[10], Ticket[].class));
 		List<Ticket> tickets = ticketService.getAllActiveTickets();
 		//When we look at the request that's made it should be equal to this request
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/tickets/my_active.json", Ticket[].class	);
 		
-		verify(assemblaClient).doGet(request);
+		verify(assemblaClient).get(request);
 		assertEquals("Size of list returned is equal to size of value wrapped in reponse" ,10, tickets.size());
 	}
 	
 	@Test
 	public void getAllTagsForTicket() {
 		//Given a request to get tags for ticket 100
-		when(assemblaClient.doGet(Matchers.any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(new Tag[10], Tag[].class));
+		when(assemblaClient.get(Matchers.any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(new Tag[10], Tag[].class));
 		List<Tag> tags = ticketService.getAllTagsForTicket(100);
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/tickets/100/tags.json", Tag[].class);
 		//When we make the request it's equal to this request
-		verify(assemblaClient).doGet(request);
+		verify(assemblaClient).get(request);
 		assertEquals("Size of List returned is size of array wrapped in response", 10, tags.size());
 	}
 	
 	@Test
 	public void getDocumentsForTicketTest() {
 		//Given request to get attachments for a ticket 100
-		when(assemblaClient.doGet(Matchers.any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(new Document[10], Document[].class));
+		when(assemblaClient.get(Matchers.any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(new Document[10], Document[].class));
 		List<Document> documents = ticketService.getAttachmentsForTicket(100);
 		//When we make the request then it should be equal to this request and we should return a list of Documents
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/tickets/100/attachments.json", Document[].class);
-		verify(assemblaClient).doGet(request);
+		verify(assemblaClient).get(request);
 		assertEquals("Size of List returned is size of array wrapped in the response", 10, documents.size());
 	}
 	
@@ -147,7 +147,7 @@ public class TicketServiceTest extends ServiceTest {
 		request.withBody(ticket);
 		
 		ticketService.updateTicket(ticket);
-		verify(assemblaClient).doPut(request);
+		verify(assemblaClient).put(request);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
@@ -158,22 +158,22 @@ public class TicketServiceTest extends ServiceTest {
 	
 	@Test
 	public void getCustomReportTest() {
-		when(assemblaClient.doGet(Matchers.any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(new CustomReport(), CustomReport.class));
+		when(assemblaClient.get(Matchers.any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(new CustomReport(), CustomReport.class));
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/tickets/custom_reports.json", CustomReport.class);
 		CustomReport report = ticketService.getCustomReports();
-		verify(assemblaClient).doGet(request);
+		verify(assemblaClient).get(request);
 	}
 	
 	@Test
 	public void deleteTicketTest() {
 		//Given ticket 100, when we delete this ticket, then expect to see a request like this created
-		when(assemblaClient.doGet(Matchers.any(AssemblaRequest.class))).thenReturn(new AssemblaResponse());
+		when(assemblaClient.get(Matchers.any(AssemblaRequest.class))).thenReturn(new AssemblaResponse());
 		Ticket ticket = new Ticket();
 		ticket.setNumber(100);
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/tickets/100.json");
 		ticketService.deleteTicket(ticket);
 		//MAKE TEST FOR EQUALS HASH ETC
-		verify(assemblaClient).doDelete(request);
+		verify(assemblaClient).delete(request);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
@@ -189,7 +189,7 @@ public class TicketServiceTest extends ServiceTest {
 	@Test
 	public void createNewTicketTest()	{
 		Ticket expectedValue = new Ticket();
-		when(assemblaClient.doPost(Matchers.any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(expectedValue, Ticket.class));
+		when(assemblaClient.post(Matchers.any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(expectedValue, Ticket.class));
 		
 		Ticket ticketToCreate = new Ticket();;
 		ticketToCreate.setDescription("Test ticket body");
@@ -197,14 +197,14 @@ public class TicketServiceTest extends ServiceTest {
 		request.withBody(ticketToCreate);
 		
 		Ticket createdTicket = ticketService.createTicket(ticketToCreate);
-		verify(assemblaClient).doPost(request);
+		verify(assemblaClient).post(request);
 		assertNotNull("Created ticket is null", createdTicket);
 		assertEquals("Ticket not the same as one returned", expectedValue, createdTicket);
 	}
 	
 	@Test
 	public void createTicketNotCreated() {
-		when(assemblaClient.doPost(Matchers.any(AssemblaRequest.class))).thenThrow(new AssemblaAPIException("Error making request"));
+		when(assemblaClient.post(Matchers.any(AssemblaRequest.class))).thenThrow(new AssemblaAPIException("Error making request"));
 		Ticket ticket = ticketService.createTicket(new Ticket());
 		assertNull("Ticket should be null", ticket);
 	}

@@ -5,10 +5,10 @@ import java.util.List;
 import static java.lang.String.format;
 
 import com.assembla.SpaceTool;
-import com.assembla.client.AssemblaClient;
 import com.assembla.client.AssemblaConstants;
 import com.assembla.client.AssemblaRequest;
-import com.assembla.utils.ObjectUtils;
+import com.assembla.client.AssemblaClient;
+import com.assembla.utils.ValidationUtils;
 
 public class SpaceToolService extends AbstractBaseService {
 
@@ -29,15 +29,15 @@ public class SpaceToolService extends AbstractBaseService {
 	}
 
 	public SpaceTool get(String idOrName) {
-		ObjectUtils.notNull(idOrName, "idOrName == null");
+		ValidationUtils.notNull(idOrName, "idOrName == null");
 		String uri = format(AssemblaConstants.SPACE_TOOLS_ID, super.getSpaceId(), idOrName);
 		AssemblaRequest request = new AssemblaRequest(uri, SpaceTool.class);
 		return super.get(request, format("No SpaceTool with id or name : %s", idOrName));
 	}
 
 	public SpaceTool create(SpaceTool tool) {
-		ObjectUtils.notNull(tool, "tool == null");
-		ObjectUtils.notNull(tool.getToolId(), "Tool id required to add a new tool");
+		ValidationUtils.notNull(tool, "tool == null");
+		ValidationUtils.notNull(tool.getToolId(), "Tool id required to add a new tool");
 		String uri = format(AssemblaConstants.SPACE_TOOLS_ADD, super.getSpaceId(), tool.getToolId());
 		AssemblaRequest request = new AssemblaRequest(uri, SpaceTool.class);
 		request.withBody(tool);
@@ -45,22 +45,22 @@ public class SpaceToolService extends AbstractBaseService {
 	}
 
 	public void update(SpaceTool tool) {
-		ObjectUtils.notNull(tool, "tool == null");
+		ValidationUtils.notNull(tool, "tool == null");
 		String id = getId(tool);
-		ObjectUtils.notNull(id, "id or name must be present to update space tool");
+		ValidationUtils.notNull(id, "id or name must be present to update space tool");
 		String uri = format(AssemblaConstants.SPACE_TOOLS_ID, super.getSpaceId(), id);
 		AssemblaRequest request = new AssemblaRequest(uri, SpaceTool.class);
 		request.withBody(tool);
-		super.getClient().doPut(request);
+		super.getClient().put(request);
 	}
 
 	public void delete(SpaceTool tool) {
-		ObjectUtils.notNull(tool, "tool == null");
+		ValidationUtils.notNull(tool, "tool == null");
 		String id = getId(tool);
-		ObjectUtils.notNull(id, "id or name must be present to delete space tool");
+		ValidationUtils.notNull(id, "id or name must be present to delete space tool");
 		String uri = format(AssemblaConstants.SPACE_TOOLS_ID, super.getSpaceId(), id);
 		AssemblaRequest request = new AssemblaRequest(uri);
-		super.getClient().doDelete(request);
+		super.getClient().delete(request);
 	}
 
 	private String getId(SpaceTool tool) {

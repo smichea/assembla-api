@@ -31,13 +31,13 @@ public class SpaceServiceTest extends ServiceTest {
 
 	@Test
 	public void getSpacesTest() {
-		 when(assemblaClient.doGet(any(AssemblaRequest.class))).thenReturn(
+		 when(assemblaClient.get(any(AssemblaRequest.class))).thenReturn(
 		 new AssemblaResponse(new Space[10], Space[].class));
 		//Given a request to get all spaces
 		AssemblaRequest request = new AssemblaRequest("/spaces.json", Space[].class);
 		List<Space> spaces = spaceService.getSpaces();
 		//When we make the request
-		verify(assemblaClient).doGet(request);
+		verify(assemblaClient).get(request);
 		//Then it looks as per example request 
 		assertNotNull(spaces);
 		assertEquals("List of spaces is not the correct length" , 10, spaces.size());
@@ -46,7 +46,7 @@ public class SpaceServiceTest extends ServiceTest {
 	@Test
 	public void getSpacesNoneReturnedTest() {
 		//Given request to get all spaces which will return no spaces
-		 when(assemblaClient.doGet(any(AssemblaRequest.class))).thenReturn(
+		 when(assemblaClient.get(any(AssemblaRequest.class))).thenReturn(
 		 new AssemblaResponse(null, Space[].class));
 		 
 		AssemblaRequest request = new AssemblaRequest("/spaces.json", Space[].class);
@@ -54,14 +54,14 @@ public class SpaceServiceTest extends ServiceTest {
 		List<Space> spaces = spaceService.getSpaces();
 		
 		//Then the request performed is per example request and the result is an empty list
-		verify(assemblaClient).doGet(request);
+		verify(assemblaClient).get(request);
 		assertNotNull(spaces);
 		assertEquals("List of spaces is not the correct length" , 0, spaces.size());
 	}
 	
 	@Test
 	public void getSpaceByIdOrNameTest() {
-		 when(assemblaClient.doGet(any(AssemblaRequest.class))).thenReturn(
+		 when(assemblaClient.get(any(AssemblaRequest.class))).thenReturn(
 		 new AssemblaResponse(new Space(), Space.class));
 		//Given request to get a space with id 123 which exists
 		AssemblaRequest request = new AssemblaRequest("/spaces/123.json", Space.class);
@@ -71,7 +71,7 @@ public class SpaceServiceTest extends ServiceTest {
 		
 		//Then it looks like example request and is not null
 		assertNotNull(space);
-		verify(assemblaClient).doGet(request);
+		verify(assemblaClient).get(request);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
@@ -83,7 +83,7 @@ public class SpaceServiceTest extends ServiceTest {
 	public void createSpaceTest() {
 		// Given a successful request to create a new space
 		Space value = new Space();
-		when(assemblaClient.doPost(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(value, Space.class));
+		when(assemblaClient.post(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(value, Space.class));
 
 		Space space = new Space();
 		AssemblaRequest request = new AssemblaRequest("/spaces.json", Space.class);
@@ -92,19 +92,19 @@ public class SpaceServiceTest extends ServiceTest {
 		Space newSpace = spaceService.createSpace(space);
 		// Then the request should look like the sample and return a space
 		assertNotNull(newSpace);
-		verify(assemblaClient).doPost((request));
+		verify(assemblaClient).post((request));
 	}
 	
 	@Test
 	public void updateSpaceTest() {
-		when(assemblaClient.doPut(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(Space.class));
+		when(assemblaClient.put(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(Space.class));
 		Space space = new Space();
 		space.setId("100");
 		AssemblaRequest request = new AssemblaRequest("/spaces/100.json", Space.class);
 		request.withBody(space);
 		
 		spaceService.updateSpace(space);
-		verify(assemblaClient).doPut(request);
+		verify(assemblaClient).put(request);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
@@ -119,12 +119,12 @@ public class SpaceServiceTest extends ServiceTest {
 	
 	@Test
 	public void deleteSpaceTest() {
-		when(assemblaClient.doDelete(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse());
+		when(assemblaClient.delete(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse());
 		Space space = new Space();
 		space.setId("100");
 		AssemblaRequest request = new AssemblaRequest("/spaces/100.json");
 		spaceService.deleteSpace(space);
-		verify(assemblaClient).doDelete(request);
+		verify(assemblaClient).delete(request);
 	}
 
 	@Test(expected=IllegalArgumentException.class)
@@ -140,7 +140,7 @@ public class SpaceServiceTest extends ServiceTest {
 	@Test
 	public void createSpaceFromTemplateTest() {
 		Space value = new Space();
-		when(assemblaClient.doPost(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(value, Space.class));
+		when(assemblaClient.post(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(value, Space.class));
 
 		Space oldSpace = new Space();
 		oldSpace.setId("100");
@@ -151,7 +151,7 @@ public class SpaceServiceTest extends ServiceTest {
 		assertNotNull(newSpace);
 		
 		ArgumentCaptor<AssemblaRequest> captor = ArgumentCaptor.forClass(AssemblaRequest.class);
-		verify(assemblaClient).doPost((captor.capture()));
+		verify(assemblaClient).post((captor.capture()));
 		
 		Space space = (Space) captor.getValue().getBody().get();
 		assertEquals("test name", space.getName());

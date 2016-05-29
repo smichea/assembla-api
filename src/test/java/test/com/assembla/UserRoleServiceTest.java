@@ -30,7 +30,7 @@ public class UserRoleServiceTest extends ServiceTest {
 		mockGet(new AssemblaResponse(new UserRole[20], UserRole[].class));
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/user_roles.json", UserRole[].class);
 		List<UserRole> roles = userRoleService.getAll();
-		verify(super.assemblaClient).doGet(request);
+		verify(super.assemblaClient).get(request);
 		assertNotNull(roles);
 		assertEquals("Response will be size 20", 20, roles.size());
 	}
@@ -41,7 +41,7 @@ public class UserRoleServiceTest extends ServiceTest {
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/user_roles/1.json", UserRole.class);
 		UserRole role = userRoleService.get(1);
 		assertNotNull(role);
-		verify(super.assemblaClient).doGet(request);
+		verify(super.assemblaClient).get(request);
 	}
 
 	@Test
@@ -57,7 +57,7 @@ public class UserRoleServiceTest extends ServiceTest {
 		UserRole createdRole = userRoleService.create(role);
 
 		assertNotNull(createdRole);
-		verify(super.assemblaClient).doPost(request);
+		verify(super.assemblaClient).post(request);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -74,7 +74,7 @@ public class UserRoleServiceTest extends ServiceTest {
 		request.withBody(role);
 
 		userRoleService.update(role);
-		verify(super.assemblaClient).doPut(request);
+		verify(super.assemblaClient).put(request);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -98,7 +98,7 @@ public class UserRoleServiceTest extends ServiceTest {
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/user_roles/100.json", UserRole.class);
 
 		userRoleService.delete(role);
-		verify(super.assemblaClient).doDelete(request);
+		verify(super.assemblaClient).delete(request);
 	}
 
 	@Test(expected = IllegalArgumentException.class)

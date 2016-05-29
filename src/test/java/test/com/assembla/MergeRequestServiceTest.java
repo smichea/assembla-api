@@ -77,7 +77,7 @@ public class MergeRequestServiceTest extends ServiceTest {
 		MergeRequest merge = mrService.create(mr);
 
 		assertNotNull(merge);
-		verify(assemblaClient).doPost(request);
+		verify(assemblaClient).post(request);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -92,7 +92,7 @@ public class MergeRequestServiceTest extends ServiceTest {
 				MergeRequest.class);
 		MergeRequest mr = mrService.get(12345);
 		assertNotNull(mr);
-		verify(assemblaClient).doGet(request);
+		verify(assemblaClient).get(request);
 	}
 
 	@Test
@@ -124,7 +124,7 @@ public class MergeRequestServiceTest extends ServiceTest {
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/space_tools/12/merge_requests/12345/merge_and_close.json");
 		int id = 12345;
 		mrService.mergeAndClose(id);
-		verify(assemblaClient).doPut(request);
+		verify(assemblaClient).put(request);
 	}
 	
 	@Test
@@ -132,7 +132,7 @@ public class MergeRequestServiceTest extends ServiceTest {
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/space_tools/12/merge_requests/12345/ignore.json");
 		int id = 12345;
 		mrService.ignore(id);
-		verify(assemblaClient).doPut(request);
+		verify(assemblaClient).put(request);
 	}
 	
 	@Test

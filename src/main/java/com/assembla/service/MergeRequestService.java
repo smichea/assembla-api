@@ -4,13 +4,13 @@ import com.assembla.MergeRequest;
 import com.assembla.MergeRequest.Status;
 import com.assembla.MergeRequestComment;
 import com.assembla.Ticket;
-import com.assembla.client.AssemblaClient;
 import com.assembla.client.AssemblaConstants;
 import com.assembla.client.AssemblaRequest;
+import com.assembla.client.AssemblaClient;
 import com.assembla.client.PagedAssemblaRequest;
 import com.assembla.client.PagedIterator;
 import com.assembla.client.Paging;
-import com.assembla.utils.ObjectUtils;
+import com.assembla.utils.ValidationUtils;
 
 public class MergeRequestService extends AbstractBaseService {
 
@@ -48,7 +48,7 @@ public class MergeRequestService extends AbstractBaseService {
 	}
 
 	public MergeRequest create(MergeRequest mergeRequest) {
-		ObjectUtils.notNull(mergeRequest, "mergeRequest == null");
+		ValidationUtils.notNull(mergeRequest, "mergeRequest == null");
 		String uri = String.format(AssemblaConstants.MERGE_REQUESTS, this.spaceId, this.spaceToolId);
 		AssemblaRequest request = new AssemblaRequest(uri, MergeRequest.class);
 		request.withBody(mergeRequest);
@@ -75,13 +75,13 @@ public class MergeRequestService extends AbstractBaseService {
 	public void mergeAndClose(int id) {
 		String uri = String.format(AssemblaConstants.MERGE_AND_CLOSE, this.spaceId, this.spaceToolId, id);
 		AssemblaRequest request = new AssemblaRequest(uri);
-		super.client.doPut(request);
+		super.client.put(request);
 	}
 
 	public void ignore(int id) {
 		String uri = String.format(AssemblaConstants.MERGE_REQUEST_IGNORE, this.spaceId, this.spaceToolId, id);
 		AssemblaRequest request = new AssemblaRequest(uri);
-		super.client.doPut(request);
+		super.client.put(request);
 		
 	}
 

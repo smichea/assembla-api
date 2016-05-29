@@ -1,10 +1,10 @@
 package com.assembla.utils;
 
-public final class ObjectUtils {
+public final class ValidationUtils {
 
 	/**
 	 * Check if an object is null and throw an IllegalArgumentException with
-	 * supplied message same as Objects.notNull but throws a different exception
+	 * supplied message 
 	 * 
 	 * @param object
 	 * @param message
@@ -16,6 +16,6 @@ public final class ObjectUtils {
 		return object;
 	}
 
-	private ObjectUtils() {
+	private ValidationUtils() {
 	}
 }

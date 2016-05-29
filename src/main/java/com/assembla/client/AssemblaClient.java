@@ -1,4 +1,5 @@
 package com.assembla.client;
+
 import java.io.IOException;
 import java.io.Reader;
 import java.util.Optional;
@@ -13,13 +14,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.squareup.okhttp.MediaType;
+import com.squareup.okhttp.MultipartBuilder;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
 public class AssemblaClient  {
-
 	/**
 	 * API Key
 	 */
@@ -41,12 +42,15 @@ public class AssemblaClient  {
 	 * URL for api calls
 	 */
 	protected String baseURL;
-	
+
 	/**
-	 * MediaType for JSON media type 
+	 * MediaType for JSON media type
 	 */
 	protected static final MediaType JSON = MediaType.parse(AssemblaConstants.JSON_MEDIA_TYPE);
-
+	/**
+	 * Media type for file uploads
+	 */
+	private static final MediaType FILE_TYPE = MediaType.parse("");
 	/**
 	 * Create new Assembla client. Key and password will be used to authenticate
 	 * requests
@@ -68,36 +72,64 @@ public class AssemblaClient  {
 	public String getKey() {
 		return apiKey;
 	}
-	
+
 	public String getBaseURL() {
 		return baseURL;
 	}
-	
-	public AssemblaResponse doGet(AssemblaRequest request) {
+
+	public AssemblaResponse get(AssemblaRequest request) {
 		Request.Builder builder = new Request.Builder();
 		addCommon(request, builder);
 		return doRequest(builder.build(), request);
 	}
-	
-	public AssemblaResponse doPut(AssemblaRequest request) {
+
+	public AssemblaResponse put(AssemblaRequest request) {
 		Request.Builder builder = new Request.Builder();
 		addCommon(request, builder);
 		builder.put(createJSONBody(request));
 		return doRequest(builder.build(), request);
 	}
-	
-	public AssemblaResponse doPost(AssemblaRequest request) {
+
+	public AssemblaResponse post(AssemblaRequest request) {
 		Request.Builder builder = new Request.Builder();
 		addCommon(request, builder);
 		builder.post(createJSONBody(request));
 		return doRequest(builder.build(), request);
 	}
 
-	public AssemblaResponse doDelete(AssemblaRequest request) {
+	public AssemblaResponse delete(AssemblaRequest request) {
 		Request.Builder builder = new Request.Builder();
 		addCommon(request, builder);
 		builder.delete();
 		return doRequest(builder.build(), request);
+	}
+
+	public AssemblaResponse post(UploadAssemblaRequest request) {
+		MultipartBuilder multiPartBuilder = buildMultipartFormRequest(request);
+		Request.Builder builder = new Request.Builder();
+		addCommon(request, builder);
+		builder.post(multiPartBuilder.build());
+		return doRequest(builder.build(), request);
+	}
+	
+	public AssemblaResponse put(UploadAssemblaRequest request) {
+		MultipartBuilder multiPartBuilder = buildMultipartFormRequest(request);
+		Request.Builder builder = new Request.Builder();
+		addCommon(request, builder);
+		builder.put(multiPartBuilder.build());
+		return doRequest(builder.build(), request);
+	}
+
+	private MultipartBuilder buildMultipartFormRequest(UploadAssemblaRequest request) {
+		UploadableItem<?> uploadableItem = request.getUploadableItem();
+
+		RequestBody fileBody = RequestBody.create(FILE_TYPE, uploadableItem.fIle());
+		String name = String.format(AssemblaConstants.UPLOAD_NAME_FORMAT, uploadableItem.namespace());
+		MultipartBuilder multiPartBuilder = new MultipartBuilder()
+		.type(MultipartBuilder.FORM)
+		.addFormDataPart(name, uploadableItem.fIle().getName(), fileBody);
+		uploadableItem.location().ifPresent(e -> multiPartBuilder.addFormDataPart(AssemblaConstants.UPLOAD_LOCATION, e));
+		return multiPartBuilder;
 	}
 
 	protected AssemblaResponse doRequest(Request httpRequest, AssemblaRequest request) {
@@ -107,7 +139,8 @@ public class AssemblaClient  {
 			Response response = client.newCall(httpRequest).execute();
 			// Not a success - notify caller via exception
 			if (!response.isSuccessful()) {
-				throw new AssemblaAPIException("Error making request" , response.code());
+				throw new AssemblaAPIException(String.format("Error making request to [%s, %s], message [%d, %s]",
+						httpRequest.method(), httpRequest.urlString(), response.code(), response.message()));
 			}
 			// No content or request has not requested a type, so return null
 			// object
@@ -119,7 +152,7 @@ public class AssemblaClient  {
 			return new AssemblaResponse(mapper.readValue(charStream, type.get()), type.get());
 		} catch (IOException e) {
 			e.printStackTrace();
-			throw new AssemblaAPIException("Error making request" , e);
+			throw new AssemblaAPIException("Error making request", e);
 		} finally {
 			try {
 				if (charStream != null) {
@@ -129,8 +162,8 @@ public class AssemblaClient  {
 			}
 		}
 	}
-	
-	private void addCommon(AssemblaRequest request, Request.Builder rb) {
+
+	protected void addCommon(AssemblaRequest request, Request.Builder rb) {
 		rb.url(this.getBaseURL() + request.getFullURI());
 		rb.header(AssemblaConstants.HEADER_API_KEY, this.apiKey);
 		rb.header(AssemblaConstants.HEADER_API_SECRET, this.apiPassword);
@@ -138,13 +171,17 @@ public class AssemblaClient  {
 
 	private RequestBody createJSONBody(AssemblaRequest request) {
 		return request.getBody()
-				.map(e -> createRequest(JSON, e))
-				.orElse(createRequest(null, new byte[0]));
+				.map(this::jsonRequestBody)
+				.orElse(emptyRequestBody());
 	}
 
-	private RequestBody createRequest(MediaType type, Object request) {
+	private RequestBody emptyRequestBody() {
+		return RequestBody.create(null, new byte[0]);	
+	}
+	
+	private RequestBody jsonRequestBody(Object request) {
 		try {
-			return RequestBody.create(type, mapper.writeValueAsString(request));
+			return RequestBody.create(JSON, mapper.writeValueAsString(request));
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 			throw new AssemblaAPIException("Error creating JSON request body");

@@ -1,15 +1,14 @@
 package com.assembla.service;
 
-import java.util.Collections;
 import java.util.List;
 
 import com.assembla.MergeRequestComment;
 import com.assembla.MergeRequestCommentMessage;
 import com.assembla.MergeRequestVersion;
 import com.assembla.MergeRequestVote;
-import com.assembla.client.AssemblaClient;
 import com.assembla.client.AssemblaConstants;
 import com.assembla.client.AssemblaRequest;
+import com.assembla.client.AssemblaClient;
 import com.assembla.client.PagedAssemblaRequest;
 import com.assembla.client.PagedIterator;
 import com.assembla.client.Paging;

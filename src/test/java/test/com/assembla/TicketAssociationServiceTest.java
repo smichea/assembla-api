@@ -30,7 +30,7 @@ public class TicketAssociationServiceTest extends ServiceTest {
 
 	@Test
 	public void ticketAssociationTest() {
-		when(assemblaClient.doGet(any(AssemblaRequest.class))).thenReturn(
+		when(assemblaClient.get(any(AssemblaRequest.class))).thenReturn(
 				new AssemblaResponse(new TicketAssociation[10], TicketAssociation[].class));
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/tickets/100/ticket_associations.json",
 				TicketAssociation[].class);
@@ -40,7 +40,7 @@ public class TicketAssociationServiceTest extends ServiceTest {
 
 		List<TicketAssociation> associations = ticketAssociationService.getAssociations(ticket);
 
-		verify(assemblaClient).doGet(request);
+		verify(assemblaClient).get(request);
 		assertFalse("List of associations should not be empty", associations.isEmpty());
 	}
 
@@ -51,7 +51,7 @@ public class TicketAssociationServiceTest extends ServiceTest {
 
 	@Test
 	public void getTicketAssociationByIdTest() {
-		when(assemblaClient.doGet(any(AssemblaRequest.class))).thenReturn(
+		when(assemblaClient.get(any(AssemblaRequest.class))).thenReturn(
 				new AssemblaResponse(new TicketAssociation(), TicketAssociation.class));
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/tickets/100/ticket_associations/999.json",
 				TicketAssociation.class);
@@ -60,7 +60,7 @@ public class TicketAssociationServiceTest extends ServiceTest {
 		ticket.setNumber(100);
 		TicketAssociation association = ticketAssociationService.getAssociation(ticket, 999);
 
-		verify(assemblaClient).doGet(request);
+		verify(assemblaClient).get(request);
 		assertNotNull(association);
 	}
 
@@ -71,7 +71,7 @@ public class TicketAssociationServiceTest extends ServiceTest {
 
 	@Test
 	public void createAssociationTest() {
-		when(assemblaClient.doPost(any(AssemblaRequest.class))).thenReturn(
+		when(assemblaClient.post(any(AssemblaRequest.class))).thenReturn(
 				new AssemblaResponse(new TicketAssociation(), TicketAssociation.class));
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/tickets/200/ticket_associations.json",
 				TicketAssociation.class);
@@ -86,7 +86,7 @@ public class TicketAssociationServiceTest extends ServiceTest {
 		TicketAssociation newAssociation = ticketAssociationService.create(ticket, ta1);
 
 		assertNotNull(newAssociation);
-		verify(assemblaClient).doPost(request);
+		verify(assemblaClient).post(request);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -101,7 +101,7 @@ public class TicketAssociationServiceTest extends ServiceTest {
 
 	@Test
 	public void updateAssociationTest() {
-		when(assemblaClient.doPut(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse());
+		when(assemblaClient.put(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse());
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/tickets/200/ticket_associations/123456.json");
 
 		Ticket ticket = new Ticket();
@@ -115,7 +115,7 @@ public class TicketAssociationServiceTest extends ServiceTest {
 
 		ticketAssociationService.update(ticket, association);
 
-		verify(assemblaClient).doPut(request);
+		verify(assemblaClient).put(request);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -148,7 +148,7 @@ public class TicketAssociationServiceTest extends ServiceTest {
 
 	@Test
 	public void deleteTicketAssociationTest() throws Exception {
-		when(assemblaClient.doDelete(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse());
+		when(assemblaClient.delete(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse());
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/tickets/200/ticket_associations/100.json");
 
 		Ticket ticket = new Ticket();
@@ -158,7 +158,7 @@ public class TicketAssociationServiceTest extends ServiceTest {
 		association.setId(100);
 
 		ticketAssociationService.delete(ticket, association);
-		verify(assemblaClient).doDelete(request);
+		verify(assemblaClient).delete(request);
 	}
 
 	@Test(expected = IllegalArgumentException.class)

@@ -5,9 +5,10 @@ import static org.mockito.Mockito.when;
 
 import org.mockito.Mock;
 
-import com.assembla.client.AssemblaClient;
 import com.assembla.client.AssemblaRequest;
 import com.assembla.client.AssemblaResponse;
+import com.assembla.client.AssemblaClient;
+import com.assembla.client.UploadAssemblaRequest;
 import com.assembla.exception.AssemblaAPIException;
 
 public abstract class ServiceTest {
@@ -18,23 +19,30 @@ public abstract class ServiceTest {
 	protected AssemblaClient assemblaClient;
 
 	protected void mockGet(AssemblaResponse response) {
-		when(assemblaClient.doGet(any(AssemblaRequest.class))).thenReturn(response);
+		when(assemblaClient.get(any(AssemblaRequest.class))).thenReturn(response);
 	}
 
 	protected void mockGetWithError(String err) {
-		when(assemblaClient.doGet(any(AssemblaRequest.class))).thenThrow(new AssemblaAPIException(err));
+		when(assemblaClient.get(any(AssemblaRequest.class))).thenThrow(new AssemblaAPIException(err));
 	}
 
 	protected void mockPost(AssemblaResponse response) {
-		when(assemblaClient.doPost(any(AssemblaRequest.class))).thenReturn(response);
+		when(assemblaClient.post(any(AssemblaRequest.class))).thenReturn(response);
 	}
 
 	protected void mockPut(AssemblaResponse response) {
-		when(assemblaClient.doPut(any(AssemblaRequest.class))).thenReturn(response);
+		when(assemblaClient.put(any(AssemblaRequest.class))).thenReturn(response);
 	}
 
 	protected void mockDelete(AssemblaResponse response) {
-		when(assemblaClient.doDelete(any(AssemblaRequest.class))).thenReturn(response);
+		when(assemblaClient.delete(any(AssemblaRequest.class))).thenReturn(response);
+	}
+
+	protected void mockMultipartPost(AssemblaResponse response) {
+		when(assemblaClient.post(any(UploadAssemblaRequest.class))).thenReturn(response);
+	}
+
+	protected void mockMultipartPut(AssemblaResponse response) {
+		when(assemblaClient.put(any(UploadAssemblaRequest.class))).thenReturn(response);
 	}
 }
-

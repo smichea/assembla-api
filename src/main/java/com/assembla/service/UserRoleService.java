@@ -5,10 +5,10 @@ import java.util.List;
 import static java.lang.String.format;
 
 import com.assembla.UserRole;
-import com.assembla.client.AssemblaClient;
 import com.assembla.client.AssemblaConstants;
 import com.assembla.client.AssemblaRequest;
-import com.assembla.utils.ObjectUtils;
+import com.assembla.client.AssemblaClient;
+import com.assembla.utils.ValidationUtils;
 
 public class UserRoleService extends AbstractBaseService {
 
@@ -29,7 +29,7 @@ public class UserRoleService extends AbstractBaseService {
 	}
 
 	public UserRole create(UserRole role) {
-		ObjectUtils.notNull(role, "UserRole == null");
+		ValidationUtils.notNull(role, "UserRole == null");
 		String uri = format(AssemblaConstants.USER_ROLES_ALL, super.spaceId);
 		AssemblaRequest request = new AssemblaRequest(uri, UserRole.class);
 		request.withBody(role);
@@ -37,20 +37,20 @@ public class UserRoleService extends AbstractBaseService {
 	}
 
 	public void update(UserRole role) {
-		ObjectUtils.notNull(role, "UserRole == null");
-		ObjectUtils.notNull(role.getId(), "UserRole must have an Id");
+		ValidationUtils.notNull(role, "UserRole == null");
+		ValidationUtils.notNull(role.getId(), "UserRole must have an Id");
 		String uri = format(AssemblaConstants.USER_ROLES_ID, super.spaceId, role.getId());
 		AssemblaRequest request = new AssemblaRequest(uri, UserRole.class);
 		request.withBody(role);
-		super.client.doPut(request);
+		super.client.put(request);
 	}
 
 	public void delete(UserRole role) {
-		ObjectUtils.notNull(role, "UserRole == null");
-		ObjectUtils.notNull(role.getId(), "UserRole must have an Id");
+		ValidationUtils.notNull(role, "UserRole == null");
+		ValidationUtils.notNull(role.getId(), "UserRole must have an Id");
 		String uri = format(AssemblaConstants.USER_ROLES_ID, super.spaceId, role.getId());
 		AssemblaRequest request = new AssemblaRequest(uri, UserRole.class);
-		super.client.doDelete(request);
+		super.client.delete(request);
 	}
 
 }

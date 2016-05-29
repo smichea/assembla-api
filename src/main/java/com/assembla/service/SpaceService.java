@@ -5,10 +5,10 @@ import static java.lang.String.format;
 import java.util.List;
 
 import com.assembla.Space;
-import com.assembla.client.AssemblaClient;
 import com.assembla.client.AssemblaConstants;
 import com.assembla.client.AssemblaRequest;
-import com.assembla.utils.ObjectUtils;
+import com.assembla.client.AssemblaClient;
+import com.assembla.utils.ValidationUtils;
 
 public class SpaceService extends AbstractBaseService {
 
@@ -22,7 +22,7 @@ public class SpaceService extends AbstractBaseService {
 	}
 
 	public Space getSpace(String id) {
-		ObjectUtils.notNull(id, "id == null");
+		ValidationUtils.notNull(id, "id == null");
 		AssemblaRequest request = new AssemblaRequest(format(AssemblaConstants.SPACE_BY_ID, id), Space.class);
 		return super.get(request, format("Space with id %s does not exist", id));
 	}
@@ -34,28 +34,28 @@ public class SpaceService extends AbstractBaseService {
 	}
 
 	public void updateSpace(Space space) {
-		ObjectUtils.notNull(space, "space == null");
-		ObjectUtils.notNull(space.getId(), "space requires an id");
+		ValidationUtils.notNull(space, "space == null");
+		ValidationUtils.notNull(space.getId(), "space requires an id");
 
 		String uri = format(AssemblaConstants.SPACE_BY_ID, space.getId());
 		AssemblaRequest request = new AssemblaRequest(uri, Space.class);
 		request.withBody(space);
-		super.client.doPut(request);
+		super.client.put(request);
 	}
 
 	public void deleteSpace(Space space) {
-		ObjectUtils.notNull(space, "space == null");
-		ObjectUtils.notNull(space.getId(), "space requires an id");
+		ValidationUtils.notNull(space, "space == null");
+		ValidationUtils.notNull(space.getId(), "space requires an id");
 
 		String uri = format(AssemblaConstants.SPACE_BY_ID, space.getId());
 		AssemblaRequest request = new AssemblaRequest(uri);
-		client.doDelete(request);
+		client.delete(request);
 	}
 
 	public Space copySpace(Space oldSpace, String name, String wikiName) {
-		ObjectUtils.notNull(oldSpace, "oldSpace == null");
-		ObjectUtils.notNull(name, "name must not be null");
-		ObjectUtils.notNull(wikiName, "wikiName must not be null");
+		ValidationUtils.notNull(oldSpace, "oldSpace == null");
+		ValidationUtils.notNull(name, "name must not be null");
+		ValidationUtils.notNull(wikiName, "wikiName must not be null");
 
 		String uri = format(AssemblaConstants.SPACE_COPY, oldSpace.getId());
 		AssemblaRequest request = new AssemblaRequest(uri, Space.class);

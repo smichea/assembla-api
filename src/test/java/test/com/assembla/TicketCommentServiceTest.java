@@ -33,7 +33,7 @@ public class TicketCommentServiceTest extends ServiceTest {
 	
 	@Test
 	public void getTicketCommentsTest() {
-		when(assemblaClient.doGet(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(new TicketComment[10], TicketComment[].class));
+		when(assemblaClient.get(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(new TicketComment[10], TicketComment[].class));
 		Ticket ticket = new Ticket();
 		ticket.setNumber(100);
 		PagedIterator<TicketComment> it =ticketCommentService.getTicketComments(ticket);
@@ -53,18 +53,18 @@ public class TicketCommentServiceTest extends ServiceTest {
 	
 	@Test
 	public void getTicketCommentTest() {
-		when(assemblaClient.doGet(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(new TicketComment() ,TicketComment.class));
+		when(assemblaClient.get(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(new TicketComment() ,TicketComment.class));
 		int id = 200;
 		Ticket ticket = new Ticket();
 		ticket.setNumber(1000);
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/tickets/1000/ticket_comments/200.json", TicketComment.class	);
 		TicketComment tc = ticketCommentService.getTicketComment(ticket, id);
-		verify(assemblaClient).doGet(request);
+		verify(assemblaClient).get(request);
 	}
 	
 	@Test(expected=AssemblaAPIException.class)
 	public void getTicketNoCommentExistsWithId() {
-		when(assemblaClient.doGet(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(TicketComment.class));
+		when(assemblaClient.get(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(TicketComment.class));
 		int id = 200;
 		Ticket ticket = new Ticket();
 		ticket.setNumber(1000);
@@ -74,7 +74,7 @@ public class TicketCommentServiceTest extends ServiceTest {
 	@Test
 	public void createTicketCommentTest() {
 		TicketComment value = new TicketComment();
-		when(assemblaClient.doPost(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(value ,TicketComment.class));
+		when(assemblaClient.post(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(value ,TicketComment.class));
 		
 		Ticket ticket = new Ticket();
 		ticket.setNumber(100);
@@ -86,21 +86,21 @@ public class TicketCommentServiceTest extends ServiceTest {
 		
 		TicketComment comment = ticketCommentService.createTicketComment(ticket, newTicketComment);
 		
-		verify(assemblaClient).doPost(request);
+		verify(assemblaClient).post(request);
 		assertNotNull("Comment should not be null", comment);
 		assertEquals("Comment should equal one returned from client", value, comment);
 	}
 	
 	@Test
 	public void createTicketCommentTestNotCreated() {
-		when(assemblaClient.doPost(Matchers.any(AssemblaRequest.class))).thenThrow(new AssemblaAPIException("Error making request"));
+		when(assemblaClient.post(Matchers.any(AssemblaRequest.class))).thenThrow(new AssemblaAPIException("Error making request"));
 		TicketComment ticketComment = ticketCommentService.createTicketComment(new Ticket(), new TicketComment());
 		assertNull("Ticket comment not created, so should be null", ticketComment);
 	}
 	
 	@Test
 	public void updateTicektCommentTest() {
-		when(assemblaClient.doPut(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse());
+		when(assemblaClient.put(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse());
 		TicketComment ticketComment = new TicketComment();
 		ticketComment.setId(200);
 		ticketComment.setComment("New comment");
@@ -111,7 +111,7 @@ public class TicketCommentServiceTest extends ServiceTest {
 		request.withBody(ticketComment);
 		
 		ticketCommentService.updateTicketComment(ticket, ticketComment);
-		verify(assemblaClient).doPut(request);
+		verify(assemblaClient).put(request);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)

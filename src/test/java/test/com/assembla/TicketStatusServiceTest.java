@@ -31,7 +31,7 @@ public class TicketStatusServiceTest extends ServiceTest {
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/tickets/statuses.json", TicketStatus[].class);
 		mockGet(new AssemblaResponse(new TicketStatus[10], TicketStatus[].class));
 		List<TicketStatus> statuses = ticketStatusService.getAll();
-		verify(assemblaClient).doGet(request);
+		verify(assemblaClient).get(request);
 		assertNotNull(statuses);
 	}
 
@@ -40,7 +40,7 @@ public class TicketStatusServiceTest extends ServiceTest {
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/tickets/statuses/100.json", TicketStatus.class);
 		mockGet(new AssemblaResponse(new TicketStatus(), TicketStatus.class));
 		TicketStatus status = ticketStatusService.get(100);
-		verify(assemblaClient).doGet(request);
+		verify(assemblaClient).get(request);
 		assertNotNull(status);
 	}
 
@@ -57,7 +57,7 @@ public class TicketStatusServiceTest extends ServiceTest {
 		mockPost(new AssemblaResponse(new TicketStatus(), TicketStatus.class));
 		ticketStatusService.create(status);
 
-		verify(assemblaClient).doPost(request);
+		verify(assemblaClient).post(request);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -79,7 +79,7 @@ public class TicketStatusServiceTest extends ServiceTest {
 		mockPut(new AssemblaResponse(new TicketStatus(), TicketStatus.class));
 		ticketStatusService.update(status);
 
-		verify(assemblaClient).doPut(request);
+		verify(assemblaClient).put(request);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -100,7 +100,7 @@ public class TicketStatusServiceTest extends ServiceTest {
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/tickets/statuses/100.json");
 		mockDelete(new AssemblaResponse());
 		ticketStatusService.delete(status);
-		verify(super.assemblaClient).doDelete(request);
+		verify(super.assemblaClient).delete(request);
 	}
 
 	@Test(expected = IllegalArgumentException.class)

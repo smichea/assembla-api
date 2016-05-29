@@ -34,7 +34,7 @@ public class TagServiceTest extends ServiceTest {
 	
 	@Test
 	public void getTagsTest() {
-		 when(assemblaClient.doGet(any(AssemblaRequest.class))).thenReturn(
+		 when(assemblaClient.get(any(AssemblaRequest.class))).thenReturn(
 		 new AssemblaResponse(new Tag[10], Tag[].class));
 		 PagedAssemblaRequest request = new PagedAssemblaRequest("/spaces/test_space_id/tags.json", Tag[].class);
 		 PagedIterator<Tag> tags = tagService.getTags();
@@ -44,7 +44,7 @@ public class TagServiceTest extends ServiceTest {
 	
 	@Test
 	public void getActiveTagsTest() {
-		 when(assemblaClient.doGet(any(AssemblaRequest.class))).thenReturn(
+		 when(assemblaClient.get(any(AssemblaRequest.class))).thenReturn(
 		 new AssemblaResponse(new Tag[10], Tag[].class));
 		 PagedAssemblaRequest request = new PagedAssemblaRequest("/spaces/test_space_id/tags/active.json", Tag[].class);
 		 PagedIterator<Tag> tags = tagService.getActiveTags();
@@ -54,7 +54,7 @@ public class TagServiceTest extends ServiceTest {
 	
 	@Test
 	public void getProposedTagsTest() {
-		when(assemblaClient.doGet(any(AssemblaRequest.class))).thenReturn(
+		when(assemblaClient.get(any(AssemblaRequest.class))).thenReturn(
 				new AssemblaResponse(new Tag[10], Tag[].class));
 		PagedAssemblaRequest request = new PagedAssemblaRequest("/spaces/test_space_id/tags/proposed.json", Tag[].class);
 		PagedIterator<Tag> tags = tagService.getProposedTags();
@@ -64,7 +64,7 @@ public class TagServiceTest extends ServiceTest {
 	
 	@Test
 	public void getHiddenTagsTest() {
-		when(assemblaClient.doGet(any(AssemblaRequest.class))).thenReturn(
+		when(assemblaClient.get(any(AssemblaRequest.class))).thenReturn(
 				new AssemblaResponse(new Tag[10], Tag[].class));
 		PagedAssemblaRequest request = new PagedAssemblaRequest("/spaces/test_space_id/tags/hidden.json", Tag[].class);
 		PagedIterator<Tag> tags = tagService.getHiddenTags();
@@ -74,7 +74,7 @@ public class TagServiceTest extends ServiceTest {
 	
 	@Test
 	public void getTicketsForTag() {
-		when(assemblaClient.doGet(any(AssemblaRequest.class))).thenReturn(
+		when(assemblaClient.get(any(AssemblaRequest.class))).thenReturn(
 				new AssemblaResponse(new Tag[10], Tag[].class));
 		PagedAssemblaRequest request = new PagedAssemblaRequest("/spaces/test_space_id/tags/100/tickets.json", Tag[].class);
 		
@@ -99,18 +99,18 @@ public class TagServiceTest extends ServiceTest {
 	
 	@Test
 	public void getTagByIdTest() {
-		when(assemblaClient.doGet(any(AssemblaRequest.class))).thenReturn(
+		when(assemblaClient.get(any(AssemblaRequest.class))).thenReturn(
 				new AssemblaResponse(new Tag(), Tag.class));
 		
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/tags/100.json", Tag.class);
 		Tag tag = tagService.getTag(100);
-		verify(assemblaClient).doGet(request);
+		verify(assemblaClient).get(request);
 		assertNotNull(tag);
 	}
 	
 	@Test
 	public void createTagTest() {
-		when(assemblaClient.doPost(any(AssemblaRequest.class))).thenReturn(
+		when(assemblaClient.post(any(AssemblaRequest.class))).thenReturn(
 				new AssemblaResponse(new Tag(), Tag.class));
 		
 		Tag tag = new Tag();
@@ -120,13 +120,13 @@ public class TagServiceTest extends ServiceTest {
 		
 		Tag newTag = tagService.createTag(tag);
 		
-		verify(assemblaClient).doPost(request);
+		verify(assemblaClient).post(request);
 		assertNotNull(newTag);
 	}
 	
 	@Test
 	public void createTagFailedTest() {
-		when(assemblaClient.doPost(any(AssemblaRequest.class))).thenThrow(new AssemblaAPIException("Failed"));
+		when(assemblaClient.post(any(AssemblaRequest.class))).thenThrow(new AssemblaAPIException("Failed"));
 		Tag tag = new Tag();
 		tag.setName("Test Tag name");
 		Tag newTag = tagService.createTag(tag);
@@ -140,7 +140,7 @@ public class TagServiceTest extends ServiceTest {
 	
 	@Test
 	public void updateTagTest() {
-		when(assemblaClient.doPut(any(AssemblaRequest.class))).thenReturn(
+		when(assemblaClient.put(any(AssemblaRequest.class))).thenReturn(
 				new AssemblaResponse(Tag.class));
 		
 		Tag tag  = new Tag();
@@ -151,7 +151,7 @@ public class TagServiceTest extends ServiceTest {
 		request.withBody(tag);
 	
 		tagService.updateTag(tag);
-		verify(assemblaClient).doPut(request);
+		verify(assemblaClient).put(request);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
@@ -161,7 +161,7 @@ public class TagServiceTest extends ServiceTest {
 	
 	@Test
 	public void deleteTagTest() {
-		when(assemblaClient.doDelete(any(AssemblaRequest.class))).thenReturn(
+		when(assemblaClient.delete(any(AssemblaRequest.class))).thenReturn(
 				new AssemblaResponse(Tag.class));
 		
 		Tag tag  = new Tag();
@@ -172,7 +172,7 @@ public class TagServiceTest extends ServiceTest {
 	
 		tagService.deleteTag(tag);
 		
-		verify(assemblaClient).doDelete(request);
+		verify(assemblaClient).delete(request);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)

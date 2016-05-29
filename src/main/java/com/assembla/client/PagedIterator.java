@@ -40,7 +40,7 @@ public final class PagedIterator<T> implements Iterator<Collection<T>>, Iterable
 			throw new NoSuchElementException();
 		}
 		
-		List<T> items =  client.doGet(request).<T[]>getValue()
+		List<T> items =  client.get(request).<T[]>getValue()
 			.map(Arrays::asList)
 			.orElseGet(Collections::emptyList);
 		

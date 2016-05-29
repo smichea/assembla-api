@@ -1,5 +1,6 @@
 package com.assembla;
 
+import java.net.URL;
 import java.time.ZonedDateTime;
 
 import com.assembla.enums.ValuedEnum;
@@ -43,7 +44,7 @@ public class Document {
 	private String description;
 	private String cachedTagList;
 	private Integer position;
-	private String url;
+	private URL url;
 	private ZonedDateTime createdAt;
 	private ZonedDateTime updatedAt;
 	private Integer ticketId;
@@ -152,11 +153,11 @@ public class Document {
 		return this;
 	}
 
-	public String getUrl() {
+	public URL getUrl() {
 		return url;
 	}
 
-	public Document setUrl(String url) {
+	public Document setUrl(URL url) {
 		this.url = url;
 		return this;
 	}
@@ -242,17 +243,103 @@ public class Document {
 			builder.append(name);
 			builder.append(", ");
 		}
+		if (filename != null) {
+			builder.append("filename=");
+			builder.append(filename);
+			builder.append(", ");
+		}
+		if (contentType != null) {
+			builder.append("contentType=");
+			builder.append(contentType);
+			builder.append(", ");
+		}
+		if (createdBy != null) {
+			builder.append("createdBy=");
+			builder.append(createdBy);
+			builder.append(", ");
+		}
 		if (id != null) {
 			builder.append("id=");
 			builder.append(id);
 			builder.append(", ");
 		}
+		if (version != null) {
+			builder.append("version=");
+			builder.append(version);
+			builder.append(", ");
+		}
+		if (filesize != null) {
+			builder.append("filesize=");
+			builder.append(filesize);
+			builder.append(", ");
+		}
+		if (updatedBy != null) {
+			builder.append("updatedBy=");
+			builder.append(updatedBy);
+			builder.append(", ");
+		}
+		if (description != null) {
+			builder.append("description=");
+			builder.append(description);
+			builder.append(", ");
+		}
+		if (cachedTagList != null) {
+			builder.append("cachedTagList=");
+			builder.append(cachedTagList);
+			builder.append(", ");
+		}
+		if (position != null) {
+			builder.append("position=");
+			builder.append(position);
+			builder.append(", ");
+		}
 		if (url != null) {
 			builder.append("url=");
 			builder.append(url);
+			builder.append(", ");
+		}
+		if (createdAt != null) {
+			builder.append("createdAt=");
+			builder.append(createdAt);
+			builder.append(", ");
+		}
+		if (updatedAt != null) {
+			builder.append("updatedAt=");
+			builder.append(updatedAt);
+			builder.append(", ");
+		}
+		if (ticketId != null) {
+			builder.append("ticketId=");
+			builder.append(ticketId);
+			builder.append(", ");
+		}
+		if (attachableType != null) {
+			builder.append("attachableType=");
+			builder.append(attachableType);
+			builder.append(", ");
+		}
+		if (hasThumbnail != null) {
+			builder.append("hasThumbnail=");
+			builder.append(hasThumbnail);
+			builder.append(", ");
+		}
+		if (spaceId != null) {
+			builder.append("spaceId=");
+			builder.append(spaceId);
+			builder.append(", ");
+		}
+		if (attachableId != null) {
+			builder.append("attachableId=");
+			builder.append(attachableId);
+			builder.append(", ");
+		}
+		if (attachableGuid != null) {
+			builder.append("attachableGuid=");
+			builder.append(attachableGuid);
 		}
 		builder.append("]");
 		return builder.toString();
 	}
+
 
 }

@@ -4,12 +4,12 @@ import static java.lang.String.format;
 
 import com.assembla.Ticket;
 import com.assembla.TicketComment;
-import com.assembla.client.AssemblaClient;
 import com.assembla.client.AssemblaConstants;
 import com.assembla.client.AssemblaRequest;
+import com.assembla.client.AssemblaClient;
 import com.assembla.client.PagedAssemblaRequest;
 import com.assembla.client.PagedIterator;
-import com.assembla.utils.ObjectUtils;
+import com.assembla.utils.ValidationUtils;
 
 public class TicketCommentService extends AbstractBaseService {
 
@@ -18,8 +18,8 @@ public class TicketCommentService extends AbstractBaseService {
 	}
 
 	public PagedIterator<TicketComment> getTicketComments(Ticket ticket) {
-		ObjectUtils.notNull(ticket, "ticket == null");
-		ObjectUtils.notNull(ticket.getNumber(), "ticket requires a number");
+		ValidationUtils.notNull(ticket, "ticket == null");
+		ValidationUtils.notNull(ticket.getNumber(), "ticket requires a number");
 
 		String uri = format(AssemblaConstants.TICKET_COMMENTS_FOR_TICKET, super.getSpaceId(), ticket.getNumber());
 		PagedAssemblaRequest request = new PagedAssemblaRequest(uri, TicketComment[].class);
@@ -41,15 +41,15 @@ public class TicketCommentService extends AbstractBaseService {
 	}
 
 	public void updateTicketComment(Ticket ticket, TicketComment ticketComment) {
-		ObjectUtils.notNull(ticket, "ticket == null");
-		ObjectUtils.notNull(ticketComment, "ticketComment == null");
-		ObjectUtils.notNull(ticket.getNumber(), "ticket requires a number");
-		ObjectUtils.notNull(ticketComment.getId(), "ticketComment requires an id");
+		ValidationUtils.notNull(ticket, "ticket == null");
+		ValidationUtils.notNull(ticketComment, "ticketComment == null");
+		ValidationUtils.notNull(ticket.getNumber(), "ticket requires a number");
+		ValidationUtils.notNull(ticketComment.getId(), "ticketComment requires an id");
 
 		String uri = format(AssemblaConstants.TICKET_COMMENT, super.getSpaceId(), ticket.getNumber(), ticketComment.getId());
 		AssemblaRequest request = new AssemblaRequest(uri);
 		request.withBody(ticketComment);
-		client.doPut(request);
+		client.put(request);
 	}
 
 }

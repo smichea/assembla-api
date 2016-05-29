@@ -5,10 +5,10 @@ import java.util.List;
 import static java.lang.String.format;
 
 import com.assembla.TicketStatus;
-import com.assembla.client.AssemblaClient;
 import com.assembla.client.AssemblaConstants;
 import com.assembla.client.AssemblaRequest;
-import com.assembla.utils.ObjectUtils;
+import com.assembla.client.AssemblaClient;
+import com.assembla.utils.ValidationUtils;
 
 public class TicketStatusService extends AbstractBaseService {
 
@@ -29,7 +29,7 @@ public class TicketStatusService extends AbstractBaseService {
 	}
 
 	public TicketStatus create(TicketStatus status) {
-		ObjectUtils.notNull(status, "ticketStatus == null");
+		ValidationUtils.notNull(status, "ticketStatus == null");
 		String uri = format(AssemblaConstants.TICKET_STATUS_ALL, super.spaceId);
 		AssemblaRequest request = new AssemblaRequest(uri, TicketStatus.class);
 		request.withBody(status);
@@ -37,20 +37,20 @@ public class TicketStatusService extends AbstractBaseService {
 	}
 
 	public void update(TicketStatus ticketStatus) {
-		ObjectUtils.notNull(ticketStatus, "ticketStatus == null");
-		ObjectUtils.notNull(ticketStatus.getId(), "ticketStatus must have an id");
+		ValidationUtils.notNull(ticketStatus, "ticketStatus == null");
+		ValidationUtils.notNull(ticketStatus.getId(), "ticketStatus must have an id");
 		String uri = format(AssemblaConstants.TICKET_STATUS_ID, super.spaceId, ticketStatus.getId());
 		AssemblaRequest request = new AssemblaRequest(uri, TicketStatus.class);
 		request.withBody(ticketStatus);
-		super.client.doPut(request);
+		super.client.put(request);
 	}
 
 	public void delete(TicketStatus ticketStatus) {
-		ObjectUtils.notNull(ticketStatus, "ticketStatus == null");
-		ObjectUtils.notNull(ticketStatus.getId(), "ticketStatus must have an id");
+		ValidationUtils.notNull(ticketStatus, "ticketStatus == null");
+		ValidationUtils.notNull(ticketStatus.getId(), "ticketStatus must have an id");
 		String uri = format(AssemblaConstants.TICKET_STATUS_ID, super.spaceId, ticketStatus.getId());
 		AssemblaRequest request = new AssemblaRequest(uri);
-		super.client.doDelete(request);
+		super.client.delete(request);
 	}
 
 }

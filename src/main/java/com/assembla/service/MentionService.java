@@ -5,9 +5,9 @@ import static java.lang.String.format;
 import java.util.List;
 
 import com.assembla.Mention;
-import com.assembla.client.AssemblaClient;
 import com.assembla.client.AssemblaConstants;
 import com.assembla.client.AssemblaRequest;
+import com.assembla.client.AssemblaClient;
 
 public final class MentionService extends AbstractBaseService {
 
@@ -47,7 +47,7 @@ public final class MentionService extends AbstractBaseService {
 	public void markAsRead(int id) {
 		String uri = format(AssemblaConstants.MENTION_MARK_AS_READ, id);
 		AssemblaRequest request = new AssemblaRequest(uri);
-		client.doPut(request);
+		client.put(request);
 	}
 
 }

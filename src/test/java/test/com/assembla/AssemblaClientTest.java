@@ -2,6 +2,9 @@ package test.com.assembla;
 
 import static org.hamcrest.CoreMatchers.hasItems;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.when;
+
+import java.io.File;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -12,17 +15,30 @@ import java.util.Optional;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 
+import com.assembla.Document;
 import com.assembla.Ticket;
 import com.assembla.client.AssemblaClient;
 import com.assembla.client.AssemblaConstants;
 import com.assembla.client.AssemblaRequest;
 import com.assembla.client.AssemblaResponse;
+import com.assembla.client.AssemblaClient;
 import com.assembla.client.PagedAssemblaRequest;
 import com.assembla.client.PagedIterator;
+import com.assembla.client.UploadAssemblaRequest;
+import com.assembla.client.UploadableDocument;
+import com.assembla.client.UploadableItem;
+
+@RunWith(MockitoJUnitRunner.class)
 public class AssemblaClientTest {
-	
+
+	@Mock
+	private UploadableItem<Object> item;
+
 	@Test
 	public void testFullUrl() {
 		assertEquals("Full url correct", "https://api.assembla.com/v1", AssemblaConstants.URL);
@@ -65,13 +81,21 @@ public class AssemblaClientTest {
 		assertEquals(Ticket.class , response.getType().get());
 		assertEquals(Optional.of(ticket), response.<Ticket>getValue());
 	}
-
+	
 	@Test
 	public void testNullAssemblaResponse() {
 		//Given a new AssemblaResponse wrapping null
 		AssemblaResponse response = new AssemblaResponse(Ticket.class);
 		//When we get the value which has been wrapped, then it's an optional null
 		assertEquals("Respose can contain null as optiona", Optional.ofNullable(null), response.getValue());
+	}
+	
+	@Test
+	public void createDefaultEmptyAssemblaResponse() {
+		AssemblaResponse response = AssemblaResponse.empty();
+		assertEquals("Response does not have null class" ,Optional.ofNullable(null), response.getType());
+		assertEquals("Response does not have null value" , Optional.ofNullable(null), response.getValue());
+		
 	}
 	
 	@Test
@@ -109,7 +133,7 @@ public class AssemblaClientTest {
 		assertEquals("Client has not been set", client, it.getClient());
 		assertEquals("Request has not been set", pagedRequest, it.getRequest());
 		assertEquals("Has next as first iteration", true, it.hasNext());
-		Mockito.verify(client, Mockito.never()).doGet(Mockito.any(AssemblaRequest.class));
+		Mockito.verify(client, Mockito.never()).get(Mockito.any(AssemblaRequest.class));
 		
 	}
 	
@@ -122,7 +146,7 @@ public class AssemblaClientTest {
 		
 		Ticket[] ticketList = new Ticket[25];
 		Arrays.fill(ticketList, new Ticket());
-		Mockito.when(client.doGet(pagedRequest)).thenReturn(new AssemblaResponse(ticketList , Ticket[].class));
+		Mockito.when(client.get(pagedRequest)).thenReturn(new AssemblaResponse(ticketList , Ticket[].class));
 		
 		//When we get the next page
 		Collection<Ticket> tickets = it.next();
@@ -130,7 +154,7 @@ public class AssemblaClientTest {
 		//Then we are returned a page of results
 		Assert.assertThat(tickets, hasItems(ticketList));
 		assertEquals("Iterator has not moved onto next page" , 2 , it.getRequest().getPage());
-		Mockito.verify(client).doGet(Mockito.any(AssemblaRequest.class));
+		Mockito.verify(client).get(Mockito.any(AssemblaRequest.class));
 	}
 	
 	
@@ -144,7 +168,7 @@ public class AssemblaClientTest {
 		
 		Ticket[] ticketList = new Ticket[25];
 		Arrays.fill(ticketList, new Ticket());
-		Mockito.when(client.doGet(pagedRequest)).thenReturn(new AssemblaResponse(ticketList , Ticket[].class));
+		Mockito.when(client.get(pagedRequest)).thenReturn(new AssemblaResponse(ticketList , Ticket[].class));
 		
 		StringBuilder sb = new StringBuilder("paged_test?")
 		.append("key=value&")
@@ -177,7 +201,7 @@ public class AssemblaClientTest {
 		AssemblaClient client = Mockito.mock(AssemblaClient.class);
 		PagedAssemblaRequest pagedRequest = new PagedAssemblaRequest("paged_test", Ticket[].class);
 
-		Mockito.when(client.doGet(pagedRequest)).thenReturn(new AssemblaResponse());
+		Mockito.when(client.get(pagedRequest)).thenReturn(new AssemblaResponse());
 		
 		PagedIterator<Ticket> it = new PagedIterator<>(pagedRequest, client);
 		
@@ -189,7 +213,7 @@ public class AssemblaClientTest {
 	public void pagedIteratorNoElements() {
 		AssemblaClient client = Mockito.mock(AssemblaClient.class);
 		PagedAssemblaRequest pagedRequest = new PagedAssemblaRequest("paged_test", Ticket[].class);
-		Mockito.when(client.doGet(pagedRequest)).thenReturn(new AssemblaResponse());
+		Mockito.when(client.get(pagedRequest)).thenReturn(new AssemblaResponse());
 		
 		PagedIterator<Ticket> it = new PagedIterator<>(pagedRequest, client);
 		it.next();
@@ -218,6 +242,13 @@ public class AssemblaClientTest {
 
 		assertTrue("key3 does not exist in parameters", request.getParameters().containsKey("key3"));
 		assertEquals("key3 has wrong value in parameters", "value3" , request.getParameters().get("key3"));
+	}
+	
+	
+	@Test
+	public void uploadRequestCreation() {
+		UploadAssemblaRequest upload = new UploadAssemblaRequest("uri", Document.class, item);
+		assertEquals(this.item, upload.getUploadableItem());
 	}
 	
 }

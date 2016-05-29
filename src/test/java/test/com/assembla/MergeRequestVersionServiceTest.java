@@ -40,7 +40,7 @@ public class MergeRequestVersionServiceTest extends ServiceTest {
 
 		int id = 12345;
 		List<MergeRequestVersion> versions = mrvs.versions(id);
-		verify(super.assemblaClient).doGet(request);
+		verify(super.assemblaClient).get(request);
 	}
 
 	@Test
@@ -51,7 +51,7 @@ public class MergeRequestVersionServiceTest extends ServiceTest {
 
 		MergeRequestVersion version = mrvs.get(500, 1);
 		assertNotNull(version);
-		verify(super.assemblaClient).doGet(request);
+		verify(super.assemblaClient).get(request);
 	}
 
 	@Test
@@ -62,7 +62,7 @@ public class MergeRequestVersionServiceTest extends ServiceTest {
 
 		MergeRequestVersion version = mrvs.create(500);
 		assertNotNull(version);
-		verify(super.assemblaClient).doPost(request);
+		verify(super.assemblaClient).post(request);
 	}
 
 	@Test
@@ -91,7 +91,7 @@ public class MergeRequestVersionServiceTest extends ServiceTest {
 		int id = 500;
 		MergeRequestComment response = mrvs.createComment(id, version, message);
 		assertNotNull(response);
-		verify(super.assemblaClient).doPost(request);
+		verify(super.assemblaClient).post(request);
 	}
 
 	@Test
@@ -102,7 +102,7 @@ public class MergeRequestVersionServiceTest extends ServiceTest {
 		int version = 1;
 		int id = 500;
 		List<MergeRequestVote> votes = mrvs.getVotes(id, version);
-		verify(assemblaClient).doGet(request);
+		verify(assemblaClient).get(request);
 	}
 
 	@Test
@@ -114,7 +114,7 @@ public class MergeRequestVersionServiceTest extends ServiceTest {
 		int id = 500;
 		int version = 1;
 		MergeRequestVote vote = mrvs.upvote(id, version);
-		verify(assemblaClient).doPost(request);
+		verify(assemblaClient).post(request);
 	}
 
 	@Test
@@ -126,7 +126,7 @@ public class MergeRequestVersionServiceTest extends ServiceTest {
 		int id = 500;
 		int version = 1;
 		MergeRequestVote vote = mrvs.downvote(id, version);
-		verify(assemblaClient).doPost(request);
+		verify(assemblaClient).post(request);
 	}
 
 	@Test
@@ -138,7 +138,7 @@ public class MergeRequestVersionServiceTest extends ServiceTest {
 		int id = 500;
 		int version = 1;
 		MergeRequestVote vote = mrvs.delete(id, version);
-		verify(assemblaClient).doPost(request);
+		verify(assemblaClient).post(request);
 	}
 
 }

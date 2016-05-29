@@ -1,6 +1,6 @@
 package com.assembla;
 
-import com.assembla.utils.ObjectUtils;
+import com.assembla.utils.ValidationUtils;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import com.fasterxml.jackson.annotation.JsonValue;
 
@@ -11,7 +11,7 @@ public class MergeRequestCommentMessage {
 
 	public MergeRequestCommentMessage(String message) {
 		this.content = message;
-		ObjectUtils.notNull(message, "message == null");
+		ValidationUtils.notNull(message, "message == null");
 	}
 
 	public String getContent() {

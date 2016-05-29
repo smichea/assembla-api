@@ -52,6 +52,14 @@ public interface AssemblaConstants {
 	 * returns paginated response
 	 */
 	String PAGE_SIZE_PARAMETER = "per_page";
+	/*
+	 * Request parameter for specifying location of uploaded document
+	 */
+	String UPLOAD_LOCATION = "folder_name";
+	/*
+	 * Format of file name for posting multipart form data
+	 */
+	String UPLOAD_NAME_FORMAT="%s[file]";
 	/**
 	 * Default page number when making request which returns paginated results
 	 */
@@ -351,4 +359,21 @@ public interface AssemblaConstants {
 	 * URi for retrieving wiki page version by id
 	 */
 	String WIKI_PAGE_VERSION = "/spaces/%s/wiki_pages/%s/versions/%s.json";
+	/*
+	 * URI for retrieving all documents
+	 */
+	String DOCUMENTS_ALL = "/spaces/%s/documents.json";
+	/*
+	 * URI for retrieving document by id 
+	 */
+	String DOCUMENT = "/spaces/%s/documents/%s.json";
+	/*
+	 * URI for retrieving all documents
+	 */
+	String DOCUMENTS_ALL_NO_EXTENSION = "/spaces/%s/documents";
+	/*
+	 * URI for retrieving document by id 
+	 */
+	String DOCUMENT_NO_EXTENSION = "/spaces/%s/documents/%s";
+
 }

@@ -34,7 +34,7 @@ public class SpaceToolServiceTest extends ServiceTest {
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/space_tools.json", SpaceTool[].class);
 		List<SpaceTool> tools = spaceToolService.getAll();
 		assertNotNull(tools);
-		verify(assemblaClient).doGet(request);
+		verify(assemblaClient).get(request);
 	}
 
 	@Test
@@ -43,7 +43,7 @@ public class SpaceToolServiceTest extends ServiceTest {
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/space_tools/repo.json", SpaceTool[].class);
 		List<SpaceTool> tools = spaceToolService.getRepositories();
 		assertNotNull(tools);
-		verify(assemblaClient).doGet(request);
+		verify(assemblaClient).get(request);
 	}
 
 	@Test
@@ -52,7 +52,7 @@ public class SpaceToolServiceTest extends ServiceTest {
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/space_tools/100.json", SpaceTool.class);
 		SpaceTool tool = spaceToolService.get("100");
 		assertNotNull(tool);
-		verify(assemblaClient).doGet(request);
+		verify(assemblaClient).get(request);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -70,7 +70,7 @@ public class SpaceToolServiceTest extends ServiceTest {
 		SpaceTool tool = spaceToolService.create(toCreate);
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/space_tools/9/add.json", SpaceTool.class);
 		request.withBody(toCreate);
-		verify(assemblaClient).doPost(request);
+		verify(assemblaClient).post(request);
 		assertNotNull(tool);
 	}
 
@@ -93,7 +93,7 @@ public class SpaceToolServiceTest extends ServiceTest {
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/space_tools/100.json", SpaceTool.class);
 		request.withBody(tool);
 		spaceToolService.update(tool);
-		verify(assemblaClient).doPut(request);
+		verify(assemblaClient).put(request);
 	}
 
 	@Test
@@ -104,7 +104,7 @@ public class SpaceToolServiceTest extends ServiceTest {
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/space_tools/testName.json", SpaceTool.class);
 		request.withBody(tool);
 		spaceToolService.update(tool);
-		verify(assemblaClient).doPut(request);
+		verify(assemblaClient).put(request);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -124,7 +124,7 @@ public class SpaceToolServiceTest extends ServiceTest {
 		tool.setId("100");
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/space_tools/100.json");
 		spaceToolService.delete(tool);
-		verify(assemblaClient).doDelete(request);
+		verify(assemblaClient).delete(request);
 	}
 
 	@Test
@@ -134,7 +134,7 @@ public class SpaceToolServiceTest extends ServiceTest {
 		tool.setWatcherPermissions(WatcherPermission.READ);
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/space_tools/testName.json");
 		spaceToolService.delete(tool);
-		verify(assemblaClient).doDelete(request);
+		verify(assemblaClient).delete(request);
 	}
 
 	@Test(expected = IllegalArgumentException.class)

@@ -27,7 +27,7 @@ public class UserServiceTest extends ServiceTest {
 	@Before
 	public void setup() {
 		userService = new UserService(super.assemblaClient, TEST_SPACE_ID);
-		when(assemblaClient.doGet(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(new User(), User.class));
+		when(assemblaClient.get(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(new User(), User.class));
 	}
 	
 	@Test
@@ -37,7 +37,7 @@ public class UserServiceTest extends ServiceTest {
 		//When we make the request
 		userService.getUser();
 		//Then we exepct request to be same as this
-		verify(assemblaClient).doGet(request);
+		verify(assemblaClient).get(request);
 	}
 	
 	@Test
@@ -48,7 +48,7 @@ public class UserServiceTest extends ServiceTest {
 		//When we make the request
 		User user = userService.getUser(name);
 		//Then we exepct request to be same as this, user to not be empty
-		verify(assemblaClient).doGet(request);
+		verify(assemblaClient).get(request);
 		assertNotNull(user);
 	}
 	
@@ -59,31 +59,31 @@ public class UserServiceTest extends ServiceTest {
 	
 	@Test(expected = AssemblaAPIException.class)
 	public void getUserNotFoundThrowsException() {
-		when(assemblaClient.doGet(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(null, User.class));
+		when(assemblaClient.get(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(null, User.class));
 		userService.getUser("DOESNT EXIST");
 	}
 	
 	@Test
 	public void getUsersForCurrentSpaceContextTest() {
-		when(assemblaClient.doGet(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(new User[10], User[].class));
+		when(assemblaClient.get(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(new User[10], User[].class));
 		//Given request to get a user with id/login test-user-name
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/users.json", User[].class);
 		//When we make the request
 		List<User> users = userService.getUsersForSpace();
 		//Then we exepct request to be same as this, user to not be empty
-		verify(assemblaClient).doGet(request);
+		verify(assemblaClient).get(request);
 		assertNotNull(users);
 	}
 	
 	@Test
 	public void getUsersForSpaceNoUsers() {
-		when(assemblaClient.doGet(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(User[].class));
+		when(assemblaClient.get(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(User[].class));
 		//Given request to get a user with id/login test-user-name
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/users.json", User[].class);
 		//When we make the request
 		List<User> users = userService.getUsersForSpace();
 		//Then we exepct request to be same as this, user to not be empty
-		verify(assemblaClient).doGet(request);
+		verify(assemblaClient).get(request);
 		assertEquals("User list is not empty", Collections.emptyList(), users);
 	}
 

@@ -66,11 +66,11 @@ public class MilestoneServiceTest extends ServiceTest {
 	
 	@Test
 	public void getMilestoneByIdTest() {
-		when(assemblaClient.doGet(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(new Milestone(), Milestone.class))	;
+		when(assemblaClient.get(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(new Milestone(), Milestone.class))	;
 		String milestoneId = "milestoneId";
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/milestones/milestoneId.json", Milestone.class);
 		milestoneService.get(milestoneId);
-		verify(assemblaClient).doGet(request);
+		verify(assemblaClient).get(request);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
@@ -81,7 +81,7 @@ public class MilestoneServiceTest extends ServiceTest {
 	@Test
 	public void createMilestoneSuccessTest() {
 		Milestone expectedValue = new Milestone();
-		when(assemblaClient.doPost(Matchers.any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(expectedValue, Milestone.class));
+		when(assemblaClient.post(Matchers.any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(expectedValue, Milestone.class));
 		
 		Milestone milestoneToCreate = new Milestone();;
 		milestoneToCreate.setDescription("Test milestone body");
@@ -89,14 +89,14 @@ public class MilestoneServiceTest extends ServiceTest {
 		request.withBody(milestoneToCreate);
 		
 		Milestone createdMilestone = milestoneService.create(milestoneToCreate);
-		verify(assemblaClient).doPost(request);
+		verify(assemblaClient).post(request);
 		assertNotNull("Created milestone is null", createdMilestone);
 		assertEquals("Milestone not the same as one returned", expectedValue, createdMilestone);
 	}
 	
 	@Test
 	public void createMilestoneFailTest() {
-		when(assemblaClient.doPost(any(AssemblaRequest.class))).thenThrow(new AssemblaAPIException("Error making request"));
+		when(assemblaClient.post(any(AssemblaRequest.class))).thenThrow(new AssemblaAPIException("Error making request"));
 		Milestone milestone = milestoneService.create(new Milestone());
 		assertNull("Milestone should be null", milestone);
 	}
@@ -109,7 +109,7 @@ public class MilestoneServiceTest extends ServiceTest {
 		request.withBody(milestone);
 		
 		milestoneService.update(milestone);
-		verify(assemblaClient).doPut(request);
+		verify(assemblaClient).put(request);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
@@ -124,7 +124,7 @@ public class MilestoneServiceTest extends ServiceTest {
 		milestone.setId("test_id");
 		request.withBody(milestone);
 		milestoneService.delete(milestone);
-		verify(assemblaClient).doDelete(request);
+		verify(assemblaClient).delete(request);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)

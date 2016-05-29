@@ -3,8 +3,8 @@ package com.assembla.service;
 import java.time.LocalDateTime;
 
 import com.assembla.Event;
-import com.assembla.client.AssemblaClient;
 import com.assembla.client.AssemblaConstants;
+import com.assembla.client.AssemblaClient;
 import com.assembla.client.PagedAssemblaRequest;
 import com.assembla.client.PagedIterator;
 

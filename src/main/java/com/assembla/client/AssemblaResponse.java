@@ -4,6 +4,7 @@ import java.util.Optional;
 
 public class AssemblaResponse {
 
+	private static final AssemblaResponse EMPTY = new AssemblaResponse();
 	private final Object value;
 	private final Class<?> type;
 
@@ -32,6 +33,10 @@ public class AssemblaResponse {
 	@SuppressWarnings("unchecked")
 	public <E> Optional<E> getValue() {
 		return (Optional<E>) Optional.ofNullable(value);
+	}
+
+	public static AssemblaResponse empty() {
+		return EMPTY;
 	}
 
 }

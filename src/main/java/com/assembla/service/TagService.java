@@ -4,12 +4,12 @@ import static java.lang.String.format;
 
 import com.assembla.Tag;
 import com.assembla.Ticket;
-import com.assembla.client.AssemblaClient;
 import com.assembla.client.AssemblaConstants;
 import com.assembla.client.AssemblaRequest;
+import com.assembla.client.AssemblaClient;
 import com.assembla.client.PagedAssemblaRequest;
 import com.assembla.client.PagedIterator;
-import com.assembla.utils.ObjectUtils;
+import com.assembla.utils.ValidationUtils;
 
 public class TagService extends AbstractBaseService {
 
@@ -42,8 +42,8 @@ public class TagService extends AbstractBaseService {
 	}
 
 	public PagedIterator<Ticket> getTicketsForTag(Tag tag) {
-		ObjectUtils.notNull(tag, "tag == null");
-		ObjectUtils.notNull(tag.getId(), "tag requires an id");
+		ValidationUtils.notNull(tag, "tag == null");
+		ValidationUtils.notNull(tag.getId(), "tag requires an id");
 
 		String uri = format(AssemblaConstants.TICKETS_BY_TAG, super.getSpaceId(), tag.getId());
 		PagedAssemblaRequest request = new PagedAssemblaRequest(uri, Tag[].class);
@@ -57,7 +57,7 @@ public class TagService extends AbstractBaseService {
 	}
 
 	public Tag createTag(Tag tag) {
-		ObjectUtils.notNull(tag, "tag == null");
+		ValidationUtils.notNull(tag, "tag == null");
 
 		String uri = format(AssemblaConstants.TAGS, super.getSpaceId());
 		AssemblaRequest request = new AssemblaRequest(uri, Tag.class);
@@ -66,22 +66,22 @@ public class TagService extends AbstractBaseService {
 	}
 
 	public void updateTag(Tag tag) {
-		ObjectUtils.notNull(tag, "tag == null");
-		ObjectUtils.notNull(tag.getId(), "tag requires an id");
+		ValidationUtils.notNull(tag, "tag == null");
+		ValidationUtils.notNull(tag.getId(), "tag requires an id");
 
 		String uri = format(AssemblaConstants.TAG_BY_ID, super.getSpaceId(), tag.getId());
 		AssemblaRequest request = new AssemblaRequest(uri);
 		request.withBody(tag);
-		client.doPut(request);
+		client.put(request);
 	}
 
 	public void deleteTag(Tag tag) {
-		ObjectUtils.notNull(tag, "tag == null");
-		ObjectUtils.notNull(tag.getId(), "tag requires an id");
+		ValidationUtils.notNull(tag, "tag == null");
+		ValidationUtils.notNull(tag.getId(), "tag requires an id");
 
 		String uri = format(AssemblaConstants.TAG_BY_ID, super.getSpaceId(), tag.getId());
 		AssemblaRequest request = new AssemblaRequest(uri);
-		client.doDelete(request);
+		client.delete(request);
 	}
 
 }

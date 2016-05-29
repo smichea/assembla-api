@@ -34,7 +34,7 @@ public class CustomFieldServiceTest extends ServiceTest {
 
 	@Test
 	public void getCustomFieldsTest() {
-		when(assemblaClient.doGet(any(AssemblaRequest.class))).thenReturn(
+		when(assemblaClient.get(any(AssemblaRequest.class))).thenReturn(
 				new AssemblaResponse(new CustomField[10], CustomField[].class));
 
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/tickets/custom_fields.json",
@@ -42,26 +42,26 @@ public class CustomFieldServiceTest extends ServiceTest {
 
 		List<CustomField> customFields = customFieldService.getAll();
 		assertNotNull("Getting all custom fields should never return null", customFields);
-		Mockito.verify(assemblaClient).doGet(request);
+		Mockito.verify(assemblaClient).get(request);
 		assertEquals("Custom fields should be size of the list returned in mock request", 10, customFields.size());
 	}
 
 	@Test
 	public void getCustomFieldByIdTest() {
-		when(assemblaClient.doGet(any(AssemblaRequest.class))).thenReturn(
+		when(assemblaClient.get(any(AssemblaRequest.class))).thenReturn(
 				new AssemblaResponse(new CustomField(), CustomField.class));
 		int id = 100;
 		CustomField customField = customFieldService.get(id);
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/tickets/custom_fields/100.json",
 				CustomField.class);
-		verify(assemblaClient).doGet(request);
+		verify(assemblaClient).get(request);
 		assertNotNull(customField);
 	}
 
 	@Test
 	public void createCustomFieldSuccessTest() {
 		CustomField expectedValue = new CustomField();
-		when(assemblaClient.doPost(Matchers.any(AssemblaRequest.class))).thenReturn(
+		when(assemblaClient.post(Matchers.any(AssemblaRequest.class))).thenReturn(
 				new AssemblaResponse(expectedValue, CustomField.class));
 
 		CustomField customFieldToCreate = new CustomField();
@@ -70,7 +70,7 @@ public class CustomFieldServiceTest extends ServiceTest {
 		request.withBody(customFieldToCreate);
 
 		CustomField customField = customFieldService.create(customFieldToCreate);
-		verify(assemblaClient).doPost(request);
+		verify(assemblaClient).post(request);
 		assertNotNull("Created custom field is null", customField);
 		assertEquals("Ticket not the same as one returned", expectedValue, customField);
 	}
@@ -82,7 +82,7 @@ public class CustomFieldServiceTest extends ServiceTest {
 
 	@Test
 	public void createCustomFieldFailTest() {
-		when(assemblaClient.doPost(Matchers.any(AssemblaRequest.class))).thenThrow(
+		when(assemblaClient.post(Matchers.any(AssemblaRequest.class))).thenThrow(
 				new AssemblaAPIException("Error making request"));
 		CustomField customField = customFieldService.create(new CustomField());
 		assertNull("CustomField should be null", customField);
@@ -90,13 +90,13 @@ public class CustomFieldServiceTest extends ServiceTest {
 
 	@Test
 	public void updateCustomFieldTest() {
-		when(assemblaClient.doPut(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse());
+		when(assemblaClient.put(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse());
 		CustomField toUpdate = new CustomField();
 		toUpdate.setId(100);
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/tickets/custom_fields/100.json");
 		request.withBody(toUpdate);
 		customFieldService.update(toUpdate);
-		verify(assemblaClient).doPut(request);
+		verify(assemblaClient).put(request);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -106,14 +106,14 @@ public class CustomFieldServiceTest extends ServiceTest {
 	
 	@Test
 	public void deleteCustomFieldTest() {
-		when(assemblaClient.doDelete(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse());
+		when(assemblaClient.delete(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse());
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/tickets/custom_fields/100.json");
 		
 		CustomField toDelete = new CustomField();
 		toDelete.setId(100);
 		
 		customFieldService.delete(toDelete);
-		verify(assemblaClient).doDelete(request);
+		verify(assemblaClient).delete(request);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
