@@ -3,8 +3,10 @@ package com.assembla;
 import com.assembla.enums.IntValuedEnum;
 import com.assembla.enums.ValuedEnum;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonRootName;
 import com.fasterxml.jackson.annotation.JsonValue;
 
+@JsonRootName("ssh_action")
 public class SSHAction {
 
 	public enum SSHActionStatus {

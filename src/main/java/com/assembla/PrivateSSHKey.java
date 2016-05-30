@@ -1,5 +1,8 @@
 package com.assembla;
 
+import com.fasterxml.jackson.annotation.JsonRootName;
+
+@JsonRootName("private-ssh-key")
 public class PrivateSSHKey {
 
 	private Integer id;

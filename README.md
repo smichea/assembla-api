@@ -24,7 +24,7 @@ Assembla API documentation can be found [here](https://api-doc.assembla.com/cont
 | Ticket Associations            | Yes       |
 | Ticket Comments                | Yes       |
 | Milestones                     | Yes       |
-| Documents                      | No        |
+| Documents                      | Partial   |
 | StandUp Reports                | No        |
 | StandUp Away Reports           | No        |
 | Merge Requests                 | Yes       |
@@ -35,10 +35,10 @@ Assembla API documentation can be found [here](https://api-doc.assembla.com/cont
 | Wiki Page Versions             | Yes       |
 | Webhooks                       | No        |
 | Tasks                          | No        |
-| User SSH keys                  | No        |
-| Space SSH Keys                 | No        |
-| SSH Servers                    | No        |
-| SSH Actions                    | No        |
-| SSH Action Launches            | No        |
+| User SSH keys                  | Yes       |
+| Space SSH Keys                 | Yes       |
+| SSH Servers                    | Yes       |
+| SSH Actions                    | Yes       |
+| SSH Action Launches            | Yes       |
 
 

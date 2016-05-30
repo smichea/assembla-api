@@ -2,6 +2,8 @@ package com.assembla;
 
 import java.time.ZonedDateTime;
 
+import com.fasterxml.jackson.annotation.JsonRootName;
+@JsonRootName("user-task")
 public class Task {
 
 	private Boolean billed;

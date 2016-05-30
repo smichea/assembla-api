@@ -1,5 +1,7 @@
 package com.assembla;
 
+import java.time.ZonedDateTime;
+
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 @JsonRootName(value = "ticket_association")
@@ -9,13 +11,13 @@ public class TicketAssociation {
 		PARENT, CHILD, RELATED, DUPLICATE, SIBLING, STORY, SUBTASK, DEPENDANT, BLOCK;
 	}
 
-	public String createdAt;
+	public ZonedDateTime createdAt;
 	public Integer id;
 	public TicketRelationship relationship;
 	public Integer ticket1Id;
 	public Integer ticket2Id;
 
-	public String getCreatedAt() {
+	public ZonedDateTime getCreatedAt() {
 		return createdAt;
 	}
 
@@ -35,7 +37,7 @@ public class TicketAssociation {
 		return ticket2Id;
 	}
 
-	public TicketAssociation setCreatedAt(String createdAt) {
+	public TicketAssociation setCreatedAt(ZonedDateTime createdAt) {
 		this.createdAt = createdAt;
 		return this;
 	}

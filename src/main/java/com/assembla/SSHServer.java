@@ -1,5 +1,8 @@
 package com.assembla;
 
+import com.fasterxml.jackson.annotation.JsonRootName;
+
+@JsonRootName("ssh_server")
 public class SSHServer {
 
 	private Integer id;

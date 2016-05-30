@@ -1,5 +1,7 @@
 package com.assembla;
 
+import java.time.ZonedDateTime;
+
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 @JsonRootName("status")
@@ -10,8 +12,8 @@ public class TicketStatus {
 	public String name;
 	public State state;
 	public Integer listOrder;
-	public String createdAt;
-	public String updatedAt;
+	public ZonedDateTime createdAt;
+	public ZonedDateTime updatedAt;
 
 	public Integer getId() {
 		return id;
@@ -53,19 +55,19 @@ public class TicketStatus {
 		this.listOrder = listOrder;
 	}
 
-	public String getCreatedAt() {
+	public ZonedDateTime getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(String createdAt) {
+	public void setCreatedAt(ZonedDateTime createdAt) {
 		this.createdAt = createdAt;
 	}
 
-	public String getUpdatedAt() {
+	public ZonedDateTime getUpdatedAt() {
 		return updatedAt;
 	}
 
-	public void setUpdatedAt(String updatedAt) {
+	public void setUpdatedAt(ZonedDateTime updatedAt) {
 		this.updatedAt = updatedAt;
 	}
 

@@ -60,7 +60,7 @@ public class Space {
 	private SpaceStatus status;
 	private Integer bannerHeight;
 	private String banner;
-	private String updatedAt;
+	private ZonedDateTime updatedAt;
 	private LocalDate lastPayerChangedAt;
 	private TeamTabRole teamTabRole;
 	private ZonedDateTime createdAt;
@@ -119,11 +119,11 @@ public class Space {
 		return this;
 	}
 
-	public String getUpdatedAt() {
+	public ZonedDateTime getUpdatedAt() {
 		return updatedAt;
 	}
 
-	public Space setUpdatedAt(String updatedAt) {
+	public Space setUpdatedAt(ZonedDateTime updatedAt) {
 		this.updatedAt = updatedAt;
 		return this;
 	}

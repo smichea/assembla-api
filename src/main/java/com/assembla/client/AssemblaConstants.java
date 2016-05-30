@@ -383,5 +383,51 @@ public interface AssemblaConstants {
 	 * URI for retrieving SSH key by id
 	 */
 	String SSH_KEY = "/user/ssh_keys/%d.json";
+	/*
+	 * URI for retrieving ssh actions
+	 *
+	 */
+	String SSH_ACTIONS = "/spaces/%s/ssh/actions.json";
+	/*
+	 * URI for retrieving ssh action by id
+	 */
+	String SSH_ACTION = "/spaces/%s/ssh/actions/%d.json";
+	/*
+	 * URI for running ssh action by id
+	 */
+	String SSH_ACTION_RUN = "/spaces/%s/ssh/actions/%d/run.json";
+	/*
+	 * URI for retrieving ssh action launches for a space
+	 */
+	String SSH_ACTION_LAUNCHES = "/spaces/%s/ssh/launches.json";
+	/*
+	 * URI for retrieving ssh action launches for action id
+	 * 
+	 */
+	String SSH_ACTION_LAUNCHES_ID = "/spaces/%s/ssh/actions/%d/launches.json";
+	/*
+	 * URI for retrieving ssh action launch by id
+	 */
+	String SSH_ACTION_LAUNCH = "/spaces/%s/ssh/launches/%d.json";
+	/*
+	 * URI for retrieving ssh action launch with full output
+	 */
+	String SHH_ACTION_LAUNCH_OUTPUT = "/spaces/%s/ssh/launches/%d/output.json";
+	/*
+	 * URI for retrieving ssh servers for a space
+	 */
+	String SSH_SERVERS = "/spaces/%s/ssh/servers.json";
+	/*
+	 * URI for retrieving ssh server by id 
+	 */
+	String SSH_SERVER = "/spaces/%s/ssh/servers/%s.json";
+	/*
+	 * URI for retrieving space ssh keys
+	 */
+	String SPACE_SSH_KEYS = "/spaces/%s/ssh/key.json";
+	/*
+	 * URI for generating a new space ssh key
+	 */
+	String SPACE_SSH_KEY_GENERATE = "/spaces/%s/ssh/generate_key.json";
 
 }

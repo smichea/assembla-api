@@ -39,48 +39,12 @@ public class Ticket {
 		}
 	}
 
-	public enum PermissionType implements IntValuedEnum {
-		DEVELOPMENT(0), SUPPORT_PRIVATE(1), SUPPORT_PUBLIC(2);
-
-		private int value;
-
-		PermissionType(int value) {
-			this.value = value;
-		}
-
-		@JsonValue
-		@Override
-		public Integer getValue() {
-			return value;
-		}
-
-		@JsonCreator
-		public static PermissionType parse(int permission) {
-			return ValuedEnum.parse(permission, PermissionType.values());
-		}
-
+	public enum PermissionType {
+		DEVELOPMENT, SUPPORT_PRIVATE, SUPPORT_PUBLIC;
 	}
 
-	public enum HeirarchyType implements IntValuedEnum {
-		NO_PLAN(0), SUB_TASK(1), STORY(2), EPIC(3);
-
-		public int value;
-
-		HeirarchyType(int value) {
-			this.value = value;
-		}
-
-		@JsonValue
-		@Override
-		public Integer getValue() {
-			return value;
-		}
-
-		@JsonCreator
-		public static HeirarchyType parse(int value) {
-			return ValuedEnum.parse(value, HeirarchyType.values());
-		}
-
+	public enum HeirarchyType {
+		NO_PLAN, SUB_TASK, STORY, EPIC
 	}
 
 	private Integer id;
@@ -90,7 +54,7 @@ public class Ticket {
 	private Priority priority;
 	private ZonedDateTime completedDate;
 	private Integer componentId;
-	private String createdOn;
+	private ZonedDateTime createdOn;
 	private PermissionType permissionType;
 	private Double importance;
 	private Boolean isStory;
@@ -100,7 +64,7 @@ public class Ticket {
 	private State state;
 	private String status;
 	private Integer storyImportance;
-	private String updatedAt;
+	private ZonedDateTime updatedAt;
 	private Double workingHours;
 	private Double estimate;
 	private Double totalEstimate;
@@ -200,11 +164,11 @@ public class Ticket {
 		return this;
 	}
 
-	public String getCreatedOn() {
+	public ZonedDateTime getCreatedOn() {
 		return createdOn;
 	}
 
-	public Ticket setCreatedOn(String createdOn) {
+	public Ticket setCreatedOn(ZonedDateTime createdOn) {
 		this.createdOn = createdOn;
 		return this;
 	}
@@ -281,11 +245,11 @@ public class Ticket {
 		return this;
 	}
 
-	public String getUpdatedAt() {
+	public ZonedDateTime getUpdatedAt() {
 		return updatedAt;
 	}
 
-	public Ticket setUpdatedAt(String updatedAt) {
+	public Ticket setUpdatedAt(ZonedDateTime updatedAt) {
 		this.updatedAt = updatedAt;
 		return this;
 	}

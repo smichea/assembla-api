@@ -1,7 +1,11 @@
 package com.assembla;
 
+import java.time.ZonedDateTime;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonRootName;
+
+@JsonRootName("webhook")
 public class Webhook {
 
 	public enum HttpMethod {
@@ -28,8 +32,8 @@ public class Webhook {
 	private HttpMethod httpMethod;
 	private String contentType;
 	private String content;
-	private String createdAt;
-	private String updatedAt;
+	private ZonedDateTime createdAt;
+	private ZonedDateTime updatedAt;
 	private Map<String, Boolean> filter;
 
 	public Integer getId() {
@@ -160,19 +164,19 @@ public class Webhook {
 		this.content = content;
 	}
 
-	public String getCreatedAt() {
+	public ZonedDateTime getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(String createdAt) {
+	public void setCreatedAt(ZonedDateTime createdAt) {
 		this.createdAt = createdAt;
 	}
 
-	public String getUpdatedAt() {
+	public ZonedDateTime getUpdatedAt() {
 		return updatedAt;
 	}
 
-	public void setUpdatedAt(String updatedAt) {
+	public void setUpdatedAt(ZonedDateTime updatedAt) {
 		this.updatedAt = updatedAt;
 	}
 
