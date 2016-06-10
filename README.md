@@ -33,7 +33,7 @@ Assembla API documentation can be found [here](https://api-doc.assembla.com/cont
 | Merge Request Version Votes    | Yes       |
 | Wiki Pages                     | Yes       | 
 | Wiki Page Versions             | Yes       |
-| Webhooks                       | No        |
+| Webhooks                       | Yes       |
 | Tasks                          | No        |
 | User SSH keys                  | Yes       |
 | Space SSH Keys                 | Yes       |
