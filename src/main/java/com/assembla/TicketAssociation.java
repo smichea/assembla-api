@@ -2,13 +2,21 @@ package com.assembla;
 
 import java.time.ZonedDateTime;
 
+import com.assembla.enums.IntValuedEnum;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 @JsonRootName(value = "ticket_association")
 public class TicketAssociation {
 
-	public enum TicketRelationship {
+	public enum TicketRelationship implements IntValuedEnum{
 		PARENT, CHILD, RELATED, DUPLICATE, SIBLING, STORY, SUBTASK, DEPENDANT, BLOCK;
+
+		@Override
+		@JsonValue
+		public Integer getValue() {
+			return this.ordinal();
+		}
 	}
 
 	public ZonedDateTime createdAt;

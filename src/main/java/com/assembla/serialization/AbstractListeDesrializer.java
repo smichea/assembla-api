@@ -12,14 +12,11 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 
-public class StringToListDeserializer extends JsonDeserializer<List<String>> {
+public abstract class AbstractListeDesrializer extends JsonDeserializer<List<String>> {
 
-	private String delimiter = "\n";
+	private String delimiter;
 
-	public StringToListDeserializer() {
-	}
-
-	public StringToListDeserializer(String delimiter) {
+	public AbstractListeDesrializer(String delimiter) {
 		this.delimiter = delimiter;
 	}
 
@@ -33,5 +30,4 @@ public class StringToListDeserializer extends JsonDeserializer<List<String>> {
 		}
 		return new ArrayList<>(Arrays.asList(text.split(delimiter)));
 	}
-
 }

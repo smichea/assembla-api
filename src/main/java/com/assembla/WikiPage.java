@@ -11,8 +11,14 @@ import com.fasterxml.jackson.annotation.JsonValue;
 @JsonRootName("wiki_page")
 public class WikiPage {
 
-	public enum WikiStatus {
-		PRIVATE, ACTIVE, ARCHIVED
+	public enum WikiStatus implements IntValuedEnum{
+		PRIVATE, ACTIVE, ARCHIVED;
+
+		@Override
+		@JsonValue
+		public Integer getValue() {
+			return this.ordinal();
+		}
 	}
 
 	public enum WikiFormat implements IntValuedEnum {

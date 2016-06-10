@@ -103,22 +103,41 @@ public class TicketService extends AbstractBaseService {
 		return super.post(request);
 	}
 
-	public PagedIterator<Ticket> get(TicketRequest ticketRequest) {
+	public PagedIterator<Ticket> get(TicketRequest request) {
 		String uri = format(AssemblaConstants.TICKETS_BY_SPACE, super.getSpaceId());
-		PagedAssemblaRequest request = new PagedAssemblaRequest(
+		PagedAssemblaRequest pagedRequest = new PagedAssemblaRequest(
 			uri,
 			Ticket[].class, 
-			ticketRequest.getPageNumber(), 
-			ticketRequest.getPageSize()
+			request.getPageNumber(), 
+			request.getPageSize()
 		);
 
 		Map<String, Object> params = new HashMap<>();
-		ticketRequest.getReport().ifPresent(x -> params.put(AssemblaConstants.REPORT_PARAMETER, x.getValue()));
-		ticketRequest.getSortBy().ifPresent(x -> params.put(AssemblaConstants.SORT_BY_PARAMETER, x));
-		ticketRequest.getDirection().ifPresent(x -> params.put(AssemblaConstants.SORT_DIRECTION_PARAMETER, x.getValue()));
-		request.addAllParameters(params);
+		request.getReport().ifPresent(x -> params.put(AssemblaConstants.REPORT_PARAMETER, x));
+		request.getSortBy().ifPresent(x -> params.put(AssemblaConstants.SORT_BY_PARAMETER, x));
+		request.getDirection().ifPresent(x -> params.put(AssemblaConstants.SORT_DIRECTION_PARAMETER, x.getValue()));
+		pagedRequest.addAllParameters(params);
 		
-		return new PagedIterator<>(request, client);
+		return new PagedIterator<>(pagedRequest, client);
+	}
+
+	public PagedIterator<Ticket> getByMilestone(String milestoneId, TicketRequest request) {
+		ValidationUtils.notNull(milestoneId, "milestoneId == null");
+		String uri = String.format(AssemblaConstants.TICKET_BY_MILESTONE, this.spaceId, milestoneId);
+		PagedAssemblaRequest pagedRequest = new PagedAssemblaRequest(
+			uri,
+			Ticket[].class, 
+			request.getPageNumber(), 
+			request.getPageSize()
+		);
+
+		Map<String, Object> params = new HashMap<>();
+		request.getStatus().ifPresent(x -> params.put(AssemblaConstants.TICKET_STATUS_PARAMETER, x.getValue()));
+		request.getSortBy().ifPresent(x -> params.put(AssemblaConstants.SORT_BY_PARAMETER, x));
+		request.getDirection().ifPresent(x -> params.put(AssemblaConstants.SORT_DIRECTION_PARAMETER, x.getValue()));
+		pagedRequest.addAllParameters(params);
+
+		return new PagedIterator<>(pagedRequest, this.client);
 	}
 
 }

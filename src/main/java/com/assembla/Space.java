@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.assembla.enums.IntValuedEnum;
 import com.assembla.enums.ValuedEnum;
-import com.assembla.serialization.StringToListDeserializer;
+import com.assembla.serialization.NewLineToListDeserializer;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import com.fasterxml.jackson.annotation.JsonValue;
@@ -65,7 +65,7 @@ public class Space {
 	private TeamTabRole teamTabRole;
 	private ZonedDateTime createdAt;
 	private Boolean approved;
-	@JsonDeserialize(using = StringToListDeserializer.class)
+	@JsonDeserialize(using = NewLineToListDeserializer.class)
 	private List<String> tabsOrder;
 	private Boolean isCommercial;
 	private Boolean isManager;

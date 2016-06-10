@@ -429,5 +429,13 @@ public interface AssemblaConstants {
 	 * URI for generating a new space ssh key
 	 */
 	String SPACE_SSH_KEY_GENERATE = "/spaces/%s/ssh/generate_key.json";
+	/*
+	 * URI for retrieving tickets for milestone
+	 */
+	String TICKET_BY_MILESTONE = "/spaces/%s/tickets/milestone/%s.json";
+	/*
+	 * Request parameter determining what status tickets to fetch
+	 */
+	String TICKET_STATUS_PARAMETER = "ticket_status";
 
 }

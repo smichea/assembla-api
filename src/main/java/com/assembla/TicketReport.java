@@ -1,5 +1,7 @@
 package com.assembla;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum TicketReport {
 	ALL(0),
 	ACTIVE(1), 
@@ -20,6 +22,7 @@ public enum TicketReport {
 		this.value = value;
 	}
 
+	@JsonValue
 	public int getValue() {
 		return this.value;
 	}

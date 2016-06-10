@@ -14,7 +14,7 @@ import org.mockito.Answers;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.assembla.serialization.StringToListDeserializer;
+import com.assembla.serialization.NewLineToListDeserializer;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
@@ -23,7 +23,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 @RunWith(MockitoJUnitRunner.class)
 public class CustomDeserializerTest {
 
-	private StringToListDeserializer sToASerializer = new StringToListDeserializer();
+	private NewLineToListDeserializer sToASerializer = new NewLineToListDeserializer();
 
 	@Mock(answer = Answers.RETURNS_DEEP_STUBS)
 	private JsonParser parser;

@@ -1,8 +1,5 @@
 package test.com.assembla;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -19,6 +16,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import com.assembla.CustomReport;
 import com.assembla.Document;
+import com.assembla.State;
 import com.assembla.Tag;
 import com.assembla.Ticket;
 import com.assembla.TicketReport;
@@ -28,6 +26,7 @@ import com.assembla.client.PagedAssemblaRequest;
 import com.assembla.client.PagedIterator;
 import com.assembla.exception.AssemblaAPIException;
 import com.assembla.service.TicketRequest;
+import com.assembla.service.TicketRequest.Status;
 import com.assembla.service.TicketService;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -232,5 +231,26 @@ public class TicketServiceTest extends ServiceTest {
 		
 	}
 	
-	
+	@Test
+	public void getTicketsForMilestone() {
+		TicketRequest ticketRequest = new TicketRequest.Builder()
+		.sortBy("id")
+		.page(2)
+		.pageSize(60)
+		.open()
+		.desc().build();
+		
+		PagedIterator<Ticket> tickets = ticketService.getByMilestone("100", ticketRequest);
+
+		Map<String, Object> parameters = tickets.getRequest().getParameters();
+		
+		//Non paging parameters
+		assertThat(parameters, hasEntry("sort_order", "desc"));
+		assertThat(parameters, hasEntry("sort_by", "id"));
+		assertThat(parameters, hasEntry("ticket_status", "active"));
+		
+		//paging parameters
+		assertEquals(tickets.getRequest().getPage(), 2);
+		assertEquals(tickets.getRequest().getPageSize(), 60);
+	}	
 }

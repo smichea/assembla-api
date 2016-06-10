@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
+import static java.util.stream.Collectors.*;
+import java.util.stream.StreamSupport;
 
 public final class PagedIterator<T> implements Iterator<Collection<T>>, Iterable<Collection<T>> {
 
@@ -64,6 +66,10 @@ public final class PagedIterator<T> implements Iterator<Collection<T>>, Iterable
 
 	public PagedAssemblaRequest getRequest() {
 		return request;
+	}
+
+	public List<T> asList() {
+		return StreamSupport.stream(this.spliterator(), false).flatMap(e -> e.stream()).collect(toList());
 	}
 
 }

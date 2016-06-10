@@ -3,17 +3,31 @@ package com.assembla;
 import java.time.ZonedDateTime;
 import java.util.Map;
 
+import com.assembla.enums.IntValuedEnum;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 @JsonRootName("webhook")
 public class Webhook {
 
-	public enum HttpMethod {
-		POST, GET
+	public enum HttpMethod implements IntValuedEnum{
+		POST, GET;
+
+		@Override
+		@JsonValue
+		public Integer getValue() {
+			return this.ordinal();
+		}
 	}
 
-	public enum AuthType {
-		BASIC, OAUTH
+	public enum AuthType implements IntValuedEnum{
+		BASIC, OAUTH;
+		
+		@Override
+		@JsonValue
+		public Integer getValue() {
+			return this.ordinal();
+		}
 	}
 
 	private Integer id;

@@ -11,6 +11,7 @@ import com.assembla.client.AssemblaConstants;
 import com.assembla.client.Paging;
 import com.assembla.client.Sort;
 import com.assembla.service.TicketRequest;
+import com.assembla.service.TicketRequest.Status;
 
 public class TicketRequestTest {
 	@Test
@@ -27,7 +28,15 @@ public class TicketRequestTest {
 		assertEquals(50, request.getPageSize());
 		assertEquals(Sort.Direction.DESC, request.getDirection().get());
 		assertEquals("id", request.getSortBy().get());
-		assertEquals(TicketReport.ALL, request.getReport().get());
+		assertEquals(TicketReport.ALL.getValue(), request.getReport().get());
+	}
+	
+	@Test
+	public void createTicketRequestWithStatusAll() {
+		TicketRequest request = new TicketRequest.Builder()
+		.all()
+		.build();
+		assertEquals(Status.ALL, request.getStatus().get());
 	}
 
 	@Test
@@ -63,4 +72,10 @@ public class TicketRequestTest {
 	}	
 	
 	
+	@Test
+	public void statusTest() {
+		assertEquals("active", TicketRequest.Status.ACTIVE.getValue());
+		assertEquals("closed", TicketRequest.Status.CLOSED.getValue());
+		assertEquals("all", TicketRequest.Status.ALL.getValue());
+	}
 }

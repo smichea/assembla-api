@@ -2,10 +2,10 @@ package com.assembla;
 
 public class User {
 
-	private String phone;
-	private String login;
-	private String name;
 	private String id;
+	private String name;
+	private String login;
+	private String phone;
 	private String organization;
 	private String picture;
 	private InstantMessenger im;
@@ -84,11 +84,6 @@ public class User {
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("User [");
-		if (phone != null) {
-			builder.append("phone=");
-			builder.append(phone);
-			builder.append(", ");
-		}
 		if (login != null) {
 			builder.append("login=");
 			builder.append(login);
@@ -102,21 +97,6 @@ public class User {
 		if (id != null) {
 			builder.append("id=");
 			builder.append(id);
-			builder.append(", ");
-		}
-		if (organization != null) {
-			builder.append("organization=");
-			builder.append(organization);
-			builder.append(", ");
-		}
-		if (im != null) {
-			builder.append("im=");
-			builder.append(im);
-			builder.append(", ");
-		}
-		if (im2 != null) {
-			builder.append("im2=");
-			builder.append(im2);
 		}
 		builder.append("]");
 		return builder.toString();

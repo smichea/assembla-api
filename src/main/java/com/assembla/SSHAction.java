@@ -9,8 +9,14 @@ import com.fasterxml.jackson.annotation.JsonValue;
 @JsonRootName("ssh_action")
 public class SSHAction {
 
-	public enum SSHActionStatus {
+	public enum SSHActionStatus implements IntValuedEnum {
 		IDLE, QUEUED, RUNNING;
+
+		@Override
+		@JsonValue
+		public Integer getValue() {
+			return this.ordinal();
+		}
 	}
 
 	public enum SSHActionFrequency implements IntValuedEnum {

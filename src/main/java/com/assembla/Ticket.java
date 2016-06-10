@@ -2,17 +2,21 @@ package com.assembla;
 
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.assembla.enums.IntValuedEnum;
 import com.assembla.enums.ValuedEnum;
+import com.assembla.serialization.CommaToListDeserializer;
 import com.assembla.serialization.CustomFieldSerializer;
+import com.assembla.serialization.ListToStringSerializer;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @JsonRootName(value = "ticket")
@@ -39,12 +43,24 @@ public class Ticket {
 		}
 	}
 
-	public enum PermissionType {
+	public enum PermissionType implements IntValuedEnum{
 		DEVELOPMENT, SUPPORT_PRIVATE, SUPPORT_PUBLIC;
+
+		@Override
+		@JsonValue
+		public Integer getValue() {
+			return this.ordinal();
+		}
 	}
 
-	public enum HeirarchyType {
-		NO_PLAN, SUB_TASK, STORY, EPIC
+	public enum HeirarchyType implements IntValuedEnum {
+		NO_PLAN, SUB_TASK, STORY, EPIC;
+
+		@Override
+		@JsonValue
+		public Integer getValue() {
+			return this.ordinal();
+		}
 	}
 
 	private Integer id;
@@ -59,7 +75,9 @@ public class Ticket {
 	private Double importance;
 	private Boolean isStory;
 	private Integer milestoneId;
-	private String notificationList;
+	@JsonDeserialize(using = CommaToListDeserializer.class)
+	@JsonSerialize(using = ListToStringSerializer.class)
+	private List<String> notificationList;
 	private String spaceId;
 	private State state;
 	private String status;
@@ -105,8 +123,8 @@ public class Ticket {
 		return tags;
 	}
 
-	public Ticket setTags(List<String> tags) {
-		this.tags = tags;
+	public Ticket setTags(Collection<String> tags) {
+		this.tags = new ArrayList<>(tags);
 		return this;
 	}
 
@@ -209,11 +227,11 @@ public class Ticket {
 		return this;
 	}
 
-	public String getNotificationList() {
+	public List<String> getNotificationList() {
 		return notificationList;
 	}
 
-	public Ticket setNotificationList(String notificationList) {
+	public Ticket setNotificationList(List<String> notificationList) {
 		this.notificationList = notificationList;
 		return this;
 	}
@@ -395,11 +413,6 @@ public class Ticket {
 		if (summary != null) {
 			builder.append("summary=");
 			builder.append(summary);
-			builder.append(", ");
-		}
-		if (description != null) {
-			builder.append("description=");
-			builder.append(description);
 			builder.append(", ");
 		}
 		if (priority != null) {
