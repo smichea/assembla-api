@@ -221,7 +221,7 @@ public class TicketServiceTest extends ServiceTest {
 		Map<String, Object> parameters = tickets.getRequest().getParameters();
 		
 		//Non paging parameters
-		assertThat(parameters, hasEntry("report", 3));
+		assertThat(parameters, hasEntry("report", "3"));
 		assertThat(parameters, hasEntry("sort_order", "desc"));
 		assertThat(parameters, hasEntry("sort_by", "id"));
 		

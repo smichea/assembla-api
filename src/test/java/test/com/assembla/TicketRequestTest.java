@@ -28,7 +28,7 @@ public class TicketRequestTest {
 		assertEquals(50, request.getPageSize());
 		assertEquals(Sort.Direction.DESC, request.getDirection().get());
 		assertEquals("id", request.getSortBy().get());
-		assertEquals(TicketReport.ALL.getValue(), request.getReport().get());
+		assertEquals(String.valueOf(TicketReport.ALL.getValue()), request.getReport().get());
 	}
 	
 	@Test

@@ -25,8 +25,8 @@ Assembla API documentation can be found [here](https://api-doc.assembla.com/cont
 | Ticket Comments                | Yes       |
 | Milestones                     | Yes       |
 | Documents                      | Partial   |
-| StandUp Reports                | No        |
-| StandUp Away Reports           | No        |
+| StandUp Reports                | Yes       |
+| StandUp Away Reports           | Yes       |
 | Merge Requests                 | Yes       |
 | Merge Request Versions         | Yes       |
 | Merge Request Version Comments | Yes       |
