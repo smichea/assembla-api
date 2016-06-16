@@ -150,14 +150,14 @@ public class CustomField {
 			builder.append(id);
 			builder.append(", ");
 		}
-		if (spaceToolId != null) {
-			builder.append("spaceToolId=");
-			builder.append(spaceToolId);
-			builder.append(", ");
-		}
 		if (type != null) {
 			builder.append("type=");
 			builder.append(type);
+			builder.append(", ");
+		}
+		if (title != null) {
+			builder.append("title=");
+			builder.append(title);
 		}
 		builder.append("]");
 		return builder.toString();

@@ -151,7 +151,6 @@ public class AssemblaClient  {
 			charStream = response.body().charStream();
 			return new AssemblaResponse(mapper.readValue(charStream, type.get()), type.get());
 		} catch (IOException e) {
-			e.printStackTrace();
 			throw new AssemblaAPIException("Error making request", e);
 		} finally {
 			try {
@@ -181,6 +180,7 @@ public class AssemblaClient  {
 	
 	private RequestBody jsonRequestBody(Object request) {
 		try {
+			System.out.println(mapper.writeValueAsString(request));
 			return RequestBody.create(JSON, mapper.writeValueAsString(request));
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();

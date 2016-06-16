@@ -90,7 +90,7 @@ public class Ticket {
 	private Double totalWorkingHours;
 	private String assignedToId;
 	private String reporterId;
-	@JsonSerialize(keyUsing = CustomFieldSerializer.class)
+//	@JsonSerialize(keyUsing = CustomFieldSerializer.class)
 	private Map<String, String> customFields;
 	private HeirarchyType hierarchyType;
 	@JsonProperty("tags")

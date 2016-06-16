@@ -59,34 +59,19 @@ public class TicketRequest {
 	public Optional<String> getReport() {
 		return Optional.ofNullable(report);
 	}
-	
+
 	public Optional<Status> getStatus() {
 		return Optional.ofNullable(this.status);
 	}
 
 	public static class Builder {
 
-		private int pageSize = AssemblaConstants.DEFAULT_PAGE_SIZE;
-		private int pageNumber = 1;
-		private String sortByField;
-		private Direction sortDirection;
 		private String report;
 		private Status status;
-
-		public Builder pageSize(int pageSize) {
-			this.pageSize = pageSize;
-			return this;
-		}
-
-		public Builder page(int pageNumber) {
-			this.pageNumber = pageNumber;
-			return this;
-		}
-
-		public Builder sortBy(String sortByField) {
-			this.sortByField = sortByField;
-			return this;
-		}
+		protected int pageSize = AssemblaConstants.DEFAULT_PAGE_SIZE;
+		protected int pageNumber = 1;
+		protected String sortByField;
+		protected Direction sortDirection;
 
 		public Builder desc() {
 			this.sortDirection = Sort.Direction.DESC;
@@ -129,6 +114,21 @@ public class TicketRequest {
 
 		public Builder open() {
 			status(Status.ACTIVE);
+			return this;
+		}
+
+		public Builder pageSize(int pageSize) {
+			this.pageSize = pageSize;
+			return this;
+		}
+
+		public Builder page(int pageNumber) {
+			this.pageNumber = pageNumber;
+			return this;
+		}
+
+		public Builder sortBy(String sortByField) {
+			this.sortByField = sortByField;
 			return this;
 		}
 	}
