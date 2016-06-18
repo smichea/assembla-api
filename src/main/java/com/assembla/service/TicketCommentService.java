@@ -11,12 +11,16 @@ import com.assembla.client.PagedAssemblaRequest;
 import com.assembla.client.PagedIterator;
 import com.assembla.utils.ValidationUtils;
 
-public class TicketCommentService extends AbstractBaseService {
+public class TicketCommentService extends AbstractBaseService implements TicketCommentResource {
 
 	public TicketCommentService(AssemblaClient assemblaClient, String spaceId) {
 		super(assemblaClient, spaceId);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.assembla.service.TicketCommentResource#getAll(com.assembla.Ticket)
+	 */
+	@Override
 	public PagedIterator<TicketComment> getAll(Ticket ticket) {
 		ValidationUtils.notNull(ticket, "ticket == null");
 		ValidationUtils.notNull(ticket.getNumber(), "ticket requires a number");
@@ -27,12 +31,20 @@ public class TicketCommentService extends AbstractBaseService {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.assembla.service.TicketCommentResource#getById(com.assembla.Ticket, int)
+	 */
+	@Override
 	public TicketComment getById(Ticket ticket, int commentId) {
 		String uri = format(AssemblaConstants.TICKET_COMMENT, super.getSpaceId(), ticket.getNumber(), commentId);
 		AssemblaRequest request = new AssemblaRequest(uri, TicketComment.class);
 		return super.get(request, format("No ticket with id %d for ticket %d exists", commentId, ticket.getNumber()));
 	}
 
+	/* (non-Javadoc)
+	 * @see com.assembla.service.TicketCommentResource#create(com.assembla.Ticket, com.assembla.TicketComment)
+	 */
+	@Override
 	public TicketComment create(Ticket ticket, TicketComment newTicketComment) {
 		String uri = format(AssemblaConstants.TICKET_COMMENTS_FOR_TICKET, super.getSpaceId(), ticket.getNumber());
 		AssemblaRequest request = new AssemblaRequest(uri, TicketComment.class);
@@ -40,6 +52,10 @@ public class TicketCommentService extends AbstractBaseService {
 		return super.post(request);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.assembla.service.TicketCommentResource#update(com.assembla.Ticket, com.assembla.TicketComment)
+	 */
+	@Override
 	public void update(Ticket ticket, TicketComment ticketComment) {
 		ValidationUtils.notNull(ticket, "ticket == null");
 		ValidationUtils.notNull(ticketComment, "ticketComment == null");

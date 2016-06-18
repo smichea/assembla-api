@@ -12,7 +12,7 @@ import com.assembla.client.PagedIterator;
 import com.assembla.client.Paging;
 import com.assembla.utils.ValidationUtils;
 
-public class MergeRequestService extends AbstractBaseService {
+public class MergeRequestService extends AbstractBaseService implements MergeRequestResource {
 
 	private int spaceToolId;
 
@@ -20,22 +20,38 @@ public class MergeRequestService extends AbstractBaseService {
 		super(assemblaClient, spaceId);
 		this.spaceToolId = spaceToolId;
 	}
+	
+	/* (non-Javadoc)
+	 * @see com.assembla.service.MergeRequestResource#getSpaceToolId()
+	 */
+	@Override
+	public int getSpaceToolId() {
+		return spaceToolId;
+	}
+	
+	/* (non-Javadoc)
+	 * @see com.assembla.service.MergeRequestResource#setSpaceToolId(int)
+	 */
+	@Override
+	public void setSpaceToolId(int spaceToolId) {
+		this.spaceToolId = spaceToolId;
+	}
 
+	/* (non-Javadoc)
+	 * @see com.assembla.service.MergeRequestResource#getAll()
+	 */
+	@Override
 	public PagedIterator<MergeRequest> getAll() {
 		String uri = String.format(AssemblaConstants.MERGE_REQUESTS, this.spaceId, this.spaceToolId);
 		PagedAssemblaRequest request = new PagedAssemblaRequest(uri, MergeRequest[].class);
 		return new PagedIterator<>(request, super.client);
 	}
 
-	public int getSpaceToolId() {
-		return spaceToolId;
-	}
-
-	public void setSpaceToolId(int spaceToolId) {
-		this.spaceToolId = spaceToolId;
-	}
-
-	public PagedIterator<MergeRequest> mergeRequests(Paging paging, Status status) {
+	/* (non-Javadoc)
+	 * @see com.assembla.service.MergeRequestResource#getAll(com.assembla.client.Paging, com.assembla.MergeRequest.Status)
+	 */
+	@Override
+	public PagedIterator<MergeRequest> getAll(Paging paging, Status status) {
 		String uri = String.format(AssemblaConstants.MERGE_REQUESTS, this.spaceId, this.spaceToolId);
 		PagedAssemblaRequest request = null;
 		if (paging == null) {
@@ -47,6 +63,10 @@ public class MergeRequestService extends AbstractBaseService {
 		return new PagedIterator<>(request, client);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.assembla.service.MergeRequestResource#create(com.assembla.MergeRequest)
+	 */
+	@Override
 	public MergeRequest create(MergeRequest mergeRequest) {
 		ValidationUtils.notNull(mergeRequest, "mergeRequest == null");
 		String uri = String.format(AssemblaConstants.MERGE_REQUESTS, this.spaceId, this.spaceToolId);
@@ -55,12 +75,20 @@ public class MergeRequestService extends AbstractBaseService {
 		return super.post(request);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.assembla.service.MergeRequestResource#get(int)
+	 */
+	@Override
 	public MergeRequest get(int id) {
 		String uri = String.format(AssemblaConstants.MERGE_REQUEST_BY_ID, this.spaceId, this.spaceToolId, id);
 		AssemblaRequest request = new AssemblaRequest(uri, MergeRequest.class);
 		return super.get(request, String.format("Merge Request with id %d does not exist", id));
 	}
 
+	/* (non-Javadoc)
+	 * @see com.assembla.service.MergeRequestResource#getComments(int, com.assembla.client.Paging)
+	 */
+	@Override
 	public PagedIterator<MergeRequestComment> getComments(int mergeRequestId, Paging paging) {
 		String uri = String.format(AssemblaConstants.MERGE_REQUEST_COMMENTS, this.spaceId, this.spaceToolId, mergeRequestId);
 		PagedAssemblaRequest request = null;
@@ -72,12 +100,20 @@ public class MergeRequestService extends AbstractBaseService {
 		return new PagedIterator<>(request, client);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.assembla.service.MergeRequestResource#mergeAndClose(int)
+	 */
+	@Override
 	public void mergeAndClose(int id) {
 		String uri = String.format(AssemblaConstants.MERGE_AND_CLOSE, this.spaceId, this.spaceToolId, id);
 		AssemblaRequest request = new AssemblaRequest(uri);
 		super.client.put(request);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.assembla.service.MergeRequestResource#ignore(int)
+	 */
+	@Override
 	public void ignore(int id) {
 		String uri = String.format(AssemblaConstants.MERGE_REQUEST_IGNORE, this.spaceId, this.spaceToolId, id);
 		AssemblaRequest request = new AssemblaRequest(uri);
@@ -85,6 +121,10 @@ public class MergeRequestService extends AbstractBaseService {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see com.assembla.service.MergeRequestResource#associatedTickets(int, com.assembla.client.Paging)
+	 */
+	@Override
 	public PagedIterator<Ticket> associatedTickets(int id, Paging paging) {
 		String uri = String.format(AssemblaConstants.MERGE_REQUEST_TICKETS, this.spaceId, this.spaceToolId, id);
 		PagedAssemblaRequest request = null;

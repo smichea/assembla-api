@@ -16,13 +16,14 @@ import org.junit.runner.RunWith;
 import com.assembla.Event;
 import com.assembla.client.PagedAssemblaRequest;
 import com.assembla.client.PagedIterator;
+import com.assembla.service.ActivityResource;
 import com.assembla.service.ActivityService;
 import com.assembla.service.DateRange;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ActivityServiceTest extends ServiceTest {
 
-	private ActivityService activityService;
+	private ActivityResource activityService;
 
 	@Before
 	public void setup() {

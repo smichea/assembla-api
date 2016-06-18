@@ -19,12 +19,13 @@ import com.assembla.client.AssemblaRequest;
 import com.assembla.client.AssemblaResponse;
 import com.assembla.client.PagedIterator;
 import com.assembla.exception.AssemblaAPIException;
+import com.assembla.service.TicketCommentResource;
 import com.assembla.service.TicketCommentService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TicketCommentServiceTest extends ServiceTest {
 
-	private TicketCommentService ticketCommentService;
+	private TicketCommentResource ticketCommentService;
 
 	@Before
 	public void setup() {
