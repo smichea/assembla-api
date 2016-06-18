@@ -18,12 +18,13 @@ import com.assembla.Mention;
 import com.assembla.client.AssemblaRequest;
 import com.assembla.client.AssemblaResponse;
 import com.assembla.exception.AssemblaAPIException;
+import com.assembla.service.MentionResource;
 import com.assembla.service.MentionService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MentionServiceTest extends ServiceTest {
 
-	private MentionService mentionService;
+	private MentionResource mentionService;
 
 	@Before
 	public void setup() {
@@ -57,7 +58,7 @@ public class MentionServiceTest extends ServiceTest {
 		// Given request to get all user mentions
 		AssemblaRequest request = new AssemblaRequest("/user/mentions.json?read=true", Mention[].class);
 		// When we make the request
-		List<Mention> mentions = mentionService.getAllRead();
+		List<Mention> mentions = mentionService.getRead();
 		// Then we expect request to be same as this
 		verify(assemblaClient).get(request);
 		assertNotNull(mentions);
@@ -68,7 +69,7 @@ public class MentionServiceTest extends ServiceTest {
 		// Given request to get all user mentions
 		AssemblaRequest request = new AssemblaRequest("/user/mentions.json?unread=true", Mention[].class);
 		// When we make the request
-		List<Mention> mentions = mentionService.getAllUnread();
+		List<Mention> mentions = mentionService.getUnread();
 		// Then we expect request to be same as this
 		verify(assemblaClient).get(request);
 		assertNotNull(mentions);
@@ -81,7 +82,7 @@ public class MentionServiceTest extends ServiceTest {
 		AssemblaRequest request = new AssemblaRequest("/user/mentions/100.json", Mention.class);
 		// When we make the request
 		int id = 100;
-		Mention mentions = mentionService.getMention(id);
+		Mention mentions = mentionService.get(id);
 		// Then we expect request to be same as this
 		verify(assemblaClient).get(request);
 		assertNotNull(mentions);
@@ -90,7 +91,7 @@ public class MentionServiceTest extends ServiceTest {
 	@Test(expected = AssemblaAPIException.class)
 	public void getMentionByIdNoneTest() {
 		when(assemblaClient.get(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(Mention.class));
-		mentionService.getMention(100);
+		mentionService.get(100);
 	}
 
 	@Test

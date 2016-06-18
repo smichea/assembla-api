@@ -17,12 +17,13 @@ import com.assembla.User;
 import com.assembla.client.AssemblaRequest;
 import com.assembla.client.AssemblaResponse;
 import com.assembla.exception.AssemblaAPIException;
+import com.assembla.service.UserResource;
 import com.assembla.service.UserService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserServiceTest extends ServiceTest {
 
-	private UserService userService;
+	private UserResource userService;
 	
 	@Before
 	public void setup() {
@@ -35,7 +36,7 @@ public class UserServiceTest extends ServiceTest {
 		//Given request to get currently authenticated user
 		AssemblaRequest request = new AssemblaRequest("/user.json", User.class);
 		//When we make the request
-		userService.getUser();
+		userService.get();
 		//Then we exepct request to be same as this
 		verify(assemblaClient).get(request);
 	}
@@ -46,7 +47,7 @@ public class UserServiceTest extends ServiceTest {
 		AssemblaRequest request = new AssemblaRequest("/users/test-user-name.json", User.class);
 		String name = "test-user-name";
 		//When we make the request
-		User user = userService.getUser(name);
+		User user = userService.get(name);
 		//Then we exepct request to be same as this, user to not be empty
 		verify(assemblaClient).get(request);
 		assertNotNull(user);
@@ -54,13 +55,13 @@ public class UserServiceTest extends ServiceTest {
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void getUserByIdOrLoginNull() {	
-		userService.getUser(null);
+		userService.get(null);
 	}
 	
 	@Test(expected = AssemblaAPIException.class)
 	public void getUserNotFoundThrowsException() {
 		when(assemblaClient.get(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(null, User.class));
-		userService.getUser("DOESNT EXIST");
+		userService.get("DOESNT EXIST");
 	}
 	
 	@Test
@@ -69,7 +70,7 @@ public class UserServiceTest extends ServiceTest {
 		//Given request to get a user with id/login test-user-name
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/users.json", User[].class);
 		//When we make the request
-		List<User> users = userService.getUsersForSpace();
+		List<User> users = userService.getForSpace();
 		//Then we exepct request to be same as this, user to not be empty
 		verify(assemblaClient).get(request);
 		assertNotNull(users);
@@ -81,7 +82,7 @@ public class UserServiceTest extends ServiceTest {
 		//Given request to get a user with id/login test-user-name
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/users.json", User[].class);
 		//When we make the request
-		List<User> users = userService.getUsersForSpace();
+		List<User> users = userService.getForSpace();
 		//Then we exepct request to be same as this, user to not be empty
 		verify(assemblaClient).get(request);
 		assertEquals("User list is not empty", Collections.emptyList(), users);

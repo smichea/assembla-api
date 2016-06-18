@@ -17,11 +17,12 @@ import org.junit.runner.RunWith;
 import com.assembla.StandupReport;
 import com.assembla.client.AssemblaRequest;
 import com.assembla.client.AssemblaResponse;
+import com.assembla.service.StandupReportResource;
 import com.assembla.service.StandupReportService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class StandupReportServiceTest extends ServiceTest {
-	private StandupReportService service;
+	private StandupReportResource service;
 
 	@Before
 	public void setup() {

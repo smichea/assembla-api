@@ -10,24 +10,36 @@ import com.assembla.client.AssemblaRequest;
 import com.assembla.client.AssemblaClient;
 import com.assembla.utils.ValidationUtils;
 
-public class CustomFieldService extends AbstractBaseService {
+public class CustomFieldService extends AbstractBaseService implements CustomFieldResource {
 
 	public CustomFieldService(AssemblaClient assemblaClient, String spaceId) {
 		super(assemblaClient, spaceId);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.assembla.service.CustomFieldResource#getAll()
+	 */
+	@Override
 	public List<CustomField> getAll() {
 		String uri = format(AssemblaConstants.CUSTOM_FIELDS, super.getSpaceId());
 		AssemblaRequest request = new AssemblaRequest(uri, CustomField[].class);
 		return super.getList(request);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.assembla.service.CustomFieldResource#get(int)
+	 */
+	@Override
 	public CustomField get(int id) {
 		String uri = format(AssemblaConstants.CUSTOM_FIELDS_BY_ID, super.getSpaceId(), id);
 		AssemblaRequest request = new AssemblaRequest(uri, CustomField.class);
 		return super.get(request, format("No custom field with id : %d exists", id));
 	}
 
+	/* (non-Javadoc)
+	 * @see com.assembla.service.CustomFieldResource#create(com.assembla.CustomField)
+	 */
+	@Override
 	public CustomField create(CustomField customField) {
 		ValidationUtils.notNull(customField, "customerField == null");
 		String uri = format(AssemblaConstants.CUSTOM_FIELDS, super.getSpaceId());
@@ -36,6 +48,10 @@ public class CustomFieldService extends AbstractBaseService {
 		return super.post(request);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.assembla.service.CustomFieldResource#update(com.assembla.CustomField)
+	 */
+	@Override
 	public void update(CustomField customField) {
 		ValidationUtils.notNull(customField, "customerField == null");
 		ValidationUtils.notNull(customField.getId(), "customField requires an id");
@@ -45,6 +61,10 @@ public class CustomFieldService extends AbstractBaseService {
 		client.put(request);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.assembla.service.CustomFieldResource#delete(com.assembla.CustomField)
+	 */
+	@Override
 	public void delete(CustomField customField) {
 		ValidationUtils.notNull(customField, "customerField == null");
 		ValidationUtils.notNull(customField.getId(), "customField requires an id");

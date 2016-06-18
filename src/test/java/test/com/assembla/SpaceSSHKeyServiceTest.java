@@ -15,12 +15,13 @@ import org.junit.runner.RunWith;
 import com.assembla.PrivateSSHKey;
 import com.assembla.client.AssemblaRequest;
 import com.assembla.client.AssemblaResponse;
+import com.assembla.service.SpaceSSHKeyResource;
 import com.assembla.service.SpaceSSHKeyService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SpaceSSHKeyServiceTest extends ServiceTest {
 
-	private SpaceSSHKeyService service;
+	private SpaceSSHKeyResource service;
 
 	@Before
 	public void setup() {

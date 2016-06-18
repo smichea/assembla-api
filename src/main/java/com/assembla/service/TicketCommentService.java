@@ -17,7 +17,7 @@ public class TicketCommentService extends AbstractBaseService {
 		super(assemblaClient, spaceId);
 	}
 
-	public PagedIterator<TicketComment> getTicketComments(Ticket ticket) {
+	public PagedIterator<TicketComment> getAll(Ticket ticket) {
 		ValidationUtils.notNull(ticket, "ticket == null");
 		ValidationUtils.notNull(ticket.getNumber(), "ticket requires a number");
 
@@ -27,20 +27,20 @@ public class TicketCommentService extends AbstractBaseService {
 
 	}
 
-	public TicketComment getTicketComment(Ticket ticket, int commentId) {
+	public TicketComment getById(Ticket ticket, int commentId) {
 		String uri = format(AssemblaConstants.TICKET_COMMENT, super.getSpaceId(), ticket.getNumber(), commentId);
 		AssemblaRequest request = new AssemblaRequest(uri, TicketComment.class);
 		return super.get(request, format("No ticket with id %d for ticket %d exists", commentId, ticket.getNumber()));
 	}
 
-	public TicketComment createTicketComment(Ticket ticket, TicketComment newTicketComment) {
+	public TicketComment create(Ticket ticket, TicketComment newTicketComment) {
 		String uri = format(AssemblaConstants.TICKET_COMMENTS_FOR_TICKET, super.getSpaceId(), ticket.getNumber());
 		AssemblaRequest request = new AssemblaRequest(uri, TicketComment.class);
 		request.withBody(newTicketComment);
 		return super.post(request);
 	}
 
-	public void updateTicketComment(Ticket ticket, TicketComment ticketComment) {
+	public void update(Ticket ticket, TicketComment ticketComment) {
 		ValidationUtils.notNull(ticket, "ticket == null");
 		ValidationUtils.notNull(ticketComment, "ticketComment == null");
 		ValidationUtils.notNull(ticket.getNumber(), "ticket requires a number");

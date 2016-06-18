@@ -15,12 +15,13 @@ import org.mockito.runners.MockitoJUnitRunner;
 import com.assembla.SSHServer;
 import com.assembla.client.AssemblaRequest;
 import com.assembla.client.AssemblaResponse;
+import com.assembla.service.SSHServerResource;
 import com.assembla.service.SSHServerService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SSHServerServiceTest extends ServiceTest {
 
-	private SSHServerService service;
+	private SSHServerResource service;
 
 	@Before
 	public void setup() {

@@ -19,12 +19,13 @@ import com.assembla.client.AssemblaResponse;
 import com.assembla.client.PagedAssemblaRequest;
 import com.assembla.client.PagedIterator;
 import com.assembla.exception.AssemblaAPIException;
+import com.assembla.service.MilestoneResource;
 import com.assembla.service.MilestoneService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MilestoneServiceTest extends ServiceTest {
 
-	private MilestoneService milestoneService;
+	private MilestoneResource milestoneService;
 	
 	@Before
 	public void setup() {

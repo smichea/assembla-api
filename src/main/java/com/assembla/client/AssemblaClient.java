@@ -41,7 +41,7 @@ public class AssemblaClient  {
 	/**
 	 * URL for api calls
 	 */
-	protected String baseURL;
+	protected final String baseURL;
 
 	/**
 	 * MediaType for JSON media type

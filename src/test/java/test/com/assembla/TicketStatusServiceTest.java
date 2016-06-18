@@ -14,12 +14,13 @@ import com.assembla.State;
 import com.assembla.TicketStatus;
 import com.assembla.client.AssemblaRequest;
 import com.assembla.client.AssemblaResponse;
+import com.assembla.service.TicketStatusResource;
 import com.assembla.service.TicketStatusService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TicketStatusServiceTest extends ServiceTest {
 
-	private TicketStatusService ticketStatusService;
+	private TicketStatusResource ticketStatusService;
 
 	@Before
 	public void setup() {

@@ -9,7 +9,7 @@ import com.assembla.service.AbstractBaseService;
 import com.assembla.service.TaskRequest;
 import com.assembla.utils.ValidationUtils;
 
-public class TaskService extends AbstractBaseService {
+public class TaskService extends AbstractBaseService implements TaskResource {
 
 	public TaskService(AssemblaClient client) {
 		super(client, null);

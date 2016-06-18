@@ -21,7 +21,7 @@ public class MergeRequestService extends AbstractBaseService {
 		this.spaceToolId = spaceToolId;
 	}
 
-	public PagedIterator<MergeRequest> mergeRequests() {
+	public PagedIterator<MergeRequest> getAll() {
 		String uri = String.format(AssemblaConstants.MERGE_REQUESTS, this.spaceId, this.spaceToolId);
 		PagedAssemblaRequest request = new PagedAssemblaRequest(uri, MergeRequest[].class);
 		return new PagedIterator<>(request, super.client);

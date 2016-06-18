@@ -17,12 +17,13 @@ import org.mockito.runners.MockitoJUnitRunner;
 import com.assembla.Space;
 import com.assembla.client.AssemblaRequest;
 import com.assembla.client.AssemblaResponse;
+import com.assembla.service.SpaceResource;
 import com.assembla.service.SpaceService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SpaceServiceTest extends ServiceTest {
 
-	private SpaceService spaceService;
+	private SpaceResource spaceService;
 
 	@Before
 	public void setup() {
@@ -35,7 +36,7 @@ public class SpaceServiceTest extends ServiceTest {
 		 new AssemblaResponse(new Space[10], Space[].class));
 		//Given a request to get all spaces
 		AssemblaRequest request = new AssemblaRequest("/spaces.json", Space[].class);
-		List<Space> spaces = spaceService.getSpaces();
+		List<Space> spaces = spaceService.getAll();
 		//When we make the request
 		verify(assemblaClient).get(request);
 		//Then it looks as per example request 
@@ -51,7 +52,7 @@ public class SpaceServiceTest extends ServiceTest {
 		 
 		AssemblaRequest request = new AssemblaRequest("/spaces.json", Space[].class);
 		//When we make the request
-		List<Space> spaces = spaceService.getSpaces();
+		List<Space> spaces = spaceService.getAll();
 		
 		//Then the request performed is per example request and the result is an empty list
 		verify(assemblaClient).get(request);
@@ -67,7 +68,7 @@ public class SpaceServiceTest extends ServiceTest {
 		AssemblaRequest request = new AssemblaRequest("/spaces/123.json", Space.class);
 		
 		//When we make the request
-		Space space = spaceService.getSpace("123");
+		Space space = spaceService.get("123");
 		
 		//Then it looks like example request and is not null
 		assertNotNull(space);
@@ -76,7 +77,7 @@ public class SpaceServiceTest extends ServiceTest {
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void getSpaceByIdOrNameNoParamTest() {
-		spaceService.getSpace(null);
+		spaceService.get(null);
 	}
 	
 	@Test
@@ -89,7 +90,7 @@ public class SpaceServiceTest extends ServiceTest {
 		AssemblaRequest request = new AssemblaRequest("/spaces.json", Space.class);
 		request.withBody(space);
 		// When we make the request
-		Space newSpace = spaceService.createSpace(space);
+		Space newSpace = spaceService.create(space);
 		// Then the request should look like the sample and return a space
 		assertNotNull(newSpace);
 		verify(assemblaClient).post((request));
@@ -103,18 +104,18 @@ public class SpaceServiceTest extends ServiceTest {
 		AssemblaRequest request = new AssemblaRequest("/spaces/100.json", Space.class);
 		request.withBody(space);
 		
-		spaceService.updateSpace(space);
+		spaceService.update(space);
 		verify(assemblaClient).put(request);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void updateSpaceNullArgTest() {
-		spaceService.updateSpace(null);
+		spaceService.update(null);
 	}
 
 	@Test(expected=IllegalArgumentException.class)
 	public void updateSpaceNoIdTest() {
-		spaceService.updateSpace(new Space());
+		spaceService.update(new Space());
 	}
 	
 	@Test
@@ -123,18 +124,18 @@ public class SpaceServiceTest extends ServiceTest {
 		Space space = new Space();
 		space.setId("100");
 		AssemblaRequest request = new AssemblaRequest("/spaces/100.json");
-		spaceService.deleteSpace(space);
+		spaceService.delete(space);
 		verify(assemblaClient).delete(request);
 	}
 
 	@Test(expected=IllegalArgumentException.class)
 	public void deleteSpaceNullArg() {
-		spaceService.deleteSpace(null);
+		spaceService.delete(null);
 	}
 
 	@Test(expected=IllegalArgumentException.class)
 	public void deleteSpaceNullid() {
-		spaceService.deleteSpace(new Space());
+		spaceService.delete(new Space());
 	}
 	
 	@Test
@@ -146,7 +147,7 @@ public class SpaceServiceTest extends ServiceTest {
 		oldSpace.setId("100");
 		
 		// When we make the request
-		Space newSpace = spaceService.copySpace(oldSpace, "test name", "test wiki name");
+		Space newSpace = spaceService.copy(oldSpace, "test name", "test wiki name");
 		// Then the request should look like the sample and return a space
 		assertNotNull(newSpace);
 		
@@ -160,16 +161,16 @@ public class SpaceServiceTest extends ServiceTest {
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void createSpaceFromTemplateNoSpaceTest() {
-		spaceService.copySpace(null, "test name", "test wiki name");
+		spaceService.copy(null, "test name", "test wiki name");
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void createSpaceFromTemplateNoNameTest() {
-		spaceService.copySpace(new Space(), null, "test wiki name");
+		spaceService.copy(new Space(), null, "test wiki name");
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void createSpaceFromTemplateNoWikiTest() {
-		spaceService.copySpace(new Space(), "test name", null);
+		spaceService.copy(new Space(), "test name", null);
 	}
 }

@@ -11,26 +11,38 @@ import com.assembla.client.AssemblaRequest;
 import com.assembla.client.AssemblaClient;
 import com.assembla.utils.ValidationUtils;
 
-public class TicketAssociationService extends AbstractBaseService {
+public class TicketAssociationService extends AbstractBaseService implements TicketAssociationResource {
 
 	public TicketAssociationService(AssemblaClient assemblaClient, String spaceId) {
 		super(assemblaClient, spaceId);
 	}
 
-	public List<TicketAssociation> getAssociations(Ticket ticket) {
+	/* (non-Javadoc)
+	 * @see com.assembla.service.TicketAssociationResource#get(com.assembla.Ticket)
+	 */
+	@Override
+	public List<TicketAssociation> get(Ticket ticket) {
 		ValidationUtils.notNull(ticket, "ticket == null");
 		String uri = format(AssemblaConstants.TICKET_ASSOCIATIONS, this.getSpaceId(), ticket.getNumber());
 		AssemblaRequest request = new AssemblaRequest(uri, TicketAssociation[].class);
 		return super.getList(request);
 	}
 
-	public TicketAssociation getAssociation(Ticket ticket, int id) {
+	/* (non-Javadoc)
+	 * @see com.assembla.service.TicketAssociationResource#getById(com.assembla.Ticket, int)
+	 */
+	@Override
+	public TicketAssociation getById(Ticket ticket, int id) {
 		ValidationUtils.notNull(ticket, "ticket == null");
 		String uri = format(AssemblaConstants.TICKET_ASSOCIATIONS_BY_ID, this.getSpaceId(), ticket.getNumber(), id);
 		AssemblaRequest request = new AssemblaRequest(uri, TicketAssociation.class);
 		return super.get(request, format("No association with id %d for ticket %d", ticket.getNumber(), id));
 	}
 
+	/* (non-Javadoc)
+	 * @see com.assembla.service.TicketAssociationResource#create(com.assembla.Ticket, com.assembla.TicketAssociation)
+	 */
+	@Override
 	public TicketAssociation create(Ticket ticket, TicketAssociation association) {
 		ValidationUtils.notNull(ticket, "ticket == null");
 		ValidationUtils.notNull(association, "association == null");
@@ -44,6 +56,10 @@ public class TicketAssociationService extends AbstractBaseService {
 		return super.post(request);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.assembla.service.TicketAssociationResource#update(com.assembla.Ticket, com.assembla.TicketAssociation)
+	 */
+	@Override
 	public void update(Ticket ticket, TicketAssociation association) {
 		ValidationUtils.notNull(ticket, "ticket == null");
 		ValidationUtils.notNull(association, "association == null");
@@ -58,6 +74,10 @@ public class TicketAssociationService extends AbstractBaseService {
 		client.put(request);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.assembla.service.TicketAssociationResource#delete(com.assembla.Ticket, com.assembla.TicketAssociation)
+	 */
+	@Override
 	public void delete(Ticket ticket, TicketAssociation association) {
 		ValidationUtils.notNull(ticket, "ticket == null");
 		ValidationUtils.notNull(association, "association == null");

@@ -12,12 +12,13 @@ import org.junit.runner.RunWith;
 import com.assembla.SSHActionLaunch;
 import com.assembla.client.AssemblaRequest;
 import com.assembla.client.AssemblaResponse;
+import com.assembla.service.SSHActionLaunchResource;
 import com.assembla.service.SSHActionLaunchService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SSHActionLaunchServiceTest extends ServiceTest {
 
-	private SSHActionLaunchService service;
+	private SSHActionLaunchResource service;
 
 	@Before
 	public void setup() {

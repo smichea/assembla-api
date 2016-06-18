@@ -20,12 +20,13 @@ import com.assembla.client.Paging;
 import com.assembla.client.UploadAssemblaRequest;
 import com.assembla.client.UploadableDocument;
 import com.assembla.client.UploadableItem;
+import com.assembla.service.DocumentResource;
 import com.assembla.service.DocumentService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class DocumentServiceTest extends ServiceTest {
 
-	private DocumentService documentService;
+	private DocumentResource documentService;
 
 	@Before
 	public void setup() {

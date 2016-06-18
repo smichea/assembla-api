@@ -11,37 +11,57 @@ import com.assembla.client.PagedAssemblaRequest;
 import com.assembla.client.PagedIterator;
 import com.assembla.utils.ValidationUtils;
 
-public class TagService extends AbstractBaseService {
+public class TagService extends AbstractBaseService implements TagResource {
 
 	public TagService(AssemblaClient assemblaClient, String spaceId) {
 		super(assemblaClient, spaceId);
 	}
 
-	public PagedIterator<Tag> getTags() {
+	/* (non-Javadoc)
+	 * @see com.assembla.service.TagResource#getAll()
+	 */
+	@Override
+	public PagedIterator<Tag> getAll() {
 		String uri = format(AssemblaConstants.TAGS, super.getSpaceId());
 		PagedAssemblaRequest request = new PagedAssemblaRequest(uri, Tag[].class);
 		return new PagedIterator<>(request, client);
 	}
 
-	public PagedIterator<Tag> getActiveTags() {
+	/* (non-Javadoc)
+	 * @see com.assembla.service.TagResource#getActive()
+	 */
+	@Override
+	public PagedIterator<Tag> getActive() {
 		String uri = format(AssemblaConstants.ACTIVE_TAGS, super.getSpaceId());
 		PagedAssemblaRequest request = new PagedAssemblaRequest(uri, Tag[].class);
 		return new PagedIterator<>(request, client);
 	}
 
-	public PagedIterator<Tag> getProposedTags() {
+	/* (non-Javadoc)
+	 * @see com.assembla.service.TagResource#getProposed()
+	 */
+	@Override
+	public PagedIterator<Tag> getProposed() {
 		String uri = format(AssemblaConstants.PROPOSED_TAGS, super.getSpaceId());
 		PagedAssemblaRequest request = new PagedAssemblaRequest(uri, Tag[].class);
 		return new PagedIterator<>(request, client);
 	}
 
-	public PagedIterator<Tag> getHiddenTags() {
+	/* (non-Javadoc)
+	 * @see com.assembla.service.TagResource#getHidden()
+	 */
+	@Override
+	public PagedIterator<Tag> getHidden() {
 		String uri = format(AssemblaConstants.HIDDEN_TAGS, super.getSpaceId());
 		PagedAssemblaRequest request = new PagedAssemblaRequest(uri, Tag[].class);
 		return new PagedIterator<>(request, client);
 	}
 
-	public PagedIterator<Ticket> getTicketsForTag(Tag tag) {
+	/* (non-Javadoc)
+	 * @see com.assembla.service.TagResource#getTickets(com.assembla.Tag)
+	 */
+	@Override
+	public PagedIterator<Ticket> getTickets(Tag tag) {
 		ValidationUtils.notNull(tag, "tag == null");
 		ValidationUtils.notNull(tag.getId(), "tag requires an id");
 
@@ -50,13 +70,21 @@ public class TagService extends AbstractBaseService {
 		return new PagedIterator<>(request, client);
 	}
 
-	public Tag getTag(int id) {
+	/* (non-Javadoc)
+	 * @see com.assembla.service.TagResource#get(int)
+	 */
+	@Override
+	public Tag get(int id) {
 		String uri = format(AssemblaConstants.TAG_BY_ID, super.getSpaceId(), id);
 		AssemblaRequest request = new AssemblaRequest(uri, Tag.class);
 		return super.get(request, format("Error getting tag by id (%s)", id));
 	}
 
-	public Tag createTag(Tag tag) {
+	/* (non-Javadoc)
+	 * @see com.assembla.service.TagResource#create(com.assembla.Tag)
+	 */
+	@Override
+	public Tag create(Tag tag) {
 		ValidationUtils.notNull(tag, "tag == null");
 
 		String uri = format(AssemblaConstants.TAGS, super.getSpaceId());
@@ -65,7 +93,11 @@ public class TagService extends AbstractBaseService {
 		return super.post(request);
 	}
 
-	public void updateTag(Tag tag) {
+	/* (non-Javadoc)
+	 * @see com.assembla.service.TagResource#update(com.assembla.Tag)
+	 */
+	@Override
+	public void update(Tag tag) {
 		ValidationUtils.notNull(tag, "tag == null");
 		ValidationUtils.notNull(tag.getId(), "tag requires an id");
 
@@ -75,7 +107,11 @@ public class TagService extends AbstractBaseService {
 		client.put(request);
 	}
 
-	public void deleteTag(Tag tag) {
+	/* (non-Javadoc)
+	 * @see com.assembla.service.TagResource#delete(com.assembla.Tag)
+	 */
+	@Override
+	public void delete(Tag tag) {
 		ValidationUtils.notNull(tag, "tag == null");
 		ValidationUtils.notNull(tag.getId(), "tag requires an id");
 

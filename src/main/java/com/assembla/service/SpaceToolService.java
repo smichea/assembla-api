@@ -10,24 +10,36 @@ import com.assembla.client.AssemblaRequest;
 import com.assembla.client.AssemblaClient;
 import com.assembla.utils.ValidationUtils;
 
-public class SpaceToolService extends AbstractBaseService {
+public class SpaceToolService extends AbstractBaseService implements SpaceToolResource {
 
 	public SpaceToolService(AssemblaClient assemblaClient, String spaceId) {
 		super(assemblaClient, spaceId);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.assembla.service.SpaceToolResource#getAll()
+	 */
+	@Override
 	public List<SpaceTool> getAll() {
 		String uri = format(AssemblaConstants.SPACE_TOOLS, super.getSpaceId());
 		AssemblaRequest request = new AssemblaRequest(uri, SpaceTool[].class);
 		return super.getList(request);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.assembla.service.SpaceToolResource#getRepositories()
+	 */
+	@Override
 	public List<SpaceTool> getRepositories() {
 		String uri = format(AssemblaConstants.SPACE_TOOLS_REPOS, super.getSpaceId());
 		AssemblaRequest request = new AssemblaRequest(uri, SpaceTool[].class);
 		return super.getList(request);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.assembla.service.SpaceToolResource#get(java.lang.String)
+	 */
+	@Override
 	public SpaceTool get(String idOrName) {
 		ValidationUtils.notNull(idOrName, "idOrName == null");
 		String uri = format(AssemblaConstants.SPACE_TOOLS_ID, super.getSpaceId(), idOrName);
@@ -35,6 +47,10 @@ public class SpaceToolService extends AbstractBaseService {
 		return super.get(request, format("No SpaceTool with id or name : %s", idOrName));
 	}
 
+	/* (non-Javadoc)
+	 * @see com.assembla.service.SpaceToolResource#create(com.assembla.SpaceTool)
+	 */
+	@Override
 	public SpaceTool create(SpaceTool tool) {
 		ValidationUtils.notNull(tool, "tool == null");
 		ValidationUtils.notNull(tool.getToolId(), "Tool id required to add a new tool");
@@ -44,6 +60,10 @@ public class SpaceToolService extends AbstractBaseService {
 		return super.post(request);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.assembla.service.SpaceToolResource#update(com.assembla.SpaceTool)
+	 */
+	@Override
 	public void update(SpaceTool tool) {
 		ValidationUtils.notNull(tool, "tool == null");
 		String id = getId(tool);
@@ -54,6 +74,10 @@ public class SpaceToolService extends AbstractBaseService {
 		super.getClient().put(request);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.assembla.service.SpaceToolResource#delete(com.assembla.SpaceTool)
+	 */
+	@Override
 	public void delete(SpaceTool tool) {
 		ValidationUtils.notNull(tool, "tool == null");
 		String id = getId(tool);

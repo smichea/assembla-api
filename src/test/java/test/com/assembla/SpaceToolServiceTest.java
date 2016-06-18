@@ -16,12 +16,13 @@ import com.assembla.SpaceTool;
 import com.assembla.WatcherPermission;
 import com.assembla.client.AssemblaRequest;
 import com.assembla.client.AssemblaResponse;
+import com.assembla.service.SpaceToolResource;
 import com.assembla.service.SpaceToolService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SpaceToolServiceTest extends ServiceTest {
 
-	private SpaceToolService spaceToolService;
+	private SpaceToolResource spaceToolService;
 
 	@Before
 	public void setup() {

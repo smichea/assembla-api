@@ -12,12 +12,13 @@ import org.mockito.runners.MockitoJUnitRunner;
 import com.assembla.SSHAction;
 import com.assembla.client.AssemblaRequest;
 import com.assembla.client.AssemblaResponse;
+import com.assembla.service.SSHActionResource;
 import com.assembla.service.SSHActionService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SSHActionServiceTest extends ServiceTest {
 
-	private SSHActionService service;
+	private SSHActionResource service;
 
 	@Before
 	public void setup() {

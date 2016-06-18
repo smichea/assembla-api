@@ -20,12 +20,13 @@ import com.assembla.client.AssemblaResponse;
 import com.assembla.client.PagedAssemblaRequest;
 import com.assembla.client.PagedIterator;
 import com.assembla.client.Paging;
+import com.assembla.service.MergeRequestVersionResource;
 import com.assembla.service.MergeRequestVersionService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MergeRequestVersionServiceTest extends ServiceTest {
 
-	private MergeRequestVersionService mrvs;
+	private MergeRequestVersionResource mrvs;
 
 	@Before
 	public void setup() {
@@ -39,7 +40,7 @@ public class MergeRequestVersionServiceTest extends ServiceTest {
 				"/spaces/test_space_id/space_tools/12/merge_requests/12345/versions.json", MergeRequestVersion[].class);
 
 		int id = 12345;
-		List<MergeRequestVersion> versions = mrvs.versions(id);
+		List<MergeRequestVersion> versions = mrvs.getAll(id);
 		verify(super.assemblaClient).get(request);
 	}
 

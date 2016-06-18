@@ -20,12 +20,13 @@ import com.assembla.CustomField;
 import com.assembla.client.AssemblaRequest;
 import com.assembla.client.AssemblaResponse;
 import com.assembla.exception.AssemblaAPIException;
+import com.assembla.service.CustomFieldResource;
 import com.assembla.service.CustomFieldService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CustomFieldServiceTest extends ServiceTest {
 
-	private CustomFieldService customFieldService;
+	private CustomFieldResource customFieldService;
 
 	@Before
 	public void setup() {

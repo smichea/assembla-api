@@ -5,12 +5,16 @@ import com.assembla.client.AssemblaClient;
 import com.assembla.client.AssemblaRequest;
 import com.assembla.utils.ValidationUtils;
 
-public class WebhookService extends AbstractBaseService {
+public class WebhookService extends AbstractBaseService implements WebhookResource {
 
 	public WebhookService(AssemblaClient assemblaClient, String spaceId) {
 		super(assemblaClient, spaceId);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.assembla.service.WebhookResource#create(com.assembla.Webhook)
+	 */
+	@Override
 	public Webhook create(Webhook webhook) {
 		ValidationUtils.notNull(webhook, "webhook == null");
 		String uri = String.format("/spaces/%s/webhooks.json", this.spaceId);
@@ -19,6 +23,10 @@ public class WebhookService extends AbstractBaseService {
 		return super.post(request);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.assembla.service.WebhookResource#update(com.assembla.Webhook)
+	 */
+	@Override
 	public void update(Webhook webhook) {
 		ValidationUtils.notNull(webhook, "webhook == null");
 		ValidationUtils.notNull(webhook.getId(), "Webhook must have an id");
@@ -28,6 +36,10 @@ public class WebhookService extends AbstractBaseService {
 		super.client.put(request);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.assembla.service.WebhookResource#delete(int)
+	 */
+	@Override
 	public void delete(int id) {
 		String uri = String.format("/spaces/%s/webhooks/%d.json", this.spaceId, id);
 		AssemblaRequest request = new AssemblaRequest(uri);

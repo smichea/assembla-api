@@ -13,12 +13,13 @@ import org.junit.runner.RunWith;
 import com.assembla.Webhook;
 import com.assembla.client.AssemblaRequest;
 import com.assembla.client.AssemblaResponse;
+import com.assembla.service.WebhookResource;
 import com.assembla.service.WebhookService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class WebhookServiceTest extends ServiceTest {
 
-	private WebhookService service;
+	private WebhookResource service;
 
 	@Before
 	public void setup() {

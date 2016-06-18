@@ -12,11 +12,12 @@ import org.mockito.runners.MockitoJUnitRunner;
 import com.assembla.SSHKey;
 import com.assembla.client.AssemblaRequest;
 import com.assembla.client.AssemblaResponse;
+import com.assembla.service.SSHKeyResource;
 import com.assembla.service.SSHKeyService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SSHKeyServiceTest extends ServiceTest {
-	private SSHKeyService sshService;
+	private SSHKeyResource sshService;
 
 	@Before
 	public void setup() {

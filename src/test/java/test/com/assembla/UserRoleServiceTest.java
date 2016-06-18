@@ -13,12 +13,13 @@ import org.mockito.runners.MockitoJUnitRunner;
 import com.assembla.UserRole;
 import com.assembla.client.AssemblaRequest;
 import com.assembla.client.AssemblaResponse;
+import com.assembla.service.UserRoleResource;
 import com.assembla.service.UserRoleService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserRoleServiceTest extends ServiceTest {
 
-	private UserRoleService userRoleService;
+	private UserRoleResource userRoleService;
 
 	@Before
 	public void setup() {

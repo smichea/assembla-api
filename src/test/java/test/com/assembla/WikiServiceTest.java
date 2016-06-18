@@ -15,12 +15,13 @@ import com.assembla.client.AssemblaResponse;
 import com.assembla.client.PagedAssemblaRequest;
 import com.assembla.client.PagedIterator;
 import com.assembla.client.Paging;
+import com.assembla.service.WikiPageResource;
 import com.assembla.service.WikiService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class WikiServiceTest extends ServiceTest {
 
-	private WikiService wikiService;
+	private WikiPageResource wikiService;
 
 	@Before
 	public void setup() {

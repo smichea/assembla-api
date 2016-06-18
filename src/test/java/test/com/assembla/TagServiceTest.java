@@ -20,12 +20,13 @@ import com.assembla.client.AssemblaResponse;
 import com.assembla.client.PagedAssemblaRequest;
 import com.assembla.client.PagedIterator;
 import com.assembla.exception.AssemblaAPIException;
+import com.assembla.service.TagResource;
 import com.assembla.service.TagService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TagServiceTest extends ServiceTest {
 
-	private TagService tagService;
+	private TagResource tagService;
 
 	@Before
 	public void setup() {
@@ -37,7 +38,7 @@ public class TagServiceTest extends ServiceTest {
 		 when(assemblaClient.get(any(AssemblaRequest.class))).thenReturn(
 		 new AssemblaResponse(new Tag[10], Tag[].class));
 		 PagedAssemblaRequest request = new PagedAssemblaRequest("/spaces/test_space_id/tags.json", Tag[].class);
-		 PagedIterator<Tag> tags = tagService.getTags();
+		 PagedIterator<Tag> tags = tagService.getAll();
 		 assertEquals("Tag should have a request equal to request", request, tags.getRequest());
 		 assertTrue("Tags iterator hasn't been called so should haveNext()", tags.hasNext());
 	}
@@ -47,7 +48,7 @@ public class TagServiceTest extends ServiceTest {
 		 when(assemblaClient.get(any(AssemblaRequest.class))).thenReturn(
 		 new AssemblaResponse(new Tag[10], Tag[].class));
 		 PagedAssemblaRequest request = new PagedAssemblaRequest("/spaces/test_space_id/tags/active.json", Tag[].class);
-		 PagedIterator<Tag> tags = tagService.getActiveTags();
+		 PagedIterator<Tag> tags = tagService.getActive();
 		 assertEquals("Tag should have a request equal to request", request, tags.getRequest());
 		 assertTrue("Tags iterator hasn't been called so should haveNext()", tags.hasNext());
 	}
@@ -57,7 +58,7 @@ public class TagServiceTest extends ServiceTest {
 		when(assemblaClient.get(any(AssemblaRequest.class))).thenReturn(
 				new AssemblaResponse(new Tag[10], Tag[].class));
 		PagedAssemblaRequest request = new PagedAssemblaRequest("/spaces/test_space_id/tags/proposed.json", Tag[].class);
-		PagedIterator<Tag> tags = tagService.getProposedTags();
+		PagedIterator<Tag> tags = tagService.getProposed();
 		assertEquals("Tag should have a request equal to request", request, tags.getRequest());
 		assertTrue("Tags iterator hasn't been called so should haveNext()", tags.hasNext());
 	}
@@ -67,7 +68,7 @@ public class TagServiceTest extends ServiceTest {
 		when(assemblaClient.get(any(AssemblaRequest.class))).thenReturn(
 				new AssemblaResponse(new Tag[10], Tag[].class));
 		PagedAssemblaRequest request = new PagedAssemblaRequest("/spaces/test_space_id/tags/hidden.json", Tag[].class);
-		PagedIterator<Tag> tags = tagService.getHiddenTags();
+		PagedIterator<Tag> tags = tagService.getHidden();
 		assertEquals("Tag should have a request equal to request", request, tags.getRequest());
 		assertTrue("Tags iterator hasn't been called so should haveNext()", tags.hasNext());
 	}
@@ -81,7 +82,7 @@ public class TagServiceTest extends ServiceTest {
 		Tag tag = new Tag();
 		tag.setId(100);
 		
-		PagedIterator<Ticket> tickets = tagService.getTicketsForTag(tag);
+		PagedIterator<Ticket> tickets = tagService.getTickets(tag);
 		
 		assertEquals("Tag should have a request equal to request", request, tickets.getRequest());
 		assertTrue("Tags iterator hasn't been called so should haveNext()", tickets.hasNext());
@@ -89,12 +90,12 @@ public class TagServiceTest extends ServiceTest {
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void getTicketsForTagNullArgTest() {
-		tagService.getTicketsForTag(null);
+		tagService.getTickets(null);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void getTicketsForTagNoIdTest() {
-		tagService.getTicketsForTag(new Tag());
+		tagService.getTickets(new Tag());
 	}
 	
 	@Test
@@ -103,7 +104,7 @@ public class TagServiceTest extends ServiceTest {
 				new AssemblaResponse(new Tag(), Tag.class));
 		
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/tags/100.json", Tag.class);
-		Tag tag = tagService.getTag(100);
+		Tag tag = tagService.get(100);
 		verify(assemblaClient).get(request);
 		assertNotNull(tag);
 	}
@@ -118,7 +119,7 @@ public class TagServiceTest extends ServiceTest {
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/tags.json", Tag.class);
 		request.withBody(tag);
 		
-		Tag newTag = tagService.createTag(tag);
+		Tag newTag = tagService.create(tag);
 		
 		verify(assemblaClient).post(request);
 		assertNotNull(newTag);
@@ -129,13 +130,13 @@ public class TagServiceTest extends ServiceTest {
 		when(assemblaClient.post(any(AssemblaRequest.class))).thenThrow(new AssemblaAPIException("Failed"));
 		Tag tag = new Tag();
 		tag.setName("Test Tag name");
-		Tag newTag = tagService.createTag(tag);
+		Tag newTag = tagService.create(tag);
 		assertNull(newTag);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void createTagTestNullArg() {
-		tagService.createTag(null);
+		tagService.create(null);
 	}
 	
 	@Test
@@ -150,13 +151,13 @@ public class TagServiceTest extends ServiceTest {
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/tags/100.json");
 		request.withBody(tag);
 	
-		tagService.updateTag(tag);
+		tagService.update(tag);
 		verify(assemblaClient).put(request);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void updateTagNullArgTest() {
-		tagService.updateTag(null);
+		tagService.update(null);
 	}
 	
 	@Test
@@ -170,14 +171,14 @@ public class TagServiceTest extends ServiceTest {
 		
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/tags/100.json");
 	
-		tagService.deleteTag(tag);
+		tagService.delete(tag);
 		
 		verify(assemblaClient).delete(request);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void deleteTagNullArgTest() {
-		tagService.deleteTag(null);
+		tagService.delete(null);
 	}
 	
 }

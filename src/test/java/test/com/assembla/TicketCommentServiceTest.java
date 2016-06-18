@@ -36,19 +36,19 @@ public class TicketCommentServiceTest extends ServiceTest {
 		when(assemblaClient.get(any(AssemblaRequest.class))).thenReturn(new AssemblaResponse(new TicketComment[10], TicketComment[].class));
 		Ticket ticket = new Ticket();
 		ticket.setNumber(100);
-		PagedIterator<TicketComment> it =ticketCommentService.getTicketComments(ticket);
+		PagedIterator<TicketComment> it =ticketCommentService.getAll(ticket);
 		assertEquals("Request.getFullURI is incorrect","/spaces/test_space_id/tickets/100/ticket_comments.json?page=1&per_page="+AssemblaConstants.DEFAULT_PAGE_SIZE,it.getRequest().getFullURI()); 
 		assertNotNull("PagedIterator == null", it);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void getTicketCommentsNullTicket() {
-		ticketCommentService.getTicketComments(null);
+		ticketCommentService.getAll(null);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void getTicketCommentsNoNumber() {
-		ticketCommentService.getTicketComments(new Ticket());
+		ticketCommentService.getAll(new Ticket());
 	}
 	
 	@Test
@@ -58,7 +58,7 @@ public class TicketCommentServiceTest extends ServiceTest {
 		Ticket ticket = new Ticket();
 		ticket.setNumber(1000);
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/tickets/1000/ticket_comments/200.json", TicketComment.class	);
-		TicketComment tc = ticketCommentService.getTicketComment(ticket, id);
+		TicketComment tc = ticketCommentService.getById(ticket, id);
 		verify(assemblaClient).get(request);
 	}
 	
@@ -68,7 +68,7 @@ public class TicketCommentServiceTest extends ServiceTest {
 		int id = 200;
 		Ticket ticket = new Ticket();
 		ticket.setNumber(1000);
-		TicketComment tc = ticketCommentService.getTicketComment(ticket, id);
+		TicketComment tc = ticketCommentService.getById(ticket, id);
 	}
 	
 	@Test
@@ -84,7 +84,7 @@ public class TicketCommentServiceTest extends ServiceTest {
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/tickets/100/ticket_comments.json", TicketComment.class);
 		request.withBody(newTicketComment);
 		
-		TicketComment comment = ticketCommentService.createTicketComment(ticket, newTicketComment);
+		TicketComment comment = ticketCommentService.create(ticket, newTicketComment);
 		
 		verify(assemblaClient).post(request);
 		assertNotNull("Comment should not be null", comment);
@@ -94,7 +94,7 @@ public class TicketCommentServiceTest extends ServiceTest {
 	@Test
 	public void createTicketCommentTestNotCreated() {
 		when(assemblaClient.post(Matchers.any(AssemblaRequest.class))).thenThrow(new AssemblaAPIException("Error making request"));
-		TicketComment ticketComment = ticketCommentService.createTicketComment(new Ticket(), new TicketComment());
+		TicketComment ticketComment = ticketCommentService.create(new Ticket(), new TicketComment());
 		assertNull("Ticket comment not created, so should be null", ticketComment);
 	}
 	
@@ -110,20 +110,20 @@ public class TicketCommentServiceTest extends ServiceTest {
 		AssemblaRequest request = new AssemblaRequest("/spaces/test_space_id/tickets/1000/ticket_comments/200.json", null	);
 		request.withBody(ticketComment);
 		
-		ticketCommentService.updateTicketComment(ticket, ticketComment);
+		ticketCommentService.update(ticket, ticketComment);
 		verify(assemblaClient).put(request);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void updateTicketCommentNullTicketTest() {
-		ticketCommentService.updateTicketComment(null, new TicketComment());
+		ticketCommentService.update(null, new TicketComment());
 	}
 
 	@Test(expected=IllegalArgumentException.class)
 	public void updateTicketCommentNullTicketCommentTest() {
 		Ticket ticket = new Ticket();
 		ticket.setNumber(100);
-		ticketCommentService.updateTicketComment(ticket, null);
+		ticketCommentService.update(ticket, null);
 	}
 
 	@Test(expected=IllegalArgumentException.class)
@@ -131,7 +131,7 @@ public class TicketCommentServiceTest extends ServiceTest {
 		Ticket ticket = new Ticket();
 		ticket.setNumber(100);
 		TicketComment comment = new TicketComment();
-		ticketCommentService.updateTicketComment(ticket , comment);
+		ticketCommentService.update(ticket , comment);
 	}
 
 

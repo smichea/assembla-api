@@ -16,12 +16,13 @@ import com.assembla.TicketAssociation;
 import com.assembla.TicketAssociation.TicketRelationship;
 import com.assembla.client.AssemblaRequest;
 import com.assembla.client.AssemblaResponse;
+import com.assembla.service.TicketAssociationResource;
 import com.assembla.service.TicketAssociationService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TicketAssociationServiceTest extends ServiceTest {
 
-	private TicketAssociationService ticketAssociationService;
+	private TicketAssociationResource ticketAssociationService;
 
 	@Before
 	public void setup() {
@@ -38,7 +39,7 @@ public class TicketAssociationServiceTest extends ServiceTest {
 		Ticket ticket = new Ticket();
 		ticket.setNumber(100);
 
-		List<TicketAssociation> associations = ticketAssociationService.getAssociations(ticket);
+		List<TicketAssociation> associations = ticketAssociationService.get(ticket);
 
 		verify(assemblaClient).get(request);
 		assertFalse("List of associations should not be empty", associations.isEmpty());
@@ -46,7 +47,7 @@ public class TicketAssociationServiceTest extends ServiceTest {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void ticketAssociationByIdBadArgsTest() {
-		ticketAssociationService.getAssociations(null);
+		ticketAssociationService.get(null);
 	}
 
 	@Test
@@ -58,7 +59,7 @@ public class TicketAssociationServiceTest extends ServiceTest {
 
 		Ticket ticket = new Ticket();
 		ticket.setNumber(100);
-		TicketAssociation association = ticketAssociationService.getAssociation(ticket, 999);
+		TicketAssociation association = ticketAssociationService.getById(ticket, 999);
 
 		verify(assemblaClient).get(request);
 		assertNotNull(association);
@@ -66,7 +67,7 @@ public class TicketAssociationServiceTest extends ServiceTest {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void getTIcketAssociationByIdBadArgTest() {
-		ticketAssociationService.getAssociation(null, 100);
+		ticketAssociationService.getById(null, 100);
 	}
 
 	@Test

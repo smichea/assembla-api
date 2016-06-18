@@ -17,61 +17,97 @@ import com.assembla.client.PagedAssemblaRequest;
 import com.assembla.client.PagedIterator;
 import com.assembla.utils.ValidationUtils;
 
-public class TicketService extends AbstractBaseService {
+public class TicketService extends AbstractBaseService implements TicketResource {
 
 	public TicketService(AssemblaClient assemblaClient, String spaceId) {
 		super(assemblaClient, spaceId);
 	}
 
-	public Ticket getTicketById(String id) {
+	/* (non-Javadoc)
+	 * @see com.assembla.service.TicketResource#getById(java.lang.String)
+	 */
+	@Override
+	public Ticket getById(String id) {
 		String uri = format(AssemblaConstants.TICKET_BY_ID, super.getSpaceId(), id);
 		AssemblaRequest request = new AssemblaRequest(uri, Ticket.class);
 		return super.get(request, format("No ticket with id %s exists", id));
 	}
 
-	public Ticket getTicketByNumber(int number) {
+	/* (non-Javadoc)
+	 * @see com.assembla.service.TicketResource#getByNumber(int)
+	 */
+	@Override
+	public Ticket getByNumber(int number) {
 		String uri = format(AssemblaConstants.TICKET_BY_NUMBER, super.getSpaceId(), number);
 		AssemblaRequest request = new AssemblaRequest(uri, Ticket.class);
 		return super.get(request, format("No ticket with id %d exists", number));
 	}
 
-	public PagedIterator<Ticket> getTicketsByNoMilestone() {
+	/* (non-Javadoc)
+	 * @see com.assembla.service.TicketResource#getNoMilestone()
+	 */
+	@Override
+	public PagedIterator<Ticket> getNoMilestone() {
 		String uri = format(AssemblaConstants.TICKETS_BY_NO_MILESTONE, super.getSpaceId());
 		PagedAssemblaRequest request = new PagedAssemblaRequest(uri, Ticket[].class);
 		return new PagedIterator<>(request, client);
 	}
 
-	public PagedIterator<Ticket> getAllTickets() {
+	/* (non-Javadoc)
+	 * @see com.assembla.service.TicketResource#getAll()
+	 */
+	@Override
+	public PagedIterator<Ticket> getAll() {
 		String uri = format(AssemblaConstants.TICKETS_BY_SPACE, super.getSpaceId());
 		PagedAssemblaRequest request = new PagedAssemblaRequest(uri, Ticket[].class);
 		return new PagedIterator<>(request, client);
 	}
 
-	public PagedIterator<Ticket> getAllFollowedTickets() {
+	/* (non-Javadoc)
+	 * @see com.assembla.service.TicketResource#getFollowed()
+	 */
+	@Override
+	public PagedIterator<Ticket> getFollowed() {
 		String uri = format(AssemblaConstants.TICKETS_FOLLOWED, super.getSpaceId());
 		PagedAssemblaRequest request = new PagedAssemblaRequest(uri, Ticket[].class);
 		return new PagedIterator<>(request, client);
 	}
 
-	public List<Ticket> getAllActiveTickets() {
+	/* (non-Javadoc)
+	 * @see com.assembla.service.TicketResource#getActive()
+	 */
+	@Override
+	public List<Ticket> getActive() {
 		String uri = format(AssemblaConstants.TICKETS_BY_STATUS, super.getSpaceId());
 		AssemblaRequest request = new AssemblaRequest(uri, Ticket[].class);
 		return super.getList(request);
 	}
 
-	public List<Tag> getAllTagsForTicket(int ticketNumber) {
+	/* (non-Javadoc)
+	 * @see com.assembla.service.TicketResource#getTags(int)
+	 */
+	@Override
+	public List<Tag> getTags(int ticketNumber) {
 		String uri = format(AssemblaConstants.TAGS_FOR_TICKET, super.getSpaceId(), ticketNumber);
 		AssemblaRequest request = new AssemblaRequest(uri, Tag[].class);
 		return super.getList(request);
 	}
 
-	public List<Document> getAttachmentsForTicket(int ticketNumber) {
+	/* (non-Javadoc)
+	 * @see com.assembla.service.TicketResource#getAttachments(int)
+	 */
+	@Override
+	public List<Document> getAttachments(int ticketNumber) {
 		String uri = format(AssemblaConstants.ATTACHMENTS_FOR_TICKET, super.getSpaceId(), ticketNumber);
 		AssemblaRequest request = new AssemblaRequest(uri, Document[].class);
 		return super.getList(request);
 	}
 
-	public void updateTicket(Ticket ticket) {
+	/* (non-Javadoc)
+	 * @see com.assembla.service.TicketResource#update(com.assembla.Ticket)
+	 */
+	@Override
+	public void update(Ticket ticket) {
 		ValidationUtils.notNull(ticket, "ticket == null");
 		ValidationUtils.notNull(ticket.getNumber(), "ticket requires a number");
 
@@ -81,13 +117,21 @@ public class TicketService extends AbstractBaseService {
 		client.put(request);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.assembla.service.TicketResource#getCustomReports()
+	 */
+	@Override
 	public CustomReport getCustomReports() {
 		String uri = format(AssemblaConstants.TICKET_CUSTOM_REPORTS, super.getSpaceId());
 		AssemblaRequest request = new AssemblaRequest(uri, CustomReport.class);
 		return super.get(request, "Error getting custom reports");
 	}
 
-	public void deleteTicket(Ticket ticket) {
+	/* (non-Javadoc)
+	 * @see com.assembla.service.TicketResource#delete(com.assembla.Ticket)
+	 */
+	@Override
+	public void delete(Ticket ticket) {
 		ValidationUtils.notNull(ticket, "ticket == null");
 		ValidationUtils.notNull(ticket.getNumber(), "ticket requires a number");
 
@@ -96,13 +140,21 @@ public class TicketService extends AbstractBaseService {
 		client.delete(request);
 	}
 
-	public Ticket createTicket(Ticket ticket) {
+	/* (non-Javadoc)
+	 * @see com.assembla.service.TicketResource#create(com.assembla.Ticket)
+	 */
+	@Override
+	public Ticket create(Ticket ticket) {
 		String uri = format(AssemblaConstants.TICKETS_BY_SPACE, super.getSpaceId());
 		AssemblaRequest request = new AssemblaRequest(uri, Ticket.class);
 		request.withBody(ticket);
 		return super.post(request);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.assembla.service.TicketResource#get(com.assembla.service.TicketRequest)
+	 */
+	@Override
 	public PagedIterator<Ticket> get(TicketRequest request) {
 		String uri = format(AssemblaConstants.TICKETS_BY_SPACE, super.getSpaceId());
 		PagedAssemblaRequest pagedRequest = new PagedAssemblaRequest(
@@ -121,6 +173,10 @@ public class TicketService extends AbstractBaseService {
 		return new PagedIterator<>(pagedRequest, client);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.assembla.service.TicketResource#getByMilestone(java.lang.String, com.assembla.service.TicketRequest)
+	 */
+	@Override
 	public PagedIterator<Ticket> getByMilestone(String milestoneId, TicketRequest request) {
 		ValidationUtils.notNull(milestoneId, "milestoneId == null");
 		String uri = String.format(AssemblaConstants.TICKET_BY_MILESTONE, this.spaceId, milestoneId);

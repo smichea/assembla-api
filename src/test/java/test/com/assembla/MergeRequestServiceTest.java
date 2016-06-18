@@ -16,12 +16,13 @@ import com.assembla.client.AssemblaResponse;
 import com.assembla.client.PagedAssemblaRequest;
 import com.assembla.client.PagedIterator;
 import com.assembla.client.Paging;
+import com.assembla.service.MergeRequestResource;
 import com.assembla.service.MergeRequestService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MergeRequestServiceTest extends ServiceTest {
 
-	private MergeRequestService mrService;
+	private MergeRequestResource mrService;
 
 	@Before
 	public void setup() {
@@ -40,7 +41,7 @@ public class MergeRequestServiceTest extends ServiceTest {
 	public void getAllMergeRequestNoParams() {
 		PagedAssemblaRequest request = new PagedAssemblaRequest("/spaces/test_space_id/space_tools/12/merge_requests.json",
 				MergeRequest[].class);
-		PagedIterator<MergeRequest> result = mrService.mergeRequests();
+		PagedIterator<MergeRequest> result = mrService.getAll();
 		assertEquals(request, result.getRequest());
 	}
 
@@ -51,7 +52,7 @@ public class MergeRequestServiceTest extends ServiceTest {
 		request.addParam("status", "open");
 
 		Paging paging = new Paging(1, 10);
-		PagedIterator<MergeRequest> result = mrService.mergeRequests(paging, MergeRequest.Status.OPEN);
+		PagedIterator<MergeRequest> result = mrService.getAll(paging, MergeRequest.Status.OPEN);
 		assertEquals(request, result.getRequest());
 	}
 
@@ -60,7 +61,7 @@ public class MergeRequestServiceTest extends ServiceTest {
 		PagedAssemblaRequest request = new PagedAssemblaRequest("/spaces/test_space_id/space_tools/12/merge_requests.json",
 				MergeRequest[].class);
 		request.addParam("status", "open");
-		PagedIterator<MergeRequest> result = mrService.mergeRequests(null, MergeRequest.Status.OPEN);
+		PagedIterator<MergeRequest> result = mrService.getAll(null, MergeRequest.Status.OPEN);
 		assertEquals(request, result.getRequest());
 	}
 

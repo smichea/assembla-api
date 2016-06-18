@@ -10,12 +10,16 @@ import com.assembla.client.PagedIterator;
 import com.assembla.client.Paging;
 import com.assembla.utils.ValidationUtils;
 
-public class WikiService extends AbstractBaseService {
+public class WikiService extends AbstractBaseService implements WikiPageResource {
 
 	public WikiService(AssemblaClient assemblaClient, String spaceId) {
 		super(assemblaClient, spaceId);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.assembla.service.WikiPageResource#getAll(com.assembla.client.Paging)
+	 */
+	@Override
 	public PagedIterator<WikiPage> getAll(Paging paging) {
 		String uri = String.format(AssemblaConstants.WIKI_PAGES, this.spaceId);
 		PagedAssemblaRequest request = null;
@@ -27,6 +31,10 @@ public class WikiService extends AbstractBaseService {
 		return new PagedIterator<>(request, this.client);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.assembla.service.WikiPageResource#get(java.lang.String)
+	 */
+	@Override
 	public WikiPage get(String id) {
 		ValidationUtils.notNull(id, "id == null");
 		String uri = String.format(AssemblaConstants.WIKI_PAGE, this.spaceId, id);
@@ -34,6 +42,10 @@ public class WikiService extends AbstractBaseService {
 		return super.get(request, String.format("No Wiki Page with id %s", id));
 	}
 
+	/* (non-Javadoc)
+	 * @see com.assembla.service.WikiPageResource#create(com.assembla.WikiPage)
+	 */
+	@Override
 	public WikiPage create(WikiPage page) {
 		ValidationUtils.notNull(page, "page == null");
 		String uri = String.format(AssemblaConstants.WIKI_PAGES, this.spaceId);
@@ -42,6 +54,10 @@ public class WikiService extends AbstractBaseService {
 		return super.post(request);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.assembla.service.WikiPageResource#update(com.assembla.WikiPage)
+	 */
+	@Override
 	public void update(WikiPage page) {
 		ValidationUtils.notNull(page, "page == null");
 		ValidationUtils.notNull(page.getId(), "Wiki Page being updated requires an ID");
@@ -51,6 +67,10 @@ public class WikiService extends AbstractBaseService {
 		super.client.put(request);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.assembla.service.WikiPageResource#deleteAll(java.lang.String)
+	 */
+	@Override
 	public void deleteAll(String id) {
 		ValidationUtils.notNull(id, "id == null");
 		String uri = String.format(AssemblaConstants.WIKI_PAGE_ALL, this.spaceId, id);
@@ -58,6 +78,10 @@ public class WikiService extends AbstractBaseService {
 		super.client.delete(request);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.assembla.service.WikiPageResource#delete(java.lang.String)
+	 */
+	@Override
 	public void delete(String id) {
 		ValidationUtils.notNull(id, "id == null");
 		String uri = String.format(AssemblaConstants.WIKI_CONTAINER, this.spaceId, id);
@@ -65,6 +89,10 @@ public class WikiService extends AbstractBaseService {
 		super.client.delete(request);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.assembla.service.WikiPageResource#getVersions(java.lang.String, com.assembla.client.Paging)
+	 */
+	@Override
 	public PagedIterator<WikiPageVersion> getVersions(String id, Paging paging) {
 		String uri = String.format(AssemblaConstants.WIKI_PAGE_VERSIONS, this.spaceId, id);
 		PagedAssemblaRequest request = null;
@@ -76,6 +104,10 @@ public class WikiService extends AbstractBaseService {
 		return new PagedIterator<>(request, client);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.assembla.service.WikiPageResource#getVersion(java.lang.String, java.lang.String)
+	 */
+	@Override
 	public WikiPageVersion getVersion(String id, String versionId) {
 		ValidationUtils.notNull(id, "id == null");
 		ValidationUtils.notNull(versionId, "versionId == null");
