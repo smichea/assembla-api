@@ -34,7 +34,7 @@ Assembla API documentation can be found [here](https://api-doc.assembla.com/cont
 | Wiki Pages                     | Yes       | 
 | Wiki Page Versions             | Yes       |
 | Webhooks                       | Yes       |
-| Tasks                          | No        |
+| Tasks                          | Yes       |
 | User SSH keys                  | Yes       |
 | Space SSH Keys                 | Yes       |
 | SSH Servers                    | Yes       |

@@ -1,11 +1,15 @@
 package com.assembla.client;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 /**
  * Encapsulate request parameters for Assembla api
@@ -51,8 +55,13 @@ public class AssemblaRequest {
 		return uri;
 	}
 
-	public AssemblaRequest addParam(String key, Object value) {
-		this.parameters.put(key, value);
+	public AssemblaRequest addParam(String key, Object... value) {
+		if(value.length == 1) {
+			this.parameters.put(key, value[0]);
+		}else {
+			this.parameters.put(key, value);
+		}
+
 		return this;
 	}
 
@@ -60,8 +69,13 @@ public class AssemblaRequest {
 		if (this.parameters.isEmpty()) {
 			return "";
 		}
+
+		Function<Entry<String, Object>, String> queryStringWriter = 
+		e -> e.getValue().getClass().isArray() ? new ArrayParam(e).toString()
+		: e.getKey() + "=" + e.getValue();
+		
 		return "?" + this.parameters.entrySet().stream()
-		.map(e -> e.getKey() + "=" + e.getValue())
+		.map(queryStringWriter)
 		.collect(Collectors.joining("&"));
 	}
 
@@ -139,4 +153,22 @@ public class AssemblaRequest {
 		return this;
 	}
 
+	private static final class ArrayParam {
+
+		private String key;
+		private Object[] value;
+
+		 ArrayParam(Entry<String, Object> entry) {
+			this.key = entry.getKey();
+			this.value = (Object[]) entry.getValue();
+		}
+		
+		@Override
+		public String toString() {
+			return Arrays.stream(value)
+			.map(e -> this.key + "=" + e)
+			.collect(Collectors.joining("&"));
+		}
+
+	}
 }

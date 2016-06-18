@@ -3,7 +3,7 @@ package com.assembla;
 import java.time.ZonedDateTime;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
-@JsonRootName("user-task")
+@JsonRootName("user_task")
 public class Task {
 
 	private Boolean billed;
@@ -18,7 +18,7 @@ public class Task {
 	private String userId;
 	private Integer ticketId;
 	private ZonedDateTime endAt;
-	private Long hours;
+	private Double hours;
 	private Integer id;
 
 	public Boolean getBilled() {
@@ -129,11 +129,11 @@ public class Task {
 		return this;
 	}
 
-	public Long getHours() {
+	public Double getHours() {
 		return hours;
 	}
 
-	public Task setHours(Long hours) {
+	public Task setHours(Double hours) {
 		this.hours = hours;
 		return this;
 	}

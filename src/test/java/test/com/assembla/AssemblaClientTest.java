@@ -251,4 +251,13 @@ public class AssemblaClientTest {
 		assertEquals(this.item, upload.getUploadableItem());
 	}
 	
+	@Test
+	public void assemblaRequestWithMultipleValuesForKey() {
+		AssemblaRequest request = new AssemblaRequest("test.json");
+		request.addParam("key", "value1", "value2","value3");
+		
+		String expected = "test.json?key=value1&key=value2&key=value3";
+		assertEquals( expected, request.getFullURI());
+	}
+	
 }
