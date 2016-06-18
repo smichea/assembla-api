@@ -15,7 +15,9 @@ import com.assembla.service.MilestoneResource;
 import com.assembla.service.SSHActionLaunchResource;
 import com.assembla.service.SSHActionResource;
 import com.assembla.service.SSHKeyResource;
+import com.assembla.service.SSHServerResource;
 import com.assembla.service.SpaceResource;
+import com.assembla.service.SpaceSSHKeyResource;
 import com.assembla.service.SpaceToolResource;
 import com.assembla.service.StandupAwayReportResource;
 import com.assembla.service.StandupReportResource;
@@ -114,7 +116,7 @@ public class AssemblaAPITest {
 		TaskResource tasks = api.tasks();
 		assertNotNull(tasks);
 		
-		SSHKeyResource sshkeys = api.keys();
+		SSHKeyResource sshkeys = api.userKeys();
 		assertNotNull(sshkeys);
 		
 		SSHActionResource sshActions = api.sshActions("space_id");
@@ -122,6 +124,12 @@ public class AssemblaAPITest {
 		
 		SSHActionLaunchResource sshActionLaunches = api.sshActionLaunches("space_id");
 		assertNotNull(sshActionLaunches);
+		
+		SSHServerResource sshServers = api.sshServers("space_id");
+		assertNotNull(sshServers);
+		
+		SpaceSSHKeyResource spaceKeys = api.spaceKeys("space_id");
+		assertNotNull(spaceKeys);
 		
 	}
 }
