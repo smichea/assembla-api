@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import com.assembla.client.AssemblaAPI;
+import com.assembla.client.AssemblaResource;
 import com.assembla.service.ActivityResource;
 import com.assembla.service.CustomFieldResource;
 import com.assembla.service.DocumentResource;
@@ -22,6 +23,7 @@ import com.assembla.service.SpaceToolResource;
 import com.assembla.service.StandupAwayReportResource;
 import com.assembla.service.StandupReportResource;
 import com.assembla.service.TagResource;
+import com.assembla.service.TaskResource;
 import com.assembla.service.TicketAssociationResource;
 import com.assembla.service.TicketCommentResource;
 import com.assembla.service.TicketResource;
@@ -35,7 +37,7 @@ public class AssemblaAPITest {
 
 	@Test
 	public void createAssemblaAPI() {
-		AssemblaAPI api = AssemblaAPI.create("key", "secret");
+		AssemblaResource api = AssemblaAPI.create("key", "secret");
 		assertNotNull(api);
 	}
 
@@ -51,7 +53,7 @@ public class AssemblaAPITest {
 	
 	@Test
 	public void allResourcesExist() {
-		AssemblaAPI api = AssemblaAPI.create("key", "secret");
+		AssemblaResource api = AssemblaAPI.create("key", "secret");
 		
 		TicketResource ticket = api.tickets("space_id");
 		assertNotNull(ticket);
@@ -130,6 +132,6 @@ public class AssemblaAPITest {
 		
 		SpaceSSHKeyResource spaceKeys = api.spaceKeys("space_id");
 		assertNotNull(spaceKeys);
-		
 	}
+	
 }

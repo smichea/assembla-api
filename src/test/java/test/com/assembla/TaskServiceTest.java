@@ -21,11 +21,13 @@ import com.assembla.client.AssemblaResponse;
 import com.assembla.client.PagedAssemblaRequest;
 import com.assembla.client.PagedIterator;
 import com.assembla.service.TaskRequest;
+import com.assembla.service.TaskResource;
+import com.assembla.service.TaskService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TaskServiceTest extends ServiceTest {
 
-	private TaskService service;
+	private TaskResource service;
 
 	@Before
 	public void setup() {

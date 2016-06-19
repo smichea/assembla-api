@@ -180,7 +180,6 @@ public class AssemblaClient  {
 	
 	private RequestBody jsonRequestBody(Object request) {
 		try {
-			System.out.println(mapper.writeValueAsString(request));
 			return RequestBody.create(JSON, mapper.writeValueAsString(request));
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();

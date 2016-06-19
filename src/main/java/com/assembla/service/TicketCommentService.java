@@ -2,7 +2,6 @@ package com.assembla.service;
 
 import static java.lang.String.format;
 
-import com.assembla.Ticket;
 import com.assembla.TicketComment;
 import com.assembla.client.AssemblaConstants;
 import com.assembla.client.AssemblaRequest;
@@ -17,52 +16,34 @@ public class TicketCommentService extends AbstractBaseService implements TicketC
 		super(assemblaClient, spaceId);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.assembla.service.TicketCommentResource#getAll(com.assembla.Ticket)
-	 */
 	@Override
-	public PagedIterator<TicketComment> getAll(Ticket ticket) {
-		ValidationUtils.notNull(ticket, "ticket == null");
-		ValidationUtils.notNull(ticket.getNumber(), "ticket requires a number");
-
-		String uri = format(AssemblaConstants.TICKET_COMMENTS_FOR_TICKET, super.getSpaceId(), ticket.getNumber());
+	public PagedIterator<TicketComment> getAll(int number) {
+		String uri = format(AssemblaConstants.TICKET_COMMENTS_FOR_TICKET, super.getSpaceId(), number);
 		PagedAssemblaRequest request = new PagedAssemblaRequest(uri, TicketComment[].class);
 		return new PagedIterator<TicketComment>(request, client);
-
 	}
 
-	/* (non-Javadoc)
-	 * @see com.assembla.service.TicketCommentResource#getById(com.assembla.Ticket, int)
-	 */
 	@Override
-	public TicketComment getById(Ticket ticket, int commentId) {
-		String uri = format(AssemblaConstants.TICKET_COMMENT, super.getSpaceId(), ticket.getNumber(), commentId);
+	public TicketComment getById(int number, int commentId) {
+		String uri = format(AssemblaConstants.TICKET_COMMENT, super.getSpaceId(), number, commentId);
 		AssemblaRequest request = new AssemblaRequest(uri, TicketComment.class);
-		return super.get(request, format("No ticket with id %d for ticket %d exists", commentId, ticket.getNumber()));
+		return super.get(request, format("No ticket with id %d for ticket %d exists", commentId, number));
 	}
 
-	/* (non-Javadoc)
-	 * @see com.assembla.service.TicketCommentResource#create(com.assembla.Ticket, com.assembla.TicketComment)
-	 */
 	@Override
-	public TicketComment create(Ticket ticket, TicketComment newTicketComment) {
-		String uri = format(AssemblaConstants.TICKET_COMMENTS_FOR_TICKET, super.getSpaceId(), ticket.getNumber());
+	public TicketComment create(int number, TicketComment newTicketComment) {
+		String uri = format(AssemblaConstants.TICKET_COMMENTS_FOR_TICKET, super.getSpaceId(), number);
 		AssemblaRequest request = new AssemblaRequest(uri, TicketComment.class);
 		request.withBody(newTicketComment);
 		return super.post(request);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.assembla.service.TicketCommentResource#update(com.assembla.Ticket, com.assembla.TicketComment)
-	 */
 	@Override
-	public void update(Ticket ticket, TicketComment ticketComment) {
-		ValidationUtils.notNull(ticket, "ticket == null");
+	public void update(int number, TicketComment ticketComment) {
 		ValidationUtils.notNull(ticketComment, "ticketComment == null");
-		ValidationUtils.notNull(ticket.getNumber(), "ticket requires a number");
 		ValidationUtils.notNull(ticketComment.getId(), "ticketComment requires an id");
 
-		String uri = format(AssemblaConstants.TICKET_COMMENT, super.getSpaceId(), ticket.getNumber(), ticketComment.getId());
+		String uri = format(AssemblaConstants.TICKET_COMMENT, super.getSpaceId(), number, ticketComment.getId());
 		AssemblaRequest request = new AssemblaRequest(uri);
 		request.withBody(ticketComment);
 		client.put(request);
