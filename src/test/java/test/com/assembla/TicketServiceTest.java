@@ -222,9 +222,12 @@ public class TicketServiceTest extends ServiceTest {
 		Map<String, Object> parameters = tickets.getRequest().getParameters();
 		
 		//Non paging parameters
-		assertThat(parameters, hasEntry("report", "3"));
-		assertThat(parameters, hasEntry("sort_order", "desc"));
-		assertThat(parameters, hasEntry("sort_by", "id"));
+		Object report = parameters.get("report");
+		assertEquals(report, "3");
+		Object sortOrder = parameters.get("sort_order");
+		assertEquals(sortOrder, "desc");
+		Object sortBy = parameters.get("sort_by");
+		assertEquals(sortBy, "id");
 		
 		//paging parameters
 		assertEquals(tickets.getRequest().getPage(), 2);
@@ -246,9 +249,12 @@ public class TicketServiceTest extends ServiceTest {
 		Map<String, Object> parameters = tickets.getRequest().getParameters();
 		
 		//Non paging parameters
-		assertThat(parameters, hasEntry("sort_order", "desc"));
-		assertThat(parameters, hasEntry("sort_by", "id"));
-		assertThat(parameters, hasEntry("ticket_status", "active"));
+		Object sortOrder = parameters.get("sort_order");
+		assertEquals(sortOrder, "desc");
+		Object sortBy = parameters.get("sort_by");
+		assertEquals(sortBy, "id");
+		Object ticketStatus = parameters.get("ticket_status");
+		assertEquals(ticketStatus, "active");
 		
 		//paging parameters
 		assertEquals(tickets.getRequest().getPage(), 2);
