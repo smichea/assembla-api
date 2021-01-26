@@ -180,7 +180,8 @@ public class AssemblaClient  {
 		mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
 		mapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
 		mapper.setSerializationInclusion(Include.NON_NULL);
-		mapper.findAndRegisterModules();
+		//FIXME: load modules when needed but this method could fail in larger projects
+		//mapper.registerModules(mapper.findModules());
 	}
 
 }
