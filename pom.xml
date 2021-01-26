@@ -3,38 +3,23 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.assembla</groupId>
 	<artifactId>assembla-api</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.1-SNAPSHOT</version>
 	<name>Assembla API</name>
 	<!--<packaging>jar</packaging>-->
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<wildfly-parent.version>10.0.3.Final</wildfly-parent.version>
 		<wildfly.version>18.0.1.Final</wildfly.version>
 		<releaseOption />
 		<jackson.version>2.9.10</jackson.version>
 		<scm.url>scm:git:ssh://git@github.com/smichea/assembla-api</scm.url>
 	</properties>
-
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.wildfly.bom</groupId>
-				<artifactId>wildfly-jakartaee8-with-tools</artifactId>
-				<scope>import</scope>
-				<type>pom</type>
-				<version>${wildfly.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>javax.ws.rs</groupId>
-				<artifactId>javax.ws.rs-api</artifactId>
-			</dependency>
-			<dependency>
-				<groupId>org.mockito</groupId>
-				<artifactId>mockito-all</artifactId>
-				<scope>test</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
 	<dependencies>
+		<dependency>
+			<groupId>org.jboss.spec.javax.ws.rs</groupId>
+			<artifactId>jboss-jaxrs-api_2.1_spec</artifactId>
+			<version>2.0.0.Final</version>
+		</dependency>
 			<dependency>
 				<groupId>com.fasterxml.jackson.core</groupId>
 				<artifactId>jackson-databind</artifactId>
@@ -45,10 +30,24 @@
 				<artifactId>jackson-datatype-jsr310</artifactId>
 				<version>${jackson.version}</version>
 			</dependency>
+			
+			<dependency>
+				<groupId>org.glassfish.jersey.core</groupId>
+				<artifactId>jersey-client</artifactId>
+				<version>2.33</version>
+				<scope>test</scope>
+			</dependency>
 			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
 				<scope>test</scope>
+				<version>4.11</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mockito</groupId>
+				<artifactId>mockito-all</artifactId>
+				<scope>test</scope>
+				<version>1.9.5</version>
 			</dependency>
 			<dependency>
 				<groupId>org.hamcrest</groupId>
