@@ -11,6 +11,8 @@ Assembla API documentation can be found [here](https://api-doc.assembla.com/cont
 
 Supports Java 8, does not support older versions of Java.
 
+This version uses JAX-RS, so it can be used in wildfly without importing an extra http client lib.
+
 ## Support status
 
 | Type                           | Supported |
