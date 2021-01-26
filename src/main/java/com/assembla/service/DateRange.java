@@ -1,11 +1,8 @@
 package com.assembla.service;
 
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Period;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.Temporal;
 
 import com.assembla.client.AssemblaConstants;
 import com.assembla.utils.ValidationUtils;

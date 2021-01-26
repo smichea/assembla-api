@@ -13,12 +13,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.MultipartBuilder;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
+import javax.ws.rs.client.*;
 
 public class AssemblaClient  {
 	/**
@@ -32,7 +27,7 @@ public class AssemblaClient  {
 	/**
 	 * Client for making HTTP requests
 	 */
-	protected final OkHttpClient client;
+	protected final javax.ws.rs.client.Client client;
 
 	/**
 	 * Json Object Mapper
@@ -63,7 +58,7 @@ public class AssemblaClient  {
 	public AssemblaClient(String key, String password) {
 		this.apiKey = key;
 		this.apiPassword = password;
-		client = new OkHttpClient();
+		client = ClientBuilder.newClient();
 		mapper = new ObjectMapper();
 		baseURL = AssemblaConstants.URL;
 		configureMapper();

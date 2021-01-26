@@ -5,41 +5,57 @@
 	<artifactId>assembla-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Assembla API</name>
-	<packaging>jar</packaging>
+	<!--<packaging>jar</packaging>-->
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<wildfly.version>18.0.1.Final</wildfly.version>
+		<releaseOption />
+		<jackson.version>2.9.10</jackson.version>
+		<scm.url>scm:git:ssh://git@github.com/smichea/assembla-api</scm.url>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.wildfly.bom</groupId>
+				<artifactId>wildfly-jakartaee8-with-tools</artifactId>
+				<scope>import</scope>
+				<type>pom</type>
+				<version>${wildfly.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>javax.ws.rs</groupId>
+				<artifactId>javax.ws.rs-api</artifactId>
+			</dependency>
+			<dependency>
+				<groupId>org.mockito</groupId>
+				<artifactId>mockito-all</artifactId>
+				<scope>test</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 	<dependencies>
-		<dependency>
-			<groupId>com.squareup.okhttp</groupId>
-			<artifactId>okhttp</artifactId>
-			<version>2.7.5</version>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-			<version>2.7.3</version>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.datatype</groupId>
-			<artifactId>jackson-datatype-jsr310</artifactId>
-			<version>2.6.1</version>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
-			<version>4.11</version>
-		</dependency>
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-all</artifactId>
-			<scope>test</scope>
-			<version>1.9.5</version>
-		</dependency>
-		<dependency>
-			<groupId>org.hamcrest</groupId>
-			<artifactId>hamcrest-junit</artifactId>
-			<version>2.0.0.0</version>
-			<scope>test</scope>
-		</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-databind</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.datatype</groupId>
+				<artifactId>jackson-datatype-jsr310</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.hamcrest</groupId>
+				<artifactId>hamcrest-junit</artifactId>
+				<version>2.0.0.0</version>
+				<scope>test</scope>
+			</dependency>
 	</dependencies>
 	<build>
 		<plugins>

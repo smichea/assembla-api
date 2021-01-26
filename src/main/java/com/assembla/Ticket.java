@@ -10,7 +10,7 @@ import java.util.Map;
 import com.assembla.enums.IntValuedEnum;
 import com.assembla.enums.ValuedEnum;
 import com.assembla.serialization.CommaToListDeserializer;
-import com.assembla.serialization.CustomFieldSerializer;
+//import com.assembla.serialization.CustomFieldSerializer;
 import com.assembla.serialization.ListToStringSerializer;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
