@@ -53,6 +53,7 @@ public class AssemblaClientTest {
 		assertEquals("Base url default value not correct" , AssemblaConstants.URL, client.getBaseURL());
 	}
 
+
 	@Test
 	public void testCreatingAssemblaRequest() {
 		//Given a new AssemblaRequest for a ticket to a specified URI with 2 request parameters

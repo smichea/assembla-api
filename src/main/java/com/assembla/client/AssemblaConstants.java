@@ -67,7 +67,7 @@ public interface AssemblaConstants {
 	/**
 	 * Default page size when making request which returns paginated results
 	 */
-	int DEFAULT_PAGE_SIZE = 75;
+	int DEFAULT_PAGE_SIZE = 10;
 	/**
 	 * Media Type for JSON
 	 */

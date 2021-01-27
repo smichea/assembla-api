@@ -5,6 +5,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.Optional;
+import java.util.Set;
+import java.util.Map.Entry;
 
 import com.assembla.exception.AssemblaAPIException;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
@@ -14,6 +16,8 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
 import javax.ws.rs.client.*;
 import javax.ws.rs.client.Invocation.Builder;
 import javax.ws.rs.core.MediaType;
@@ -42,6 +46,7 @@ public class AssemblaClient  {
 	 */
 	protected final String baseURL;
 
+	
 	/**
 	 * MediaType for JSON media type
 	 */
@@ -77,7 +82,17 @@ public class AssemblaClient  {
 	}
 
 	 private Builder getRequestBuilder(AssemblaRequest request){
-		WebTarget webTarget = client.target(this.getBaseURL()).path(request.getFullURI());
+		WebTarget webTarget = client.target(this.getBaseURL()).path(request.getUri());
+		System.out.println("fullURI:"+request.getFullURI());
+		Set<Entry<String, Object>> entrySet = request.getParameters().entrySet();
+		for(Entry<String, Object> entry:entrySet){
+			webTarget=webTarget.queryParam(entry.getKey(), entry.getValue());
+		}
+		if(request instanceof PagedAssemblaRequest){
+			PagedAssemblaRequest pagedAssemblaRequest = (PagedAssemblaRequest)request;
+			webTarget=webTarget.queryParam(AssemblaConstants.PAGE_PARAMETER, pagedAssemblaRequest.getPage());
+			webTarget=webTarget.queryParam(AssemblaConstants.PAGE_SIZE_PARAMETER, pagedAssemblaRequest.getPageSize());
+		}
 		Builder rb = webTarget.request(MediaType.APPLICATION_JSON);
 		rb.header(AssemblaConstants.HEADER_API_KEY, this.apiKey);
 		rb.header(AssemblaConstants.HEADER_API_SECRET, this.apiPassword);
@@ -182,6 +197,7 @@ public class AssemblaClient  {
 		mapper.setSerializationInclusion(Include.NON_NULL);
 		//FIXME: load modules when needed but this method could fail in larger projects
 		//mapper.registerModules(mapper.findModules());
+		mapper.registerModule(new JavaTimeModule());
 	}
 
 }

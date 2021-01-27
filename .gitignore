@@ -1,3 +1,4 @@
 target/
 .settings/
 .vscode/
+src/test/java/test/com/assembla/realtests/AssemblaParams.java
