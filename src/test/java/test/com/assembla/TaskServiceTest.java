@@ -18,7 +18,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 import com.assembla.Task;
 import com.assembla.client.AssemblaRequest;
 import com.assembla.client.AssemblaResponse;
-import com.assembla.client.PagedAssemblaRequest;
 import com.assembla.client.PagedIterator;
 import com.assembla.service.TaskRequest;
 import com.assembla.service.TaskResource;
