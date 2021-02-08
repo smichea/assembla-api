@@ -16,6 +16,8 @@ public class TicketComment {
 
 	private String userId;
 
+	private String userName;
+
 	public String getTicketChanges() {
 		return ticketChanges;
 	}
@@ -79,6 +81,17 @@ public class TicketComment {
 		return this;
 	}
 
+	
+	public String getUserName() {
+		return userName;
+	}
+
+	public TicketComment setUserName(String userName) {
+		this.userName = userName;
+		return this;
+	}
+
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -101,6 +114,10 @@ public class TicketComment {
 		if (userId != null) {
 			builder.append("userId=");
 			builder.append(userId);
+		}
+		if (userName != null) {
+			builder.append("userName=");
+			builder.append(userName);
 		}
 		builder.append("]");
 		return builder.toString();
